@@ -1,0 +1,33 @@
+<html>
+<head>
+	
+<!-- Includes -->
+<script type="text/javascript" src="jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="engine.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+
+<!-- Templates -->
+<script id="ExtensionItem-tpl" type="text/x-jquery-tmpl">
+    <div class="extension-item ${options.statusClass}">
+    	<div class="extension-trigger" id="${item.id}">
+    		<img src="${options.icon}" width="16px" height="16px" />
+    		<span>${item.name}</span>
+		</div>
+	</div>
+</script>
+
+<!-- Engine -->
+<script type="text/javascript">
+$(document).ready( function($) {
+	Engine = new Extensity();
+	Engine.start(); 	
+});
+</script>
+</head>
+<body>
+<div id="content">
+	<div id="list"></div>
+</div>	
+</body>
+</html>

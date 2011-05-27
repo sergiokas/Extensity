@@ -1,0 +1,15 @@
+{
+	"name": "Extensity",
+	"version": "0.1",
+	"description": "Quickly enable/disable Google Chrome extensions",
+	"icons" : {
+		"16" : "icon16.png",
+		"48" : "icon48.png",
+		"128" : "icon48.png"
+	},
+	"browser_action": {
+		"default_icon": "icon16.png",
+		"popup": "index.html"
+	},
+	"permissions": [ "management" ]
+}

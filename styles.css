@@ -1,0 +1,53 @@
+body {
+  min-width:250px;
+  margin-top: 1px;
+  margin-bottom: 20px;
+  overflow-x:auto;
+  overflow-y:hidden;
+}
+
+.extension-item {
+	width: 97%;
+	float: left;
+	clear: both;
+	cursor: pointer;
+	padding: 2px 4px 2px 4px;
+	color: #252525;	
+	background-color: #ffffff;
+	vertical-align: middle;
+	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;	
+	font-size: .75em;
+}
+
+.extension-item img {
+	vertical-align: middle;
+	max-width: 16px;
+	max-height: 16px;
+}
+
+.extension-item span {
+	vertical-align: middle;
+	text-decoration: none;
+	word-wrap: none;
+	margin-top: 1px;
+}
+
+.extension-item:hover {
+	color: #000000;
+	background-color: #efefef;
+}
+
+/** Disabled Status */ 
+.extension-status-disabled {
+	background-color: #e0e0e0;
+	color: #000000;
+	opacity: 0.5;
+}
+
+.extension-status-disabled img {
+	opacity: 0.9;
+}
+
+
+
+
