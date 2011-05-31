@@ -15,7 +15,7 @@ ExtensityOptions.prototype.settings = [
 // Default values for options
 ExtensityOptions.prototype.defaultValues = {
 	showHeader	: true,
-	groupApps	: true
+	groupApps	: false
 };
 
 // Set preferences from localStorage, defaultValues, or null (in that order) 
