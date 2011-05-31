@@ -2,13 +2,29 @@
 <head>
 	
 <!-- Includes -->
-<script type="text/javascript" src="jquery-1.6.1.min.js"></script>
-<script type="text/javascript" src="jquery.tmpl.min.js"></script>
-<script type="text/javascript" src="engine.js"></script>
-<link rel="stylesheet" type="text/css" href="styles.css" />
+<script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="js/engine.js"></script>
+<script type="text/javascript" src="js/options.js"></script>
+<link rel="stylesheet" type="text/css" href="styles/main.css" />
 
 <!-- Templates -->
+<script id="Section-tpl" type="text/x-jquery-tmpl">
+    <div class="extension-section">
+    	<span>${section}</span>
+	</div>
+</script>
+
 <script id="ExtensionItem-tpl" type="text/x-jquery-tmpl">
+    <div class="extension-item ${options.statusClass}">
+    	<div class="extension-trigger" id="${item.id}">
+    		<img src="${options.icon}" width="16px" height="16px" />
+    		<span>${item.name}</span>
+		</div>
+	</div>
+</script>
+
+<script id="AppItem-tpl" type="text/x-jquery-tmpl">
     <div class="extension-item ${options.statusClass}">
     	<div class="extension-trigger" id="${item.id}">
     		<img src="${options.icon}" width="16px" height="16px" />
@@ -26,6 +42,17 @@ $(document).ready( function($) {
 </script>
 </head>
 <body>
+<div id="header">
+	<div id="title">
+		<img src="images/icon16.png" />
+		<span>Extensity</span>
+	</div>
+	<div id="actions">
+		<img id="extensions" src="images/extensions.png" alt="chrome://extensions/" title="chrome://extensions/" />
+		<img id="options" src="images/gear.png" alt="Extensity options" title="Extensity options"/>
+		<!-- <img id="close" src="images/close.png" alt="Remove header" title="Remove header"/> -->
+	</div>
+</div>
 <div id="content">
 	<div id="list"></div>
 </div>	

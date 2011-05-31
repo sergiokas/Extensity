@@ -1,0 +1,105 @@
+body {
+	min-width:270px;
+	margin-top: 1px;
+	margin-bottom: 20px;
+	overflow-x:hidden;
+	overflow-y:auto;
+	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;	
+	font-size: .75em;
+}
+
+#header {
+	width: 97%;
+	float: left;
+	clear: both;
+	vertical-align: middle;
+	padding: 2px 4px 2px 4px;
+	border-bottom: 2px solid #516C97;
+}
+
+#header div img {
+	vertical-align: middle;
+	max-width: 16px;
+	max-height: 16px;	
+}
+
+#header div span {
+	vertical-align: middle;
+}
+
+#header #title {
+	float: left;
+	clear: left;
+	font-weight: bold;
+	color: #304669;
+}
+
+#header #actions {
+	float: right;
+	clear: right;
+	margin-right: 5px;
+}
+
+#header #actions img:hover {
+	opacity: .5;
+	cursor: pointer;
+}
+
+
+.extension-section {
+	float: left;
+	clear: both;
+	width: 97%;
+	margin: 2px 0 2px 0;
+	background-color: #516C97;
+	padding: 2px 4px 2px 4px;
+}
+
+.extension-section span {
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.extension-item {
+	float: left;
+	clear: both;
+	width: 97%;
+	cursor: pointer;
+	padding: 2px 4px 2px 4px;
+	color: #252525;
+	background-color: #ffffff;
+	vertical-align: middle;
+}
+
+.extension-item img {
+	vertical-align: middle;
+	max-width: 16px;
+	max-height: 16px;
+}
+
+.extension-item span {
+	vertical-align: middle;
+	text-decoration: none;
+	word-wrap: none;
+	margin-top: 1px;
+}
+
+.extension-item:hover {
+	color: #000000;
+	background-color: #efefef;
+}
+
+/** Disabled Status */ 
+.extension-status-disabled {
+	background-color: #e0e0e0;
+	color: #000000;
+	opacity: 0.5;
+}
+
+.extension-status-disabled img {
+	opacity: 0.9;
+}
+
+
+
+

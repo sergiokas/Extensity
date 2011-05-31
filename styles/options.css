@@ -1,0 +1,59 @@
+body {
+	margin: 50px;
+	overflow-x:hidden;
+	overflow-y:auto;
+	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;	
+}
+
+img {
+	vertical-align: middle;
+}
+
+h1 {
+	vertical-align: middle;
+	font-weight: bold;
+	font-size: 1.5em;
+	color: #304669;
+}
+
+fieldset {
+	margin-top: 2em;
+	border: none;
+}
+
+fieldset .field {
+	float: left;
+	clear: both;
+	margin-bottom: 2em;
+}
+
+button {
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 1em;
+	color: #ffffff;
+	background-color: #516C97;
+	border-color: #516C97;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+button:hover {
+	opacity: .8;
+}
+
+span:#save-result {
+	color: #304669; 	
+}
+
+a {
+	color: #304669;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
