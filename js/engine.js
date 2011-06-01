@@ -79,6 +79,7 @@ Extensity.prototype.reload = function( callback ) {
 Extensity.prototype.refreshList = function() {
 	var self = this;
 	var currentSection = '';
+	var hasMultipleExtensionTypes = self.hasMultipleExtensionTypes();
 	
 	// Clean content first
 	$(self.selectors.list).html('');
@@ -89,7 +90,8 @@ Extensity.prototype.refreshList = function() {
 		if( item.name != self.name ) 
 		{
 			// Add list section if required
-			if( self.cache.options.groupApps && currentSection != self.getListSectionName(item) ) {
+			
+			if( hasMultipleExtensionTypes && self.cache.options.groupApps && currentSection != self.getListSectionName(item) ) {
 				self.addListSection( item );
 				currentSection = self.getListSectionName(item);
 			}		
@@ -133,12 +135,12 @@ Extensity.prototype.captureEvents = function() {
 	
 	// Capture triggers
 	$(self.selectors.list).find(self.selectors.trigger).live( 'click', function(ev) {
-		self.toggleExtension(ev.target.id);
+		self.triggerExtension(ev.target.id);
 	});
 	
 	// Capture triggers inner elements
 	$(self.selectors.list).find(self.selectors.trigger).find(self.selectors.triggerElements).live( 'click', function(ev) {
-		self.toggleExtension( $(ev.target).parent().attr('id') );
+		self.triggerExtension( $(ev.target).parent().attr('id') );
 	});
 	
 	// Capture header events
@@ -203,8 +205,16 @@ Extensity.prototype.getSmallestIconUrl = function( icons ) {
 };
 
 // Has more than one kind of app / extension 
-Extensity.prototype.hasMultipleExtensionTypes = function() {	
-	return true;
+Extensity.prototype.hasMultipleExtensionTypes = function() {
+	var self = this;
+	var hasApps = false;
+	var hasExtensions = false;
+	$(self.cache.extensions).each( function(i, item) {
+		hasExtensions |= ! Boolean(item.isApp);
+		hasApps	|= Boolean(item.isApp);
+	});
+	
+	return (hasApps && hasExtensions);
 };
 
 // Get extension by id, from the cache.
@@ -220,15 +230,34 @@ Extensity.prototype.getExtension = function (id) {
 };
 
 // Toggle Extension status
-Extensity.prototype.toggleExtension = function (id) {
+Extensity.prototype.triggerExtension = function (id) {
 	var self = this;
 	var extension = self.getExtension(id);
 	// Make sure we found the extension.
 	if( extension ) {
-		chrome.management.setEnabled( id, !extension.enabled, function() {
-			self.reload( function() { 
-				self.refreshList(); 
-			});	
-		});
+		if( !extension.isApp ) {
+			self.toggleExtension(id, !extension.enabled );
+		}
+		else {
+			self.launchApp( id );
+		}
 	}
+};
+
+// Set the enabled/disabled status of an extension
+Extensity.prototype.toggleExtension = function (id, status) {
+	var self = this;
+	chrome.management.setEnabled( id, status, function() {
+		self.reload( function() { 
+			self.refreshList(); 
+		});	
+	});	
+};
+
+// Launch an app
+Extensity.prototype.launchApp = function (id) {
+	var self = this;
+	chrome.management.launchApp( id );
+	// Remove the popup after launching.
+	self.hide();
 };
