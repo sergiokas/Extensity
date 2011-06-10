@@ -14,6 +14,9 @@ Extensity is free software. Full source code at GitHub https://github.com/sergio
 
 What's new:
 
+v0.1.3 (June 2011)
+- Added share and rate icons
+
 v0.1.2 (June 2011)
 - Added header with link to chrome://extensions/ and Extensity options
 - Added section headers for grouping Apps and Extensions

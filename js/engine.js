@@ -11,6 +11,8 @@ Extensity = function() {
 
 // Relevant URLs
 Extensity.prototype.pages = {
+	rate		: 'https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg',
+	twitter		: 'http://twitter.com/share?url=https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg&via=ExtensityChrome&text=Keep control of your Google Chrome extensions with Extensity. Quickly enable/disable any extension!',
 	extensions 	: 'chrome://extensions/',
 	options		: 'options.html'
 };
@@ -21,8 +23,10 @@ Extensity.prototype.selectors = {
 	list				: 	'#content #list',
 	trigger				: 	'.extension-trigger',
 	triggerElements		: 	'img,span',
+	rate				:	'img:#rate',
+	twitter				:	'img:#twitter',	
 	extensions			:	'img:#extensions',
-	options				:	'img:#options',
+	options				:	'img:#options',	
 	close				:	'img:#close'
 };
 
@@ -151,6 +155,16 @@ Extensity.prototype.captureEvents = function() {
 	$(self.selectors.header).find(self.selectors.options).live('click', function(ev) {
 		self.openPageTab( self.pages.options );
 	});		
+
+	$(self.selectors.header).find(self.selectors.rate).live('click', function(ev) {
+		self.openPageTab( self.pages.rate );
+	});		
+
+	$(self.selectors.header).find(self.selectors.twitter).live('click', function(ev) {
+		self.openPageTab( self.pages.twitter );
+	});			
+	
+
 };
 
 // Open Chrome Extensions page
