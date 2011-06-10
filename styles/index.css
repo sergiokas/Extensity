@@ -41,8 +41,13 @@ h3 {
 }
 
 a {
-    color: #fff;
+    color: #ffffff;
 }
+
+a:hover {
+	font-weight: bold;
+}
+
 
 .description {
     font-size: 1.2em;
@@ -64,8 +69,8 @@ pre {
 }
 
 pre img {
-    background-color: #304669;
-    border: 1px solid white;
+	border: 4px solid #304669;
+    background-color: white;
     padding: 2px;
     vertical-align: middle;
 }
