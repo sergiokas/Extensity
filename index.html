@@ -2,8 +2,8 @@
 <head>
 	
 <!-- Includes -->
-<script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="js/libs/jquery.min.js"></script>
+<script type="text/javascript" src="js/libs/jquery.tmpl.min.js"></script>
 <script type="text/javascript" src="js/engine.js"></script>
 <script type="text/javascript" src="js/options.js"></script>
 <link rel="stylesheet" type="text/css" href="styles/main.css" />
@@ -16,21 +16,17 @@
 </script>
 
 <script id="ExtensionItem-tpl" type="text/x-jquery-tmpl">
-    <div class="extension-item ${options.statusClass}">
-    	<div class="extension-trigger" id="${item.id}">
+	<a class="extension-item ${options.statusClass} extension-trigger" id="${item.id}" href="#">
     		<img src="${options.icon}" width="16px" height="16px" />
     		<span>${item.name}</span>
-		</div>
-	</div>
+	</a>
 </script>
 
 <script id="AppItem-tpl" type="text/x-jquery-tmpl">
-    <div class="extension-item ${options.statusClass}">
-    	<div class="extension-trigger" id="${item.id}">
+    	<a class="extension-item ${options.statusClass} extension-trigger" id="${item.id}" href="#">
     		<img src="${options.icon}" width="16px" height="16px" />
     		<span>${item.name}</span>
-		</div>
-	</div>
+	</a>
 </script>
 
 <!-- Engine -->

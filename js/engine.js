@@ -11,28 +11,28 @@ Extensity = function() {
 
 // Relevant URLs
 Extensity.prototype.pages = {
-	rate		: 'https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg',
-	twitter		: 'http://twitter.com/share?url=https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg&via=ExtensityChrome&text=Keep control of your Google Chrome extensions with Extensity. Quickly enable/disable any extension!',
+	rate			: 'https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg',
+	twitter		: 'http://twitter.com/share?url=https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg&via=ExtensityChrome&text=Keep control of your Chrome extensions with Extensity. Quickly enable/disable any extension!',
 	extensions 	: 'chrome://extensions/',
 	options		: 'options.html'
 };
 
 // jQuery selectors
 Extensity.prototype.selectors = {
-	header				:	'#header',
+	header			:	'#header',
 	list				: 	'#content #list',
-	trigger				: 	'.extension-trigger',
-	triggerElements		: 	'img,span',
+	trigger			: 	'.extension-trigger',
+	triggerElements	: 	'img,span',
 	rate				:	'img:#rate',
-	twitter				:	'img:#twitter',	
-	extensions			:	'img:#extensions',
-	options				:	'img:#options',	
-	close				:	'img:#close'
+	twitter			:	'img:#twitter',	
+	extensions		:	'img:#extensions',
+	options			:	'img:#options',	
+	close			:	'img:#close'
 };
 
 // jQuery templates
 Extensity.prototype.templates = {
-	section 		: "#Section-tpl",
+	section 			: "#Section-tpl",
 	extensionItem 	: '#ExtensionItem-tpl',
 	appItem			: '#AppItem-tpl'
 };
@@ -55,6 +55,9 @@ Extensity.prototype.start = function() {
 	self.reload( function() { 
 		self.refreshList(); 
 	});	
+	
+	// Make sure we start at the top.
+	$(document).scrollTop(0);
 };
 
 // Reload the extensions list
@@ -108,29 +111,29 @@ Extensity.prototype.refreshList = function() {
 // Add an item to the list
 Extensity.prototype.addListItem = function( item ) {
 	var self = this;
-	$( (item.isApp) ? self.templates.extensionItem : self.templates.appItem )
-	.tmpl({
-		item: item, 
-		options: {
-			icon: self.getSmallestIconUrl(item.icons),
-			statusClass: (item.enabled) ? self.classes.enabled : self.classes.disabled
-		}
-	})
-	.appendTo( self.selectors.list );			
+	$((item.isApp)?self.templates.extensionItem:self.templates.appItem)
+		.tmpl({
+			item: item, 
+			options: {
+				icon: self.getSmallestIconUrl(item.icons),
+				statusClass: (item.enabled) ? self.classes.enabled : self.classes.disabled
+			}
+		})
+		.appendTo( self.selectors.list );			
 };
 
 //Add an section header to the list
 Extensity.prototype.addListSection = function( item ) {
 	var self = this;
-	$( self.templates.section )
-	.tmpl({ section: self.getListSectionName(item) })
-	.appendTo( self.selectors.list );
+	$(self.templates.section)
+		.tmpl({section: self.getListSectionName(item)})
+		.appendTo(self.selectors.list);
 };
 
 
 // Get section name
 Extensity.prototype.getListSectionName = function ( item ) {
-	return ( item.isApp ) ? 'Apps' : 'Extensions';
+	return (item.isApp)?'Apps':'Extensions';
 };
 
 //Refresh extensions list
@@ -138,33 +141,38 @@ Extensity.prototype.captureEvents = function() {
 	var self = this;
 	
 	// Capture triggers
-	$(self.selectors.list).find(self.selectors.trigger).live( 'click', function(ev) {
+	$(self.selectors.list).find(self.selectors.trigger).live('click', function(ev) {
+		console.log('clicked');
+		ev.preventDefault();
 		self.triggerExtension(ev.target.id);
 	});
 	
 	// Capture triggers inner elements
 	$(self.selectors.list).find(self.selectors.trigger).find(self.selectors.triggerElements).live( 'click', function(ev) {
-		self.triggerExtension( $(ev.target).parent().attr('id') );
+		ev.preventDefault();
+		$(ev.target).parent().click();
 	});
 	
 	// Capture header events
 	$(self.selectors.header).find(self.selectors.extensions).live('click', function(ev) {
+		ev.preventDefault();
 		self.openPageTab( self.pages.extensions );
 	});
 	
 	$(self.selectors.header).find(self.selectors.options).live('click', function(ev) {
+		ev.preventDefault();
 		self.openPageTab( self.pages.options );
 	});		
 
 	$(self.selectors.header).find(self.selectors.rate).live('click', function(ev) {
+		ev.preventDefault();
 		self.openPageTab( self.pages.rate );
 	});		
 
 	$(self.selectors.header).find(self.selectors.twitter).live('click', function(ev) {
+		ev.preventDefault();
 		self.openPageTab( self.pages.twitter );
 	});			
-	
-
 };
 
 // Open Chrome Extensions page
