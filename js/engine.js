@@ -47,12 +47,12 @@ Extensity.prototype.classes = {
 Extensity.prototype.start = function() {
 	var self = this;
 
-	if( !self.cache.options.showHeader ) {
+	if(!self.cache.options.showHeader) {
 		$(self.selectors.header).hide();
 	}
 	
 	self.captureEvents();
-	self.reload( function() { 
+	self.reload(function() { 
 		self.refreshList(); 
 	});	
 	
@@ -61,21 +61,21 @@ Extensity.prototype.start = function() {
 };
 
 // Reload the extensions list
-Extensity.prototype.reload = function( callback ) {
+Extensity.prototype.reload = function(callback) {
 	var self = this;
-	chrome.management.getAll( function( results ) {
+	chrome.management.getAll(function(results) {
 		self.cache.extensions = results;
 		
 		// Sort the extensions list 
-		self.cache.extensions.sort( function(a,b) {
-			if( self.cache.options.groupApps )
+		self.cache.extensions.sort(function(a,b) {
+			if(self.cache.options.groupApps)
 				return self.sortExtensionsCacheGroup(a, b);
 			else
 				return self.sortExtensionsCacheAlpha(a, b);
 		});
 		
 		// Run the callback if available
-		if( typeof( callback ) == 'function' ) {
+		if(typeof(callback) == 'function') {
 			callback();
 		}
 	});
@@ -92,24 +92,24 @@ Extensity.prototype.refreshList = function() {
 	$(self.selectors.list).html('');
 	
 	// Append extensions
-	$(self.cache.extensions).each( function(i,item) {
+	$(self.cache.extensions).each(function(i,item) {
 		// Make sure we don't include ourselves in the list (trying to disable will hang up Chrome)
-		if( item.name != self.name ) 
+		if(item.name != self.name) 
 		{
 			// Add list section if required
 			
-			if( hasMultipleExtensionTypes && self.cache.options.groupApps && currentSection != self.getListSectionName(item) ) {
-				self.addListSection( item );
+			if(hasMultipleExtensionTypes && self.cache.options.groupApps && currentSection != self.getListSectionName(item)) {
+				self.addListSection(item);
 				currentSection = self.getListSectionName(item);
 			}		
 			// Add the item
-			self.addListItem( item );
+			self.addListItem(item);
 		}
 	});
 };
 
 // Add an item to the list
-Extensity.prototype.addListItem = function( item ) {
+Extensity.prototype.addListItem = function(item) {
 	var self = this;
 	$((item.isApp)?self.templates.extensionItem:self.templates.appItem)
 		.tmpl({
@@ -119,11 +119,11 @@ Extensity.prototype.addListItem = function( item ) {
 				statusClass: (item.enabled) ? self.classes.enabled : self.classes.disabled
 			}
 		})
-		.appendTo( self.selectors.list );			
+		.appendTo(self.selectors.list);			
 };
 
 //Add an section header to the list
-Extensity.prototype.addListSection = function( item ) {
+Extensity.prototype.addListSection = function(item) {
 	var self = this;
 	$(self.templates.section)
 		.tmpl({section: self.getListSectionName(item)})
@@ -132,7 +132,7 @@ Extensity.prototype.addListSection = function( item ) {
 
 
 // Get section name
-Extensity.prototype.getListSectionName = function ( item ) {
+Extensity.prototype.getListSectionName = function (item) {
 	return (item.isApp)?'Apps':'Extensions';
 };
 
@@ -142,13 +142,12 @@ Extensity.prototype.captureEvents = function() {
 	
 	// Capture triggers
 	$(self.selectors.list).find(self.selectors.trigger).live('click', function(ev) {
-		console.log('clicked');
 		ev.preventDefault();
 		self.triggerExtension(ev.target.id);
 	});
 	
 	// Capture triggers inner elements
-	$(self.selectors.list).find(self.selectors.trigger).find(self.selectors.triggerElements).live( 'click', function(ev) {
+	$(self.selectors.list).find(self.selectors.trigger).find(self.selectors.triggerElements).live('click', function(ev) {
 		ev.preventDefault();
 		$(ev.target).parent().click();
 	});
@@ -156,27 +155,27 @@ Extensity.prototype.captureEvents = function() {
 	// Capture header events
 	$(self.selectors.header).find(self.selectors.extensions).live('click', function(ev) {
 		ev.preventDefault();
-		self.openPageTab( self.pages.extensions );
+		self.openPageTab(self.pages.extensions);
 	});
 	
 	$(self.selectors.header).find(self.selectors.options).live('click', function(ev) {
 		ev.preventDefault();
-		self.openPageTab( self.pages.options );
+		self.openPageTab(self.pages.options);
 	});		
 
 	$(self.selectors.header).find(self.selectors.rate).live('click', function(ev) {
 		ev.preventDefault();
-		self.openPageTab( self.pages.rate );
+		self.openPageTab(self.pages.rate);
 	});		
 
 	$(self.selectors.header).find(self.selectors.twitter).live('click', function(ev) {
 		ev.preventDefault();
-		self.openPageTab( self.pages.twitter );
+		self.openPageTab(self.pages.twitter);
 	});			
 };
 
 // Open Chrome Extensions page
-Extensity.prototype.openPageTab = function ( page ) {
+Extensity.prototype.openPageTab = function (page) {
 	var self = this;
 	chrome.tabs.create({url: page});
 	self.hide();
@@ -190,9 +189,9 @@ Extensity.prototype.hide= function () {
 // Sort Extensions by Group 
 Extensity.prototype.sortExtensionsCacheGroup = function (a, b) {
 	var self = this;
-	if( a.isApp && !b.isApp ) 
+	if(a.isApp && !b.isApp) 
 		return 1;
-	else if (b.isApp && !a.isApp )
+	else if (b.isApp && !a.isApp)
 		return -1;
 	else
 		return self.sortExtensionsCacheAlpha(a, b);
@@ -201,22 +200,22 @@ Extensity.prototype.sortExtensionsCacheGroup = function (a, b) {
 // Sort Extensions Alphabetically 
 Extensity.prototype.sortExtensionsCacheAlpha = function (a, b) {
 	var self = this;
-	if (a.name.toLowerCase() < b.name.toLowerCase() ) 
+	if (a.name.toLowerCase() < b.name.toLowerCase()) 
 		return -1;
-	else if ( a.name.toLowerCase() > b.name.toLowerCase() )
+	else if (a.name.toLowerCase() > b.name.toLowerCase())
 		return 1;
 	else
 		return 0;		
 };
 
 // Get the smallest icon URL available for a given extension.
-Extensity.prototype.getSmallestIconUrl = function( icons ) {
+Extensity.prototype.getSmallestIconUrl = function(icons) {
 	var smallest = null;
 	var url = "";
-	if( typeof icons != 'undefined' ) {
-		$(icons).each( function(i, icon) {
-			if( typeof(icon.size) != 'undefined' ) {
-				if( smallest == null || icon.size < smallest ) {
+	if(typeof icons != 'undefined') {
+		$(icons).each(function(i, icon) {
+			if(typeof(icon.size) != 'undefined') {
+				if(smallest == null || icon.size < smallest) {
 					smallest = icon.size;
 					url = icon.url;
 				} 
@@ -231,7 +230,7 @@ Extensity.prototype.hasMultipleExtensionTypes = function() {
 	var self = this;
 	var hasApps = false;
 	var hasExtensions = false;
-	$(self.cache.extensions).each( function(i, item) {
+	$(self.cache.extensions).each(function(i, item) {
 		hasExtensions |= ! Boolean(item.isApp);
 		hasApps	|= Boolean(item.isApp);
 	});
@@ -243,8 +242,8 @@ Extensity.prototype.hasMultipleExtensionTypes = function() {
 Extensity.prototype.getExtension = function (id) {
 	var self = this;
 	var extension = null;
-	$(self.cache.extensions).each( function(i, item) {
-		if (item.id == id ) {
+	$(self.cache.extensions).each(function(i, item) {
+		if (item.id == id) {
 			extension = item;
 		}
 	});
@@ -256,12 +255,12 @@ Extensity.prototype.triggerExtension = function (id) {
 	var self = this;
 	var extension = self.getExtension(id);
 	// Make sure we found the extension.
-	if( extension ) {
-		if( !extension.isApp ) {
-			self.toggleExtension(id, !extension.enabled );
+	if(extension) {
+		if(!extension.isApp) {
+			self.toggleExtension(id, !extension.enabled);
 		}
 		else {
-			self.launchApp( id );
+			self.launchApp(id);
 		}
 	}
 };
@@ -269,8 +268,8 @@ Extensity.prototype.triggerExtension = function (id) {
 // Set the enabled/disabled status of an extension
 Extensity.prototype.toggleExtension = function (id, status) {
 	var self = this;
-	chrome.management.setEnabled( id, status, function() {
-		self.reload( function() { 
+	chrome.management.setEnabled(id, status, function() {
+		self.reload(function() { 
 			self.refreshList(); 
 		});	
 	});	
@@ -279,7 +278,7 @@ Extensity.prototype.toggleExtension = function (id, status) {
 // Launch an app
 Extensity.prototype.launchApp = function (id) {
 	var self = this;
-	chrome.management.launchApp( id );
+	chrome.management.launchApp(id);
 	// Remove the popup after launching.
 	self.hide();
 };

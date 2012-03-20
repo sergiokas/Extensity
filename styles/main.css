@@ -4,8 +4,8 @@ body {
 	margin-bottom: 20px;
 	overflow-x:hidden;
 	overflow-y:auto;
-	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;	
-	font-size: .75em;
+	font-family: Lucida Grande, Arial, sans-serif;	
+	font-size: 12px;
 	background-color: #fff;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -74,11 +74,12 @@ body {
 	clear: both;
 	width: 97%;
 	cursor: pointer;
-	padding: 3px 4px 3px 4px;
+	padding: 2px 4px 2px 4px;
 	color: #252525;
 	background-color: #ffffff;
 	text-decoration: none;
 	outline: none;
+	border-bottom: 1px solid #fff;
 }
 
 .extension-item img {
@@ -111,10 +112,10 @@ body {
 }
 
 .extension-status-disabled {
-	background-color: #f5f5f5;
+	background-color: #f0f0f0;
 	color: #888;
 }
 
 .extension-status-disabled img {
-	opacity: 0.4;
+	opacity: 0.3;
 }

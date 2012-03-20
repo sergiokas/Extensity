@@ -21,11 +21,11 @@ ExtensityOptions.prototype.defaultValues = {
 // Set preferences from localStorage, defaultValues, or null (in that order) 
 ExtensityOptions.prototype.load = function () {
 	var self = this;
-	$(self.settings).each( function(i, item) {
-		if( typeof(localStorage[item]) != 'undefined' ) {
-			self[item] = self.boolean( localStorage[item] );
+	$(self.settings).each(function(i, item) {
+		if(typeof(localStorage[item]) != 'undefined') {
+			self[item] = self.boolean(localStorage[item]);
 		}
-		else if ( typeof( self.defaultValues[item]) != 'undefined' ) { 
+		else if (typeof(self.defaultValues[item]) != 'undefined') { 
 			self[item] = self.defaultValues[item];
 		}
 		else {
@@ -37,7 +37,7 @@ ExtensityOptions.prototype.load = function () {
 // Save preferences to localStorage
 ExtensityOptions.prototype.save = function () {
 	var self = this;
-	$(self.settings).each( function(i, item) {
+	$(self.settings).each(function(i, item) {
 		localStorage[item] = self[item];
 	});
 };
@@ -45,10 +45,10 @@ ExtensityOptions.prototype.save = function () {
 // Get the right boolean value.
 // Hack to override default string-only localStorage implementation
 // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
-ExtensityOptions.prototype.boolean = function( value ) {
-	if ( value == "true" ) 
+ExtensityOptions.prototype.boolean = function(value) {
+	if (value == "true") 
 		return true;
-	else if ( value == "false" ) 
+	else if (value == "false") 
 		return false;
 	else
 		return Boolean(value);
@@ -89,7 +89,7 @@ ExtensityConfigure.prototype.start = function() {
 // Restore configuration from the settings
 ExtensityConfigure.prototype.restore = function() {
 	var self = this;
-	$(self.options.settings).each( function(i, item) {
+	$(self.options.settings).each(function(i, item) {
 		$('input:#' + item).prop('checked', Boolean(self.options[item]));
 	});
 	
@@ -98,8 +98,8 @@ ExtensityConfigure.prototype.restore = function() {
 // Collect configuration options from the UI
 ExtensityConfigure.prototype.collect = function() {
 	var self = this;
-	$(self.options.settings).each( function(i, item) {
-		self.options[item] = Boolean( $('input:#' + item).attr('checked') );
+	$(self.options.settings).each(function(i, item) {
+		self.options[item] = Boolean($('input:#' + item).attr('checked'));
 	});
 };
 
