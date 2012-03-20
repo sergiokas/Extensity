@@ -17,6 +17,14 @@ Extensity is free software. Full source code at GitHub https://github.com/sergio
 
 What's new: 
 
+v0.1.5 (March 2012)
+- Updated font styles
+
+v0.1.4 (March 2012)
+- Updated styles
+- Added makefile for extension distribution
+- Fixed Twitter share link
+
 v0.1.3 (June 2011)
 - Added share and rate icons
 
