@@ -30,12 +30,14 @@ Extensity.prototype.selectors = {
 	close			:	'img:#close'
 };
 
-// jQuery templates
+// New templates. Replaced to avoid code generation from strings in new Chrome extensions.
 Extensity.prototype.templates = {
-	section 			: "#Section-tpl",
-	extensionItem 	: '#ExtensionItem-tpl',
-	appItem			: '#AppItem-tpl'
-};
+	// Parameters are: section name
+	'section': '<div class="extension-section"><span>%s</span></div>', 
+	// Parameters are: statusClass, item id, icon, item name
+	'extensionItem': '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>',
+	'appItem': '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>'
+}
 
 // CSS classes
 Extensity.prototype.classes = {
@@ -43,10 +45,9 @@ Extensity.prototype.classes = {
 	disabled	: 'extension-status-disabled'
 };
 
-
 Extensity.prototype.start = function() {
 	var self = this;
-
+	
 	if(!self.cache.options.showHeader) {
 		$(self.selectors.header).hide();
 	}
@@ -75,7 +76,7 @@ Extensity.prototype.reload = function(callback) {
 		});
 		
 		// Run the callback if available
-		if(typeof(callback) == 'function') {
+		if(typeof(callback) === 'function') {
 			callback();
 		}
 	});
@@ -87,9 +88,9 @@ Extensity.prototype.refreshList = function() {
 	var self = this;
 	var currentSection = '';
 	var hasMultipleExtensionTypes = self.hasMultipleExtensionTypes();
-	
+	var content = '';
 	// Clean content first
-	$(self.selectors.list).html('');
+	// $(self.selectors.list).html('');
 	
 	// Append extensions
 	$(self.cache.extensions).each(function(i,item) {
@@ -99,35 +100,32 @@ Extensity.prototype.refreshList = function() {
 			// Add list section if required
 			
 			if(hasMultipleExtensionTypes && self.cache.options.groupApps && currentSection != self.getListSectionName(item)) {
-				self.addListSection(item);
+				content += self.addListSection(item);
 				currentSection = self.getListSectionName(item);
 			}		
 			// Add the item
-			self.addListItem(item);
+			content += self.addListItem(item);
 		}
 	});
+	
+	$(self.selectors.list).html('').append(content);
 };
 
 // Add an item to the list
 Extensity.prototype.addListItem = function(item) {
 	var self = this;
-	$((item.isApp)?self.templates.extensionItem:self.templates.appItem)
-		.tmpl({
-			item: item, 
-			options: {
-				icon: self.getSmallestIconUrl(item.icons),
-				statusClass: (item.enabled) ? self.classes.enabled : self.classes.disabled
-			}
-		})
-		.appendTo(self.selectors.list);			
+	return _((item.isApp)?self.templates.extensionItem:self.templates.appItem).sprintf(
+		(item.enabled) ? self.classes.enabled : self.classes.disabled, // Status class
+		item.id,
+		self.getSmallestIconUrl(item.icons),
+		item.name
+	)	
 };
 
 //Add an section header to the list
 Extensity.prototype.addListSection = function(item) {
 	var self = this;
-	$(self.templates.section)
-		.tmpl({section: self.getListSectionName(item)})
-		.appendTo(self.selectors.list);
+	return _(self.templates.section).sprintf(self.getListSectionName(item));	
 };
 
 

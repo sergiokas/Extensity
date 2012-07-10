@@ -1,6 +1,7 @@
 {
 	"name": "Extensity",
-	"version": "0.1.5",
+	"version": "0.1.6",
+	"manifest_version": 2,
 	"description": "Quickly enable/disable Google Chrome extensions",
 	"options_page": "options.html",
 	"icons" : {
@@ -11,7 +12,7 @@
 	"browser_action": {
 		"default_icon": "images/iconbar.png",
 		"default_title": "Extensity",
-		"popup": "index.html"
+		"default_popup": "index.html"
 	},
-	"permissions": [ "management", "tabs" ]
+	"permissions": ["management", "tabs"],
 }

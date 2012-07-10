@@ -3,42 +3,15 @@
 	
 <!-- Includes -->
 <script type="text/javascript" src="js/libs/jquery.min.js"></script>
-<script type="text/javascript" src="js/libs/jquery.tmpl.min.js"></script>
-<script type="text/javascript" src="js/engine.js"></script>
-<script type="text/javascript" src="js/options.js"></script>
+<script type="text/javascript" src="js/libs/underscore-min.js"></script>
+<script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
+<script class="template" type="text/javascript" src="js/engine.js"></script>
+<script class="template" type="text/javascript" src="js/config.js"></script>
+<script class="template" type="text/javascript" src="js/index.js"></script>
 <link rel="stylesheet" type="text/css" href="styles/main.css" />
-
-<!-- Templates -->
-<script id="Section-tpl" type="text/x-jquery-tmpl">
-    <div class="extension-section">
-    	<span>${section}</span>
-	</div>
-</script>
-
-<script id="ExtensionItem-tpl" type="text/x-jquery-tmpl">
-	<a class="extension-item ${options.statusClass} extension-trigger" id="${item.id}" href="#">
-    		<img src="${options.icon}" width="16px" height="16px" />
-    		<span>${item.name}</span>
-	</a>
-</script>
-
-<script id="AppItem-tpl" type="text/x-jquery-tmpl">
-    	<a class="extension-item ${options.statusClass} extension-trigger" id="${item.id}" href="#">
-    		<img src="${options.icon}" width="16px" height="16px" />
-    		<span>${item.name}</span>
-	</a>
-</script>
-
-<!-- Engine -->
-<script type="text/javascript">
-$(document).ready( function($) {
-	Engine = new Extensity();
-	Engine.start(); 	
-});
-</script>
 </head>
 <body>
-<div id="header">
+<div id="header">	
 	<div id="title">
 		<img src="images/icon16.png" />
 		<span>Extensity</span>
