@@ -17,6 +17,13 @@ Extensity is free software. Full source code at GitHub https://github.com/sergio
 
 What's new: 
 
+v0.1.6 (July 2012)
+- Added separate page initializer files
+- Added underscore.js and underscore.string
+- Removed deprecated jQuery templates dependency
+- Added some performance improvements
+- Added support for Chrome Extensions v2 manifest
+
 v0.1.5 (March 2012)
 - Updated font styles
 
