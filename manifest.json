@@ -14,5 +14,5 @@
 		"default_title": "Extensity",
 		"default_popup": "index.html"
 	},
-	"permissions": ["management", "tabs"],
+	"permissions": ["management", "tabs"]
 }
