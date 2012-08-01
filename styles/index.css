@@ -65,6 +65,8 @@ a:hover {
 pre {
     background: #000;
     color: #fff;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
     padding: 15px;
     vertical-align: middle;
 }
@@ -76,28 +78,33 @@ pre img {
     vertical-align: middle;
 }
 form.donate {
+    box-sizing: border-box;
     width: 100%;
     background-color: #000;
-    padding: 10px 0 5px 0;
+    padding: 15px;
     margin: auto;
-    text-align: center;
-    horizontal-align: center;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    text-align: left;
+    horizontal-align: left;
 }
 form.donate button {
     cursor: pointer;
-    padding: 7px 15px;
-    font-size: 18px;
+    padding: 5px 10px 5px 10px;
+    font-family: Palatino Linotype, Book Antiqua3, Palatino, serif;
+    font-weight: bold;
+    font-size: 15px;
     color: #fff;
     text-shadow: 0 2px 3px rgba(0,0,0,1);
     border: 1px solid rgba(255,255,255,.1);
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     background-color: #445E7F;
     background-image: linear-gradient(bottom, rgb(68,94,127) 1%, rgb(90,116,153) 68%);
     background-image: -o-linear-gradient(bottom, rgb(68,94,127) 1%, rgb(90,116,153) 68%);
     background-image: -moz-linear-gradient(bottom, rgb(68,94,127) 1%, rgb(90,116,153) 68%);
-    background-image: -webkit-linear-gradient(bottom, rgb(68,94,127) 1%, rgb(90,116,153) 68%);
+    background-im2ge: -webkit-linear-gradient(bottom, rgb(68,94,127) 1%, rgb(90,116,153) 68%);
     background-image: -ms-linear-gradient(bottom, rgb(68,94,127) 1%, rgb(90,116,153) 68%);
     background-image: -webkit-gradient(
 	linear,
@@ -108,7 +115,7 @@ form.donate button {
     );    
 }
 form.donate button:hover {
-    box-shadow: 0 0 4px rgba(255,255,255,.6);
+    box-shadow: 0 0 4px rgba(255,255,255,.6), 0 0 10px rgba(255,255,255,.1) inset;
 }
 form.donate p {
     padding: 0;
