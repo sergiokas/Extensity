@@ -91,15 +91,15 @@ form.donate {
 form.donate button {
     cursor: pointer;
     padding: 5px 10px 5px 10px;
-    font-family: Palatino Linotype, Book Antiqua3, Palatino, serif;
-    font-weight: bold;
+    font-family: "Courier New", Courier, monospace;
+	font-weight: bold;
     font-size: 15px;
     color: #fff;
-    text-shadow: 0 2px 3px rgba(0,0,0,1);
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
+    text-shadow: 0 1px 2px rgba(0,0,0,1);
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
     background-color: #445E7F;
     background-image: linear-gradient(bottom, rgb(68,94,127) 1%, rgb(90,116,153) 68%);
     background-image: -o-linear-gradient(bottom, rgb(68,94,127) 1%, rgb(90,116,153) 68%);
@@ -114,9 +114,12 @@ form.donate button {
 	color-stop(0.68, rgb(90,116,153))
     );    
 }
+
 form.donate button:hover {
-    box-shadow: 0 0 4px rgba(255,255,255,.6), 0 0 10px rgba(255,255,255,.1) inset;
+    box-shadow: 0 0 5px rgba(255,255,255,.7);
+	text-decoration: underline;
 }
+
 form.donate p {
     padding: 0;
     margin: 5px 0 0 0;
