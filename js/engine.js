@@ -1,6 +1,8 @@
 Extensity = function() {
 	// Extension name
 	this.name = 'Extensity';
+	// Exclude certain types from the list
+	this.exclude_types = ['theme'];
 	
 	// Cache for extensions
 	this.cache = {
@@ -66,7 +68,7 @@ Extensity.prototype.reload = function(callback) {
 	var self = this;
 	chrome.management.getAll(function(results) {
 		self.cache.extensions = results;
-		
+	
 		// Sort the extensions list 
 		self.cache.extensions.sort(function(a,b) {
 			if(self.cache.options.groupApps)
@@ -95,7 +97,7 @@ Extensity.prototype.refreshList = function() {
 	// Append extensions
 	$(self.cache.extensions).each(function(i,item) {
 		// Make sure we don't include ourselves in the list (trying to disable will hang up Chrome)
-		if(item.name != self.name) 
+		if(!self.shouldExcludeFromList(item)) 
 		{
 			// Add list section if required
 			
@@ -109,6 +111,14 @@ Extensity.prototype.refreshList = function() {
 	});
 	
 	$(self.selectors.list).html('').append(content);
+};
+
+// Exclude certain items from the list
+Extensity.prototype.shouldExcludeFromList = function(item) {
+	var self = this;
+	// Filter out ourselves
+	// Filter out themes
+	return (item.name == self.name) || (item.type && self.exclude_types.indexOf(item.type)>=0);
 };
 
 // Add an item to the list
