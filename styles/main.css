@@ -7,8 +7,8 @@ body {
 	font-family: Lucida Grande, Arial, sans-serif;	
 	font-size: 12px;
 	background-color: #fff;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
+/*	-webkit-touch-callout: none;
+	-webkit-user-select: none; */
 	user-select: none;
 }
 #header {
@@ -90,7 +90,7 @@ body {
 .extension-item span {
 	vertical-align: middle;
 	text-decoration: none;
-	word-wrap: none;
+	word-wrap: normal;
 	margin-top: 1px;
 	cursor: inherit;
 	text-overflow: clip;
