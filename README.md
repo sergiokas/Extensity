@@ -13,6 +13,8 @@ get rid of it for a little while. You can also launch Chrome Apps right from the
 
 Extensity is open source software. Full source code at GitHub https://github.com/sergiokas/Extensity
 
+Install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg).
+
 ### What's new:
 
 v0.1.8 (Dec 2014)
