@@ -15,7 +15,7 @@ Extensity is open source software. Full source code at GitHub https://github.com
 
 v0.1.8 (Dec 2014)
 - Updated to flat icons
-- Update libraries versions
+- Update library versions
 - Code cleanup
 - Cosmetic fixes (e.g. extensions with very long names)
 - Updated license
