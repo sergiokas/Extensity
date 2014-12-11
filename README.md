@@ -1,4 +1,6 @@
-## Extensity - Quickly enable/disable Google Chrome extensions
+## Extensity
+
+### Quickly enable/disable Google Chrome extensions
 
 Tired of having too many extensions in your toolbar? Try Extensity, the ultimate tool
 for lightning fast enabling and disabling all your extensions for Google Chrome.
