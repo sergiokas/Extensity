@@ -2,14 +2,14 @@
  * Preferences
  */
 ExtensityOptions = function() {
-	var self = this;	
+	var self = this;
 	self.load();
 };
 
 // All available options
 ExtensityOptions.prototype.settings = [
 	'showHeader',	// Show the extensity header in the main popup or now
-    'groupApps'		// Group Apps and Extensions before sorting
+  'groupApps'		// Group Apps and Extensions before sorting
 ];
 
 // Default values for options
@@ -18,14 +18,14 @@ ExtensityOptions.prototype.defaultValues = {
 	groupApps	: true
 };
 
-// Set preferences from localStorage, defaultValues, or null (in that order) 
+// Set preferences from localStorage, defaultValues, or null (in that order)
 ExtensityOptions.prototype.load = function () {
 	var self = this;
 	$(self.settings).each(function(i, item) {
 		if(typeof(localStorage[item]) != 'undefined') {
 			self[item] = self.boolean(localStorage[item]);
 		}
-		else if (typeof(self.defaultValues[item]) != 'undefined') { 
+		else if (typeof(self.defaultValues[item]) != 'undefined') {
 			self[item] = self.defaultValues[item];
 		}
 		else {
@@ -46,9 +46,9 @@ ExtensityOptions.prototype.save = function () {
 // Hack to override default string-only localStorage implementation
 // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
 ExtensityOptions.prototype.boolean = function(value) {
-	if (value == "true") 
+	if (value == "true")
 		return true;
-	else if (value == "false") 
+	else if (value == "false")
 		return false;
 	else
 		return Boolean(value);
@@ -59,14 +59,14 @@ ExtensityOptions.prototype.boolean = function(value) {
  */
 ExtensityConfigure = function() {
 	// Extension name
-	this.name = 'ExtensityOptions';	
+	this.name = 'ExtensityOptions';
 };
 
 // Configuration page selectors
 ExtensityConfigure.prototype.selectors = {
-	save		: 'button:#save',
-	result		: 'span:#save-result',
-	close		: 'a:#close'
+	save		: 'button#save',
+	result	: 'span#save-result',
+	close		: 'a#close'
 };
 
 // Start the configuration page
@@ -75,13 +75,13 @@ ExtensityConfigure.prototype.start = function() {
 
 	self.options = new ExtensityOptions();
 	self.restore();
-	
+
 	// Capture events
-	$(self.selectors.save).live('click', function(ev) {
+	$(self.selectors.save).on('click', function(ev) {
 		self.save();
 	});
 
-	$(self.selectors.close).live('click', function(ev) {
+	$(self.selectors.close).on('click', function(ev) {
 		self.close();
 	});
 };
@@ -90,16 +90,16 @@ ExtensityConfigure.prototype.start = function() {
 ExtensityConfigure.prototype.restore = function() {
 	var self = this;
 	$(self.options.settings).each(function(i, item) {
-		$('input:#' + item).prop('checked', Boolean(self.options[item]));
+		$('input#' + item).attr('checked', Boolean(self.options[item]));
 	});
-	
+
 };
 
 // Collect configuration options from the UI
 ExtensityConfigure.prototype.collect = function() {
 	var self = this;
 	$(self.options.settings).each(function(i, item) {
-		self.options[item] = Boolean($('input:#' + item).attr('checked'));
+		self.options[item] = Boolean($('input#' + item + ':checked').length>0);
 	});
 };
 

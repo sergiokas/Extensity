@@ -4,9 +4,10 @@ body {
 	margin-bottom: 20px;
 	overflow-x:hidden;
 	overflow-y:auto;
-	font-family: Lucida Grande, Arial, sans-serif;	
+	font-family: Lucida Grande, Arial, sans-serif;
 	font-size: 12px;
 	background-color: #fff;
+	min-height: 300px;
 /*	-webkit-touch-callout: none;
 	-webkit-user-select: none; */
 	user-select: none;
@@ -18,6 +19,7 @@ body {
 	vertical-align: middle;
 	padding: 2px 4px 2px 4px;
 }
+
 #header div img {
 	vertical-align: middle;
 	max-width: 16px;
@@ -35,15 +37,25 @@ body {
 	color: #304669;
 }
 
+#header #title a {
+	outline: none;
+	text-decoration: none;
+}
+
 #header #actions {
 	float: right;
 	clear: right;
-	margin-right: 5px;
+	margin-right: 3px;
+}
+
+#header #actions a {
+	margin-left: 3px;
+	outline:none;
+	cursor: pointer;
 }
 
 #header #actions img:hover {
 	opacity: .5;
-	cursor: pointer;
 }
 
 .extension-section {
@@ -105,15 +117,15 @@ body {
 }
 
 /** Disabled Status */
-.extension-status-disabled:hover {
+.extension-item.disabled:hover {
 	color: #555;
 }
 
-.extension-status-disabled {
+.extension-item.disabled {
 	background-color: #f0f0f0;
 	color: #888;
 }
 
-.extension-status-disabled img {
+.extension-item.disabled img {
 	opacity: 0.3;
 }

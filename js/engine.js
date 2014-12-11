@@ -3,7 +3,7 @@ Extensity = function() {
 	this.name = 'Extensity';
 	// Exclude certain types from the list
 	this.exclude_types = ['theme'];
-	
+
 	// Cache for extensions
 	this.cache = {
 		'extensions': [],
@@ -11,54 +11,39 @@ Extensity = function() {
 	};
 };
 
-// Relevant URLs
-Extensity.prototype.pages = {
-	rate			: 'https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg',
-	twitter		: 'http://twitter.com/share?url=https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg&via=ExtensityChrome&text=Keep control of your Chrome extensions with Extensity. Quickly enable/disable any extension!',
-	extensions 	: 'chrome://extensions/',
-	options		: 'options.html'
-};
-
 // jQuery selectors
 Extensity.prototype.selectors = {
 	header			:	'#header',
-	list				: 	'#content #list',
-	trigger			: 	'.extension-trigger',
-	triggerElements	: 	'img,span',
-	rate				:	'img:#rate',
-	twitter			:	'img:#twitter',	
-	extensions		:	'img:#extensions',
-	options			:	'img:#options',	
-	close			:	'img:#close'
+	list				: '#content #list'
 };
 
 // New templates. Replaced to avoid code generation from strings in new Chrome extensions.
 Extensity.prototype.templates = {
 	// Parameters are: section name
-	'section': '<div class="extension-section"><span>%s</span></div>', 
+	section: '<div class="extension-section"><span>%s</span></div>',
 	// Parameters are: statusClass, item id, icon, item name
-	'extensionItem': '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>',
-	'appItem': '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>'
+	extensionItem: '<a class="extension-item extension-trigger %s" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>',
+	appItem: '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>'
 }
 
 // CSS classes
 Extensity.prototype.classes = {
-	enabled 	: 'extension-status-enabled',
-	disabled	: 'extension-status-disabled'
+	enabled: '',
+	disabled: 'disabled'
 };
 
 Extensity.prototype.start = function() {
 	var self = this;
-	
+
 	if(!self.cache.options.showHeader) {
 		$(self.selectors.header).hide();
 	}
-	
-	self.captureEvents();
-	self.reload(function() { 
-		self.refreshList(); 
-	});	
-	
+
+	self.captureHeaderEvents();
+	self.reload(function() {
+		self.refreshList();
+	});
+
 	// Make sure we start at the top.
 	$(document).scrollTop(0);
 };
@@ -68,50 +53,56 @@ Extensity.prototype.reload = function(callback) {
 	var self = this;
 	chrome.management.getAll(function(results) {
 		self.cache.extensions = results;
-	
-		// Sort the extensions list 
+
+		// Sort the extensions list
 		self.cache.extensions.sort(function(a,b) {
 			if(self.cache.options.groupApps)
 				return self.sortExtensionsCacheGroup(a, b);
 			else
 				return self.sortExtensionsCacheAlpha(a, b);
 		});
-		
+
 		// Run the callback if available
 		if(typeof(callback) === 'function') {
 			callback();
 		}
 	});
-	
+
 };
 
 // Refresh extensions list
 Extensity.prototype.refreshList = function() {
 	var self = this;
-	var currentSection = '';
+	var currentSection = null;
 	var hasMultipleExtensionTypes = self.hasMultipleExtensionTypes();
-	var content = '';
+	var list = $('#list');
 	// Clean content first
-	// $(self.selectors.list).html('');
-	
+	list.html('');
+
 	// Append extensions
 	$(self.cache.extensions).each(function(i,item) {
 		// Make sure we don't include ourselves in the list (trying to disable will hang up Chrome)
-		if(!self.shouldExcludeFromList(item)) 
+		if(!self.shouldExcludeFromList(item))
 		{
 			// Add list section if required
-			
 			if(hasMultipleExtensionTypes && self.cache.options.groupApps && currentSection != self.getListSectionName(item)) {
-				content += self.addListSection(item);
+				list.append(self.addListSection(item));
 				currentSection = self.getListSectionName(item);
-			}		
+			}
 			// Add the item
-			content += self.addListItem(item);
+			list.append(self.addListItem(item));
 		}
 	});
-	
-	$(self.selectors.list).html('').append(content);
+
+	self.captureEvents();
 };
+
+// Update CSS for a single list item
+Extensity.prototype.updateListItem = function(id, status) {
+	var self = this;
+	$("#list .extension-item#"+id).toggleClass(self.classes.disabled, status);
+};
+
 
 // Exclude certain items from the list
 Extensity.prototype.shouldExcludeFromList = function(item) {
@@ -128,14 +119,14 @@ Extensity.prototype.addListItem = function(item) {
 		(item.enabled) ? self.classes.enabled : self.classes.disabled, // Status class
 		item.id,
 		self.getSmallestIconUrl(item.icons),
-		item.name
-	)	
+		_(item.name).prune(35)
+	)
 };
 
 //Add an section header to the list
 Extensity.prototype.addListSection = function(item) {
 	var self = this;
-	return _(self.templates.section).sprintf(self.getListSectionName(item));	
+	return _(self.templates.section).sprintf(self.getListSectionName(item));
 };
 
 
@@ -144,45 +135,39 @@ Extensity.prototype.getListSectionName = function (item) {
 	return (item.isApp)?'Apps':'Extensions';
 };
 
+Extensity.prototype.captureHeaderEvents = function() {
+	var self = this;
+	$(self.selectors.header).find('#actions a').off();
+	// Required because we'll need to load local resources (chrome://extensions)
+	$(self.selectors.header).find('#actions a').on('click', function(ev, a) {
+		ev.preventDefault();
+		self.openPageTab(this.href);
+	});
+};
+
+
 //Refresh extensions list
 Extensity.prototype.captureEvents = function() {
 	var self = this;
-	
+
+	$('.extension-trigger').off();
+	$('.extension-trigger').find('img,span').off();
+
 	// Capture triggers
-	$(self.selectors.list).find(self.selectors.trigger).live('click', function(ev) {
+	$('.extension-trigger').on('click', function(ev) {
 		ev.preventDefault();
 		self.triggerExtension(ev.target.id);
 	});
-	
-	// Capture triggers inner elements
-	$(self.selectors.list).find(self.selectors.trigger).find(self.selectors.triggerElements).live('click', function(ev) {
-		ev.preventDefault();
-		$(ev.target).parent().click();
-	});
-	
-	// Capture header events
-	$(self.selectors.header).find(self.selectors.extensions).live('click', function(ev) {
-		ev.preventDefault();
-		self.openPageTab(self.pages.extensions);
-	});
-	
-	$(self.selectors.header).find(self.selectors.options).live('click', function(ev) {
-		ev.preventDefault();
-		self.openPageTab(self.pages.options);
-	});		
 
-	$(self.selectors.header).find(self.selectors.rate).live('click', function(ev) {
+	// Capture triggers content
+	$('.extension-trigger').find('img,span').on('click', function(ev) {
 		ev.preventDefault();
-		self.openPageTab(self.pages.rate);
-	});		
+		$(this).parent().trigger('click');
+	});
 
-	$(self.selectors.header).find(self.selectors.twitter).live('click', function(ev) {
-		ev.preventDefault();
-		self.openPageTab(self.pages.twitter);
-	});			
 };
 
-// Open Chrome Extensions page
+// Open a new tab
 Extensity.prototype.openPageTab = function (page) {
 	var self = this;
 	chrome.tabs.create({url: page});
@@ -194,10 +179,10 @@ Extensity.prototype.hide= function () {
 	window.close();
 };
 
-// Sort Extensions by Group 
+// Sort Extensions by Group
 Extensity.prototype.sortExtensionsCacheGroup = function (a, b) {
 	var self = this;
-	if(a.isApp && !b.isApp) 
+	if(a.isApp && !b.isApp)
 		return 1;
 	else if (b.isApp && !a.isApp)
 		return -1;
@@ -205,15 +190,15 @@ Extensity.prototype.sortExtensionsCacheGroup = function (a, b) {
 		return self.sortExtensionsCacheAlpha(a, b);
 };
 
-// Sort Extensions Alphabetically 
+// Sort Extensions Alphabetically
 Extensity.prototype.sortExtensionsCacheAlpha = function (a, b) {
 	var self = this;
-	if (a.name.toLowerCase() < b.name.toLowerCase()) 
+	if (a.name.toLowerCase() < b.name.toLowerCase())
 		return -1;
 	else if (a.name.toLowerCase() > b.name.toLowerCase())
 		return 1;
 	else
-		return 0;		
+		return 0;
 };
 
 // Get the smallest icon URL available for a given extension.
@@ -226,14 +211,14 @@ Extensity.prototype.getSmallestIconUrl = function(icons) {
 				if(smallest == null || icon.size < smallest) {
 					smallest = icon.size;
 					url = icon.url;
-				} 
+				}
 			}
 		});
 	}
 	return url;
 };
 
-// Has more than one kind of app / extension 
+// Has more than one kind of app / extension
 Extensity.prototype.hasMultipleExtensionTypes = function() {
 	var self = this;
 	var hasApps = false;
@@ -242,7 +227,7 @@ Extensity.prototype.hasMultipleExtensionTypes = function() {
 		hasExtensions |= ! Boolean(item.isApp);
 		hasApps	|= Boolean(item.isApp);
 	});
-	
+
 	return (hasApps && hasExtensions);
 };
 
@@ -277,10 +262,12 @@ Extensity.prototype.triggerExtension = function (id) {
 Extensity.prototype.toggleExtension = function (id, status) {
 	var self = this;
 	chrome.management.setEnabled(id, status, function() {
-		self.reload(function() { 
-			self.refreshList(); 
-		});	
-	});	
+		// Reload required to refresh the extension cache.
+		self.reload(function() {
+			// Do not re-draw the entire interface
+			self.updateListItem(id, !status);
+		});
+	});
 };
 
 // Launch an app

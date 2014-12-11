@@ -1,17 +1,24 @@
 ## Extensity - Quickly enable/disable Google Chrome extensions
 
-Tired of having too many extensions in your toolbar? Try Extensity, the ultimate tool 
-for lightning fast enabling and disabling all your extensions for Google Chrome. 
-Just enable the extension when you want to use it, and disable when you want to 
+Tired of having too many extensions in your toolbar? Try Extensity, the ultimate tool
+for lightning fast enabling and disabling all your extensions for Google Chrome.
+Just enable the extension when you want to use it, and disable when you want to
 get rid of it for a little while. You can also launch Chrome Apps right from the list.
 
 * Keep your browser fast - disable extensions that you won't use right away.
 * Keep your toolbar clean
 * Ideal companion for extensions collectors.
 
-Extensity is free software. Full source code at GitHub https://github.com/sergiokas/Extensity
+Extensity is open source software. Full source code at GitHub https://github.com/sergiokas/Extensity
 
-### What's new: 
+### What's new:
+
+v0.1.8 (Dec 2014)
+- Updated to flat icons
+- Update libraries versions
+- Code cleanup
+- Cosmetic fixes (e.g. extensions with very long names)
+- Updated license
 
 v0.1.7 (July 2013)
 - Excluding Chrome themes from the list
