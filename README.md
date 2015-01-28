@@ -15,6 +15,10 @@ Extensity is open source software. Full source code at GitHub https://github.com
 
 Install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg).
 
+Website: [http://sergiokas.github.com/Extensity/](http://sergiokas.github.com/Extensity/)
+
+Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
+
 ### What's new:
 
 v1.1.9(Jan 2015)
