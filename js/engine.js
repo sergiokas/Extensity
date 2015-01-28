@@ -56,7 +56,9 @@ Extensity.prototype.reload = function(callback) {
 
 		// Sort the extensions list
 		self.cache.extensions.sort(function(a,b) {
-			if(self.cache.options.groupApps)
+			if(self.cache.options.groupApps && self.cache.options.appsFirst)
+				return self.sortExtensionsCacheGroupAppsFirst(a, b);
+			else if(self.cache.options.groupApps)
 				return self.sortExtensionsCacheGroup(a, b);
 			else
 				return self.sortExtensionsCacheAlpha(a, b);
@@ -189,6 +191,18 @@ Extensity.prototype.sortExtensionsCacheGroup = function (a, b) {
 	else
 		return self.sortExtensionsCacheAlpha(a, b);
 };
+
+// Sort Extensions by group, showing apps first
+Extensity.prototype.sortExtensionsCacheGroupAppsFirst = function (a, b) {
+	var self = this;
+	if(a.isApp && !b.isApp)
+		return -1;
+	else if (b.isApp && !a.isApp)
+		return 1;
+	else
+		return self.sortExtensionsCacheAlpha(a, b);
+};
+
 
 // Sort Extensions Alphabetically
 Extensity.prototype.sortExtensionsCacheAlpha = function (a, b) {

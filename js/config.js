@@ -9,13 +9,15 @@ ExtensityOptions = function() {
 // All available options
 ExtensityOptions.prototype.settings = [
 	'showHeader',	// Show the extensity header in the main popup or now
-  'groupApps'		// Group Apps and Extensions before sorting
+  'groupApps',	// Group Apps and Extensions before sorting
+  'appsFirst'		// Show apps first
 ];
 
 // Default values for options
 ExtensityOptions.prototype.defaultValues = {
-	showHeader	: true,
-	groupApps	: true
+	showHeader: true,
+	groupApps: true,
+	appsFirst: false
 };
 
 // Set preferences from localStorage, defaultValues, or null (in that order)

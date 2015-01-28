@@ -17,6 +17,9 @@ Install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail
 
 ### What's new:
 
+v0.1.9 (Jan 2015)
+- Added option to show apps first
+
 v0.1.8 (Dec 2014)
 - Updated to flat icons
 - Update library versions
