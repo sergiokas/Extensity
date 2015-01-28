@@ -17,6 +17,10 @@ Install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail
 
 ### What's new:
 
+v1.1.9(Jan 2015)
+- Bump version number
+- Style changes
+
 v0.1.9 (Jan 2015)
 - Added option to show apps first
 
