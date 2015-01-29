@@ -1,5 +1,5 @@
 /**
- * Preferences
+ * Configuration Options
  */
 ExtensityConfiguration = function() {
 	var self = this;
