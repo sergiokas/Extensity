@@ -6,15 +6,15 @@ Extensity = function() {
 
 	// Cache for extensions
 	this.cache = {
-		'extensions': [],
-		'options'	: new ExtensityOptions()
+		extensions: [],
+		options: new ExtensityOptions()
 	};
 };
 
 // jQuery selectors
 Extensity.prototype.selectors = {
-	header			:	'#header',
-	list				: '#content #list'
+	header:	'#header',
+	list: '#content #list'
 };
 
 // New templates. Replaced to avoid code generation from strings in new Chrome extensions.
@@ -134,14 +134,15 @@ Extensity.prototype.addListSection = function(item) {
 
 // Get section name
 Extensity.prototype.getListSectionName = function (item) {
-	return (item.isApp)?'Apps':'Extensions';
+	return (item.isApp) ? 'Apps' : 'Extensions';
 };
 
 Extensity.prototype.captureHeaderEvents = function() {
 	var self = this;
-	$(self.selectors.header).find('#actions a').off();
+	var actions = $(self.selectors.header).find('#actions a');
+	actions.off();
 	// Required because we'll need to load local resources (chrome://extensions)
-	$(self.selectors.header).find('#actions a').on('click', function(ev, a) {
+	actions.on('click', function(ev, a) {
 		ev.preventDefault();
 		self.openPageTab(this.href);
 	});
@@ -206,7 +207,6 @@ Extensity.prototype.sortExtensionsCacheGroupAppsFirst = function (a, b) {
 
 // Sort Extensions Alphabetically
 Extensity.prototype.sortExtensionsCacheAlpha = function (a, b) {
-	var self = this;
 	if (a.name.toLowerCase() < b.name.toLowerCase())
 		return -1;
 	else if (a.name.toLowerCase() > b.name.toLowerCase())
@@ -217,44 +217,23 @@ Extensity.prototype.sortExtensionsCacheAlpha = function (a, b) {
 
 // Get the smallest icon URL available for a given extension.
 Extensity.prototype.getSmallestIconUrl = function(icons) {
-	var smallest = null;
-	var url = "";
-	if(typeof icons != 'undefined') {
-		$(icons).each(function(i, icon) {
-			if(typeof(icon.size) != 'undefined') {
-				if(smallest == null || icon.size < smallest) {
-					smallest = icon.size;
-					url = icon.url;
-				}
-			}
-		});
-	}
-	return url;
+	var smallest = _(icons).chain().pluck('size').min().value();
+	var icon = _(icons).find({size: smallest});
+	return (icon && icon.url) || '';
 };
 
 // Has more than one kind of app / extension
 Extensity.prototype.hasMultipleExtensionTypes = function() {
 	var self = this;
-	var hasApps = false;
-	var hasExtensions = false;
-	$(self.cache.extensions).each(function(i, item) {
-		hasExtensions |= ! Boolean(item.isApp);
-		hasApps	|= Boolean(item.isApp);
-	});
-
-	return (hasApps && hasExtensions);
+	return _(self.cache.extensions).chain()
+					.pluck('isApp').unique()
+					.value().length>1;
 };
 
 // Get extension by id, from the cache.
 Extensity.prototype.getExtension = function (id) {
 	var self = this;
-	var extension = null;
-	$(self.cache.extensions).each(function(i, item) {
-		if (item.id == id) {
-			extension = item;
-		}
-	});
-	return extension;
+	return _(self.cache.extensions).find({id: id});
 };
 
 // Toggle Extension status
@@ -263,10 +242,10 @@ Extensity.prototype.triggerExtension = function (id) {
 	var extension = self.getExtension(id);
 	// Make sure we found the extension.
 	if(extension) {
-		if(!extension.isApp) {
+		if(!extension.isApp && extension.mayDisable) {
 			self.toggleExtension(id, !extension.enabled);
 		}
-		else {
+		else if (extension.isApp) {
 			self.launchApp(id);
 		}
 	}

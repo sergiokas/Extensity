@@ -1,4 +1,4 @@
 jQuery(document).ready(function($) {
- 	Engine = new ExtensityConfigure();
- 	Engine.start(); 	
+ 	var engine = new ExtensityConfigure();
+ 	engine.start();
 });
