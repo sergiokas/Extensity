@@ -7,7 +7,7 @@ Extensity = function() {
 	// Cache for extensions
 	this.cache = {
 		extensions: [],
-		options: new ExtensityOptions()
+		options: new ExtensityConfiguration()
 	};
 };
 

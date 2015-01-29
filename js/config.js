@@ -1,34 +1,29 @@
 /**
  * Preferences
  */
-ExtensityOptions = function() {
+ExtensityConfiguration = function() {
 	var self = this;
+	// Set available settings from defaults
+	self.settings = _(self.defaults).keys();
 	self.load();
 };
 
-// All available options
-ExtensityOptions.prototype.settings = [
-	'showHeader',	// Show the extensity header in the main popup or now
-  'groupApps',	// Group Apps and Extensions before sorting
-  'appsFirst'		// Show apps first
-];
-
-// Default values for options
-ExtensityOptions.prototype.defaultValues = {
+// Available configuration options and their default values
+ExtensityConfiguration.prototype.defaults = {
 	showHeader: true,
 	groupApps: true,
 	appsFirst: false
 };
 
-// Set preferences from localStorage, defaultValues, or null (in that order)
-ExtensityOptions.prototype.load = function () {
+// Set preferences from localStorage, defaults, or null (in that order)
+ExtensityConfiguration.prototype.load = function () {
 	var self = this;
 	$(self.settings).each(function(i, item) {
 		if(typeof(localStorage[item]) != 'undefined') {
 			self[item] = self.boolean(localStorage[item]);
 		}
-		else if (typeof(self.defaultValues[item]) != 'undefined') {
-			self[item] = self.defaultValues[item];
+		else if (typeof(self.defaults[item]) != 'undefined') {
+			self[item] = self.defaults[item];
 		}
 		else {
 			self[item] = null;
@@ -37,7 +32,7 @@ ExtensityOptions.prototype.load = function () {
 };
 
 // Save preferences to localStorage
-ExtensityOptions.prototype.save = function () {
+ExtensityConfiguration.prototype.save = function () {
 	var self = this;
 	$(self.settings).each(function(i, item) {
 		localStorage[item] = self[item];
@@ -47,74 +42,11 @@ ExtensityOptions.prototype.save = function () {
 // Get the right boolean value.
 // Hack to override default string-only localStorage implementation
 // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
-ExtensityOptions.prototype.boolean = function(value) {
-	if (value == "true")
+ExtensityConfiguration.prototype.boolean = function(value) {
+	if (value === "true")
 		return true;
-	else if (value == "false")
+	else if (value === "false")
 		return false;
 	else
 		return Boolean(value);
-};
-
-/**
- * Configuration page controller.
- */
-ExtensityConfigure = function() {
-	// Extension name
-	this.name = 'ExtensityOptions';
-};
-
-// Configuration page selectors
-ExtensityConfigure.prototype.selectors = {
-	save		: 'button#save',
-	result	: 'span#save-result',
-	close		: 'a#close'
-};
-
-// Start the configuration page
-ExtensityConfigure.prototype.start = function() {
-	var self = this;
-
-	self.options = new ExtensityOptions();
-	self.restore();
-
-	// Capture events
-	$(self.selectors.save).on('click', function(ev) {
-		self.save();
-	});
-
-	$(self.selectors.close).on('click', function(ev) {
-		self.close();
-	});
-};
-
-// Restore configuration from the settings
-ExtensityConfigure.prototype.restore = function() {
-	var self = this;
-	$(self.options.settings).each(function(i, item) {
-		$('input#' + item).attr('checked', Boolean(self.options[item]));
-	});
-
-};
-
-// Collect configuration options from the UI
-ExtensityConfigure.prototype.collect = function() {
-	var self = this;
-	$(self.options.settings).each(function(i, item) {
-		self.options[item] = Boolean($('input#' + item + ':checked').length>0);
-	});
-};
-
-
-//Close the configuration window
-ExtensityConfigure.prototype.save = function() {
-	var self = this;
-	self.collect();
-	self.options.save();
-	$(self.selectors.result).text('| Saved!').show().delay(1000).fadeOut('slow');
-};
-
-// Close the configuration window
-ExtensityConfigure.prototype.close = function() {
-	window.close();
 };
