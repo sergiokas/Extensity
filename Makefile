@@ -3,7 +3,7 @@
 # @requires zip
 FILES=index.html options.html manifest.json
 DIST=dist
-DIRS=images styles js
+DIRS=images styles js fonts
 
 dist: clean copy minify pack
 
