@@ -46,6 +46,7 @@ body {
 #header #actions {
 	float: right;
 	clear: right;
+	font-size: 1.4em;
 	margin-right: 3px;
 }
 
@@ -55,7 +56,19 @@ body {
 	cursor: pointer;
 }
 
-#header #actions img:hover {
+#header #actions .fa {
+	color: black;
+}
+
+#header #actions .fa-twitter {
+	color: #55A4DA;
+}
+
+#header #actions .fa-star {
+	color: #FF9300;
+}
+
+#header #actions .fa:hover {
 	opacity: .5;
 }
 
