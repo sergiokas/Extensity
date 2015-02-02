@@ -25,6 +25,10 @@ v1.1.9(Jan 2015)
 - Bump version number
 - Style changes
 
+v1.1.10 (Feb 2015)
+- More performance improvements
+- Fixed Chrome's extensions page link
+
 v0.1.9 (Jan 2015)
 - Added option to show apps first
 
