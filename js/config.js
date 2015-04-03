@@ -12,7 +12,8 @@ ExtensityConfiguration = function() {
 ExtensityConfiguration.prototype.defaults = {
 	showHeader: true,
 	groupApps: true,
-	appsFirst: false
+	appsFirst: false,
+	filterBox: true
 };
 
 // Set preferences from localStorage, defaults, or null (in that order)
