@@ -143,3 +143,17 @@ body {
 .extension-item.disabled img {
 	opacity: 0.3;
 }
+
+.filter-input {
+	width: 100%;
+	background: #fff;
+	margin-bottom: 4%;
+	border: 1px solid #ccc;
+	padding: 2%;
+	font-family: 'Open Sans',sans-serif;
+	color: #555;
+}
+
+.hide {
+	display: none;
+}
