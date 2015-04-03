@@ -23,8 +23,9 @@ Extensity.prototype.templates = {
 	section: '<div class="extension-section"><span>%s</span></div>',
 	// Parameters are: statusClass, item id, icon, item name
 	extensionItem: '<a class="extension-item extension-trigger %s" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>',
-	appItem: '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>'
-}
+	appItem: '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>',
+	filterBox: '<input class="filter-input filter-trigger" type="text" id="filter" placeholder="Search Extensions">'
+};
 
 // CSS classes
 Extensity.prototype.classes = {
@@ -78,8 +79,15 @@ Extensity.prototype.refreshList = function() {
 	var currentSection = null;
 	var hasMultipleExtensionTypes = self.hasMultipleExtensionTypes();
 	var list = $('#list');
+
 	// Clean content first
 	list.html('');
+
+	// Checking config and append FilterBox
+	if(self.cache.options.filterBox)
+	{
+		list.append(self.addFilterBox());
+	}
 
 	// Append extensions
 	$(self.cache.extensions).each(function(i,item) {
@@ -114,6 +122,31 @@ Extensity.prototype.shouldExcludeFromList = function(item) {
 	return (item.name == self.name) || (item.type && self.exclude_types.indexOf(item.type)>=0);
 };
 
+Extensity.prototype.filterExtensions = function(filterText) {
+	filterText = filterText || '';
+	filterText = filterText.toLowerCase();
+
+	$('.extension-trigger').each(function() {
+		var $item = $(this);
+		var itemName = $item.find('span').text().toLowerCase();
+
+		if(filterText === '' || _.str.include(itemName, filterText))
+		{
+			$item.removeClass('hide');
+		}
+		else
+		{
+			$item.addClass('hide')
+		}
+	});
+};
+
+// Add filter input box
+Extensity.prototype.addFilterBox = function() {
+	var self = this;
+	return _(self.templates.filterBox).sprintf();
+};
+
 // Add an item to the list
 Extensity.prototype.addListItem = function(item) {
 	var self = this;
@@ -122,7 +155,7 @@ Extensity.prototype.addListItem = function(item) {
 		item.id,
 		self.getSmallestIconUrl(item.icons),
 		_(item.name).prune(35)
-	)
+	);
 };
 
 //Add an section header to the list
@@ -168,6 +201,14 @@ Extensity.prototype.captureEvents = function() {
 		$(this).parent().trigger('click');
 	});
 
+	if(self.cache.options.filterBox)
+	{
+		$('.filter-trigger').off();
+		$('.filter-trigger').on('keyup', function(ev) {
+			var inputVal = $(this).val();
+			self.filterExtensions(inputVal);
+		});
+	}
 };
 
 // Open a new tab
