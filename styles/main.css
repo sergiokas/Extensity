@@ -72,6 +72,10 @@ body {
 	opacity: .5;
 }
 
+#header #actions a.switch.off i {
+	color: #A84342;
+}
+
 .extension-section {
 	float: left;
 	clear: both;

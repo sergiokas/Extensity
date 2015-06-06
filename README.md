@@ -21,9 +21,10 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
-v1.1.9(Jan 2015)
-- Bump version number
+v1.1.11(Jun 2015)
+- New Feature: turn all enabled extensions off, then turn them back on.
 - Style changes
+- New icons
 
 v1.1.10 (Feb 2015)
 - More performance improvements

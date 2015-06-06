@@ -7,6 +7,7 @@ Extensity = function() {
 	// Cache for extensions
 	this.cache = {
 		extensions: [],
+		toggled: (localStorage['toggled'] || "").split(",").filter(function(e){return e;}),
 		options: new ExtensityConfiguration()
 	};
 };
@@ -45,7 +46,7 @@ Extensity.prototype.start = function() {
 	});
 
 	// Make sure we start at the top.
-	$(document).scrollTop(0);
+	// $(document).scrollTop(0);
 };
 
 // Reload the extensions list
@@ -139,13 +140,27 @@ Extensity.prototype.getListSectionName = function (item) {
 
 Extensity.prototype.captureHeaderEvents = function() {
 	var self = this;
-	var actions = $(self.selectors.header).find('#actions a');
+	var actions = $(self.selectors.header).find('#actions a.page');
+	var switches = $(self.selectors.header).find('#actions a.switch');
 	actions.off();
+	switches.off();
 	// Required because we'll need to load local resources (chrome://extensions)
 	actions.on('click', function(ev, a) {
 		ev.preventDefault();
 		self.openPageTab(this.href);
 	});
+	switches.on('click', function(ev, a) {
+		ev.preventDefault();
+		self[this.id]();
+	})
+};
+
+Extensity.prototype.setHeaderStatuses = function() {
+	var self = this;
+	// Lightbulb state in the header
+	$(self.selectors.header).find('#actions #toggleOff.switch').toggleClass(
+		'off', Boolean(self.cache.toggled.length>0)
+	);
 };
 
 
@@ -168,6 +183,7 @@ Extensity.prototype.captureEvents = function() {
 		$(this).parent().trigger('click');
 	});
 
+	self.setHeaderStatuses();
 };
 
 // Open a new tab
@@ -236,6 +252,14 @@ Extensity.prototype.getExtension = function (id) {
 	return _(self.cache.extensions).find({id: id});
 };
 
+// Get a list of all turned on (or off) extensions
+Extensity.prototype.getEnabledExtensions = function (enabled) {
+	var self = this;
+	return _(self.cache.extensions).filter(function(e){
+		return e.type == 'extension' && e.enabled == enabled && !self.shouldExcludeFromList(e);
+	});
+};
+
 // Toggle Extension status
 Extensity.prototype.triggerExtension = function (id) {
 	var self = this;
@@ -261,6 +285,26 @@ Extensity.prototype.toggleExtension = function (id, status) {
 			self.updateListItem(id, !status);
 		});
 	});
+};
+
+// Toggle all extensions off, or back on.
+Extensity.prototype.toggleOff = function() {
+	var self = this;
+	if(self.cache.toggled.length>0) {
+		// Re-enable all disabled extensions, then clear the list.
+		_(self.cache.toggled).each(function(i,idx) {
+			if(self.getExtension(i)) { // Make sure extension is still there after a while.
+				self.toggleExtension(i, true);
+			}
+		});
+		localStorage["toggled"] = self.cache.toggled = [];
+	}
+	else {
+		// Store all enabled extensions, then disable all of them.
+		localStorage["toggled"] = self.cache.toggled = _(self.getEnabledExtensions(true)).pluck("id");
+		_(self.cache.toggled).each(function(i,idx) { self.toggleExtension(i, false); });
+	}
+	self.setHeaderStatuses();
 };
 
 // Launch an app
