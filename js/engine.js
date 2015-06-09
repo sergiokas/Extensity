@@ -15,16 +15,19 @@ Extensity = function() {
 // jQuery selectors
 Extensity.prototype.selectors = {
 	header:	'#header',
-	list: '#content #list'
+	list: '#content'
 };
 
 // New templates. Replaced to avoid code generation from strings in new Chrome extensions.
 Extensity.prototype.templates = {
 	// Parameters are: section name
-	section: '<div class="extension-section"><span>%s</span></div>',
+	section: '<h1>%s</h1><ul></ul>',
 	// Parameters are: statusClass, item id, icon, item name
-	extensionItem: '<a class="extension-item extension-trigger %s" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>',
-	appItem: '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>'
+	extensionItem: '<li class="%s" id="%s"><img src="%s" width="16px" height="16px" /> %s</li>',
+	appItem: '<li class="%s" id="%s"><img src="%s" width="16px" height="16px" /> %s</li>'
+
+	// extensionItem: '<a class="extension-item extension-trigger %s" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>',
+	// appItem: '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>'
 }
 
 // CSS classes
@@ -44,9 +47,6 @@ Extensity.prototype.start = function() {
 	self.reload(function() {
 		self.refreshList();
 	});
-
-	// Make sure we start at the top.
-	// $(document).scrollTop(0);
 };
 
 // Reload the extensions list
@@ -78,9 +78,13 @@ Extensity.prototype.refreshList = function() {
 	var self = this;
 	var currentSection = null;
 	var hasMultipleExtensionTypes = self.hasMultipleExtensionTypes();
-	var list = $('#list');
+	var list = $(self.selectors.list);
 	// Clean content first
 	list.html('');
+
+	if(!self.cache.options.groupApps) {
+		list.append("<ul></ul>")
+	}
 
 	// Append extensions
 	$(self.cache.extensions).each(function(i,item) {
@@ -93,7 +97,7 @@ Extensity.prototype.refreshList = function() {
 				currentSection = self.getListSectionName(item);
 			}
 			// Add the item
-			list.append(self.addListItem(item));
+			list.find("ul:last-child").append(self.addListItem(item));
 		}
 	});
 
@@ -103,7 +107,7 @@ Extensity.prototype.refreshList = function() {
 // Update CSS for a single list item
 Extensity.prototype.updateListItem = function(id, status) {
 	var self = this;
-	$("#list .extension-item#"+id).toggleClass(self.classes.disabled, status);
+	$("#content li#"+id).toggleClass(self.classes.disabled, status);
 };
 
 
@@ -140,8 +144,8 @@ Extensity.prototype.getListSectionName = function (item) {
 
 Extensity.prototype.captureHeaderEvents = function() {
 	var self = this;
-	var actions = $(self.selectors.header).find('#actions a.page');
-	var switches = $(self.selectors.header).find('#actions a.switch');
+	var actions = $(self.selectors.header).find('a.page');
+	var switches = $(self.selectors.header).find('a.switch');
 	actions.off();
 	switches.off();
 	// Required because we'll need to load local resources (chrome://extensions)
@@ -158,7 +162,7 @@ Extensity.prototype.captureHeaderEvents = function() {
 Extensity.prototype.setHeaderStatuses = function() {
 	var self = this;
 	// Lightbulb state in the header
-	$(self.selectors.header).find('#actions #toggleOff.switch').toggleClass(
+	$(self.selectors.header).find('#toggleOff.switch').toggleClass(
 		'off', Boolean(self.cache.toggled.length>0)
 	);
 };
@@ -168,19 +172,15 @@ Extensity.prototype.setHeaderStatuses = function() {
 Extensity.prototype.captureEvents = function() {
 	var self = this;
 
-	$('.extension-trigger').off();
-	$('.extension-trigger').find('img,span').off();
-
-	// Capture triggers
-	$('.extension-trigger').on('click', function(ev) {
+	// $("#content li, #content li img").off();
+	$("#content li").on('click', function(ev) {
 		ev.preventDefault();
 		self.triggerExtension(ev.target.id);
 	});
 
-	// Capture triggers content
-	$('.extension-trigger').find('img,span').on('click', function(ev) {
+	$("#content li img").on('click', function(ev) {
 		ev.preventDefault();
-		$(this).parent().trigger('click');
+		$(this).parent().click();
 	});
 
 	self.setHeaderStatuses();

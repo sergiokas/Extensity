@@ -2,8 +2,10 @@
 <html>
 <head>
 <!-- Includes -->
-<link rel="stylesheet" type="text/css" href="styles/main.css" />
+<title>Extensity</title>
+<link rel="stylesheet" type="text/css" href="styles/normalize.css" />
 <link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="styles/main.css" />
 <script type="text/javascript" src="js/libs/jquery.min.js"></script>
 <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
@@ -12,22 +14,29 @@
 <script class="template" type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
-<div id="header">
-	<div id="title">
-		<a href="https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg" target="_blank"><img src="images/icon16.png" />&nbsp;<span>Extensity</span></a>
-	</div>
-	<div id="actions">
+<section id="header">
+	<h1>
+		<a id="title" href="https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg" target="_blank"><img src="images/icon16.png" />&nbsp;Extensity</a>
+
+		<!-- Actions -->
+		<a href="https://chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg/reviews" class="page" target="_blank"><i class="fa fa-star" alt="Rate Extensity. Thanks!" title="Rate Extensity. Thanks!"></i></a>
+
+		<a href="http://twitter.com/share?url=https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg&via=ExtensityChrome&text=Keep control of your Chrome extensions with Extensity. Quickly enable/disable any extension!" class="page" target="_blank"><i class="fa fa-twitter" alt="Share Extensity. Thanks!" title="Share Extensity. Thanks!"/></i></a>
+
+		<a href="options.html" class="page" target="_blank"><i class="fa fa-cog" alt="Extensity options" title="Extensity options"></i></a>
+
+		<a href="chrome://extensions" class="page" id="chrome-extensions" target="_blank"><i class="fa fa-puzzle-piece" alt="Chrome Extensions" title="Chrome Extensions"></i></a>
+
 		<!-- Switches -->
 		<a href="#" id="toggleOff" class="switch" target="_blank"><i class="fa fa-lightbulb-o" alt="Turn enabled Extensions off. Click again to turn back on." title="Turn enabled Extensions off. Click again to turn back on."></i></a>
-		<!-- Actions -->
-		<a href="chrome://extensions" class="page" id="chrome-extensions" target="_blank"><i class="fa fa-puzzle-piece" alt="Chrome Extensions" title="Chrome Extensions"></i></a>
-		<a href="options.html" class="page" target="_blank"><i class="fa fa-cog" alt="Extensity options" title="Extensity options"></i></a>
-		<a href="http://twitter.com/share?url=https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg&via=ExtensityChrome&text=Keep control of your Chrome extensions with Extensity. Quickly enable/disable any extension!" target="_blank"><i class="fa fa-twitter" class="page" alt="Share Extensity. Thanks!" title="Share Extensity. Thanks!"/></i></a>
-		<a href="https://chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg/reviews" class="page" target="_blank"><i class="fa fa-star" alt="Rate Extensity. Thanks!" title="Rate Extensity. Thanks!"></i></a>
-	</div>
-</div>
-<div id="content">
-	<div id="list"></div>
-</div>
+	</h1>
+</section>
+
+<section id="content">
+<!-- 	<h1>Apps</h1>
+	<ul>
+		<li><a href="#"><img src="33" /><span>Some extension</span></li>
+	</ul> -->
+</section>
 </body>
 </html>
