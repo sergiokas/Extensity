@@ -127,19 +127,16 @@ section#content ul li:hover {
 
 section#content ul li img {
 	vertical-align: middle;
+	margin-top: -2px;
 }
 
 /** Disabled Status */
 section#content li.disabled {
 	background-color: #f0f0f0;
-	color: #777;
+	color: #555;
 	opacity: 0.7;
 }
 
-/*section#content li.disabled img {
+section#content li.disabled img {
 	opacity: 0.3;
 }
-
-section#content li.disabled:hover img {
-	opacity: 0.5;
-}*/

@@ -8,7 +8,7 @@ DIRS=images styles js fonts
 dist: clean copy minify pack
 
 copy:
-	@echo "### Copying files..." 
+	@echo "### Copying files..."
 	cp -R $(DIRS) $(FILES) $(DIST)
 
 minify:
@@ -24,8 +24,10 @@ minify:
 	@echo "### Minifying CSS..."
 	lessc -x $(DIST)/styles/main.css > $(DIST)/styles/main.min.css
 	lessc -x $(DIST)/styles/options.css > $(DIST)/styles/options.min.css
+	lessc -x $(DIST)/styles/normalize.css > $(DIST)/styles/normalize.min.css
 	mv $(DIST)/styles/main.min.css $(DIST)/styles/main.css
 	mv $(DIST)/styles/options.min.css $(DIST)/styles/options.css
+	mv $(DIST)/styles/normalize.min.css $(DIST)/styles/normalize.css
 
 pack:
 	@echo "### Packing..."
