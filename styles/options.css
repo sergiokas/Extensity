@@ -1,8 +1,9 @@
+/* Options */
 body {
 	margin: 50px;
 	overflow-x:hidden;
 	overflow-y:auto;
-	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;	
+	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
 }
 
 img {
@@ -19,12 +20,18 @@ h1 {
 fieldset {
 	margin-top: 2em;
 	border: none;
+	max-width: 400px;
 }
 
 fieldset .field {
 	float: left;
 	clear: both;
 	margin-bottom: 2em;
+}
+
+fieldset .field.right {
+	float: right;
+	clear: none;
 }
 
 button {
@@ -45,7 +52,7 @@ button:hover {
 }
 
 span#save-result {
-	color: #304669; 	
+	color: #304669;
 }
 
 a {
@@ -57,3 +64,4 @@ a:hover {
 	text-decoration: underline;
 }
 
+/* Profiles */

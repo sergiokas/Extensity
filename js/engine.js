@@ -25,9 +25,6 @@ Extensity.prototype.templates = {
 	// Parameters are: statusClass, item id, icon, item name
 	extensionItem: '<li class="%s" id="%s"><img src="%s" width="16px" height="16px" /> %s</li>',
 	appItem: '<li class="%s" id="%s"><img src="%s" width="16px" height="16px" /> %s</li>'
-
-	// extensionItem: '<a class="extension-item extension-trigger %s" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>',
-	// appItem: '<a class="extension-item %s extension-trigger" id="%s" href="#"><img src="%s" width="16px" height="16px" /> <span>%s</span></a>'
 }
 
 // CSS classes
