@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="styles/options.css" />
+<link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
 <script type="text/javascript" src="js/libs/jquery.min.js"></script>
 <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
@@ -13,19 +14,34 @@
   <h1><img src="images/icon48.png" /> Profiles</h1>
 </div>
 <div id="content">
+
+  <p class="help">
+    <i class="fa fa-close right"></i>
+    <i class="fa fa-warning"></i> <strong>Help Extensity!</strong>
+    <br /><br />
+    Profiles has been by far Extensity's most requested feature from power users. It's been fully released as a free trial for a couple months, then it'll be moved to an in-app purchase. <strong>However, if I can raise around $1000 to fund its development work, it'll be kept free, forever, for everyone</strong>, which is of course the preferred solution. <br /><br /> Help by <a href="#"><strong>donating here</strong></a>.
+  </p>
+
+  <p class="info">
+    <i class="fa fa-close right"></i>
+    <i class="fa fa-info"></i><strong> How Profiles Work:</strong>
+    <br /><br />When activating a profile, <strong>selected extensions will be enabled, and all the rest will be disabled.</strong><br />You can create as many profiles as you want.
+  </p>
+
   <fieldset id="profiles">
     <div class="field" id="list">
-      <a href="#" class="profile">Developer</a><br />
-      <a href="#" class="profile">Browsing</a><br />
-      <a href="#" class="profile">Comics</a><br />
-    </div>
-    <div class="field right" id="edit">
-      <input type="text" value="Developer" placeholder="Profile Name" /><br />
-    </div>
-    <div class="field">
+      <ul id="items">
+      </ul>
       <button id="save">Save</button>
       <a href="#" id="close">Close</a>
       <span id="save-result"></span>
+    </div>
+    <div class="field right" id="edit">
+      <label id="header">
+      <input type="checkbox" id="check-all" alt="Toggle All" title="Toggle All" /> <input type="text" value="" id="name" name="name" placeholder='Profile Name (e.g "Browsing")' /> &nbsp;<i class="fa fa-trash"></i></label><br />
+
+    </div>
+    <div class="field">
     </div>
   </fieldset>
 </div>

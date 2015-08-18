@@ -20,7 +20,7 @@ h1 {
 fieldset {
 	margin-top: 2em;
 	border: none;
-	max-width: 400px;
+	max-width: 500px;
 }
 
 fieldset .field {
@@ -65,3 +65,56 @@ a:hover {
 }
 
 /* Profiles */
+#profiles label {
+	line-height: 200%;
+}
+
+#profiles label#header {
+	float: left;
+	background-color: #eee;
+	padding: 5px 5px 5px 0px;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+}
+
+#profiles input#name {
+	font-size: 1.1em;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	min-width: 220px;
+}
+
+#profiles #list ul#items {
+	margin: 0px 0px 20px 0px;
+	padding: 0px 0px;
+	list-style-type: none;
+	width: 200px;
+}
+
+#profiles #list ul#items li {
+	line-height: 250%;
+	padding-left: 10px;
+	margin-left: -10px;
+}
+
+#profiles #list ul#items li.active {
+	background-color: red;
+}
+
+.help {
+	padding: 20px;
+	background-color: #FFD478;
+	border-radius: 10px;
+}
+
+.info {
+	padding: 20px;
+	background-color: #eee;
+	border-radius: 10px;
+}
+
+.fa.right {
+	float: right;
+	cursor: pointer;
+}
