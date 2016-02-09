@@ -53,6 +53,11 @@ Extensity.prototype.start = function() {
 Extensity.prototype.reload = function(callback) {
 	var self = this;
 	chrome.management.getAll(function(results) {
+		if (!self.cache.options.includeApps){
+			results = _.filter(results, function (addon){
+				return addon.type == 'extension';
+			});
+		}
 		self.cache.extensions = results;
 
 		// Sort the extensions list

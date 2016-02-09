@@ -21,6 +21,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.1.12 (Feb 2016)
+- New Option: include\exclude apps from the list
+
 v1.1.11(Jun 2015)
 - New Feature: turn all enabled extensions off, then turn them back on.
 - Style changes
