@@ -11,6 +11,7 @@ ExtensityConfiguration = function() {
 // Available configuration options and their default values
 ExtensityConfiguration.prototype.defaults = {
 	showHeader: true,
+	includeApps: true,
 	groupApps: true,
 	appsFirst: false
 };

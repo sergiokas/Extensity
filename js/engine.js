@@ -35,6 +35,11 @@ Extensity.prototype.classes = {
 
 Extensity.prototype.start = function() {
 	var self = this;
+    if (!self.cache.options.includeApps){
+        self.exclude_types.push('hosted_app')
+        self.exclude_types.push('packaged_app')
+        self.exclude_types.push('legacy_packaged_app')
+    }
 
 	if(!self.cache.options.showHeader) {
 		$(self.selectors.header).hide();
