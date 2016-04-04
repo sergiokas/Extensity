@@ -64,6 +64,30 @@ a:hover {
 	text-decoration: underline;
 }
 
+#header #menu {
+	margin-left:15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#header #menu a {
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 1em;
+	color: #516C97;
+	background-color: #fff;
+	border: 1px solid #516C97;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+#header #menu a:hover {
+	text-decoration: none;
+}
+#header #menu a.selected {
+	background-color: #516C97;
+	color: white;
+}
+
 /* Profiles */
 #profiles label {
 	line-height: 200%;
@@ -93,6 +117,7 @@ a:hover {
 }
 
 #profiles #list ul#items li {
+	cursor: pointer;
 	line-height: 250%;
 	padding-left: 10px;
 	margin-left: -10px;
@@ -102,15 +127,23 @@ a:hover {
 	background-color: red;
 }
 
-.help {
-	padding: 20px;
-	background-color: #FFD478;
-	border-radius: 10px;
+#profiles #list .profile-item a {
+	text-align: left;
+}
+
+#profiles #list .profile-item .fa {
+	text-align: right;
 }
 
 .info {
 	padding: 20px;
 	background-color: #eee;
+	border-radius: 10px;
+}
+
+.help {
+	padding: 20px;
+	background-color: #FFD478;
 	border-radius: 10px;
 }
 

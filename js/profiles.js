@@ -1,86 +1,103 @@
+var ProfilesViewModel = function() {
+  var self = this;
+
+  self.profiles = new ProfilesListModel();
+  self.extensions = new ExtensionsListModel();
+  self.current_profile = self.profiles.items()[0];
+
+  self.checkExtension = function() {
+
+  };
+
+  self.selectProfile = function() {
+
+  }
+
+};
+
+vm = new ProfilesViewModel();
+
 jQuery(document).ready( function($) {
-  // Mix in underscore string exports
-  _.mixin(_.string.exports());
 
-  var templates = {
-    profile: '<li><a href="javascript:void(0);" class="profile" data-name="%s">%s</a></li>',
-    extension: '<label><input type="checkbox" class="extension" value="%s" /> <img src="%s" width="16px" height="16px" /> %s</label><br />'
-  }
+  ko.bindingProvider.instance = new ko.secureBindingsProvider({});
+  ko.applyBindings(vm, document.getElementById('profiles'));
 
-  // Get the smallest icon URL available for a given extension.
-  var smallestIconUrl = function(icons) {
-    var smallest = _(icons).chain().pluck('size').min().value();
-    var icon = _(icons).find({size: smallest});
-    return (icon && icon.url) || '';
-  };
 
-  var profiles = JSON.parse(localStorage["profiles"] || "{}");
+  // var templates = {
+  //   profile: '<li><a href="javascript:void(0);" class="profile" data-name="%s">%s</a></li>',
+  //   extension: '<label><input type="checkbox" class="extension" value="%s" /> <img src="%s" width="16px" height="16px" /> %s</label><br />'
+  // }
 
-  var refresh = function() {
-    $("#profiles #list #items").empty();
-    _(profiles).each(function(item, idx) {
-      $("#profiles #list #items").append(
-        _(templates.profile).sprintf(idx, idx)
-      )
-    });
+  // // Get the smallest icon URL available for a given extension.
+  // var smallestIconUrl = function(icons) {
+  //   var smallest = _(icons).chain().pluck('size').min().value();
+  //   var icon = _(icons).find({size: smallest});
+  //   return (icon && icon.url) || '';
+  // };
 
-    if(!_(profiles).keys().length) {
-      // TODO: default new profile
-    }
-  };
+  // var profiles = JSON.parse(localStorage["profiles"] || "{}");
 
-  var save = function() {
-    var selected = _($('#profiles input.extension:checked')).pluck('value');
-    var n = $("#profiles input#name").val();
-    profiles[n] = selected;
-    localStorage['profiles'] = JSON.stringify(profiles);
-    refresh();
-  }
+  // var refresh = function() {
+  //   $("#profiles #list #items").empty();
+  //   _(profiles).each(function(item, idx) {
+  //     $("#profiles #list #items").append(
+  //       _(templates.profile).sprintf(idx, idx)
+  //     )
+  //   });
 
-  var edit = function(name) {
-    $("#profiles #edit").hide();
-    $("#profiles #list #items li").removeClass("active");
-    $("#profiles input#name").val(name);
-    $("#profiles input.extension").prop("checked", false);
-    _(profiles[name]).each(function(item) {
-      $("#profiles input.extension[value='" + item +"'").prop("checked", true);
-    });
-    $("#profiles #edit").slideDown('fast');
-  }
+  //   if(!_(profiles).keys().length) {
+  //     // TODO: default new profile
+  //   }
+  // };
 
-  refresh();
+  // var save = function() {
+  //   var selected = _($('#profiles input.extension:checked')).pluck('value');
+  //   var n = $("#profiles input#name").val();
+  //   profiles[n] = selected;
+  //   localStorage['profiles'] = JSON.stringify(profiles);
+  //   refresh();
+  // }
 
-  // Init main extensions list
-  chrome.management.getAll(function(results) {
-    results = _(results).chain().filter(function(i) { return i.type=='extension' && i.name !== 'Extensity'}).sortBy('name').value();
-    _(results).each(function(item) {
-      if(item.type == 'extension') {
-        $("#profiles #edit").append(
-          _(templates.extension).sprintf(item.id, smallestIconUrl(item.icons), _(item.name).prune(35))
-        );
-      }
-    });
-  });
+  // var edit = function(name) {
+  //   $("#profiles #edit").hide();
+  //   $("#profiles #list #items li").removeClass("active");
+  //   $("#profiles input#name").val(name);
+  //   $("#profiles input.extension").prop("checked", false);
+  //   _(profiles[name]).each(function(item) {
+  //     $("#profiles input.extension[value='" + item +"'").prop("checked", true);
+  //   });
+  //   $("#profiles #edit").slideDown('fast');
+  // }
 
-  // Bindings
-  $('#profiles #check-all').on('change', function(ev) {
-    ev.preventDefault();
-    $("#profiles input.extension").prop("checked", this.checked);
-  });
+  // refresh();
 
-  $('#profiles a.profile').on('click', function(ev) {
-    ev.preventDefault();
-    edit($(this).data("name"));
-  })
 
-  $('#profiles #save').on('click', function(ev) {
-    ev.preventDefault();
-    save();
-  });
+  // // var ProfilesViewModel = function() {
 
-  $('.fa-close').on('click', function(ev) {
-    ev.preventDefault();
-    $(this).parent('p').slideUp();
-  });
+  // // };
+
+
+  // // (new ProfilesViewModel).init()
+
+  // // Bindings
+  // $('#profiles #check-all').on('change', function(ev) {
+  //   ev.preventDefault();
+  //   $("#profiles input.extension").prop("checked", this.checked);
+  // });
+
+  // $('#profiles a.profile').on('click', function(ev) {
+  //   ev.preventDefault();
+  //   edit($(this).data("name"));
+  // })
+
+  // $('#profiles #save').on('click', function(ev) {
+  //   ev.preventDefault();
+  //   save();
+  // });
+
+  // $('.fa-close').on('click', function(ev) {
+  //   ev.preventDefault();
+  //   $(this).parent('p').slideUp();
+  // });
 
 });

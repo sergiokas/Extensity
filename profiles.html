@@ -6,31 +6,36 @@
 <script type="text/javascript" src="js/libs/jquery.min.js"></script>
 <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
+<script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
+<script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/koengine.js"></script>
 <script type="text/javascript" src="js/profiles.js"></script>
 </head>
 <body>
 <div id="header">
-  <h1><img src="images/icon48.png" /> Profiles</h1>
+  <h1><img src="images/icon48.png" /> Extensity Profiles</h1>
+  <div id="menu">
+    <a href="/options.html">Options</a>
+    <a href="/profiles.html" class="selected">Profiles</a>
+  </div>
 </div>
 <div id="content">
 
   <p class="help">
     <i class="fa fa-close right"></i>
-    <i class="fa fa-warning"></i> <strong>Help Extensity!</strong>
-    <br /><br />
-    Profiles has been by far Extensity's most requested feature from power users. It's been fully released as a free trial for a couple months, then it'll be moved to an in-app purchase. <strong>However, if I can raise around $1000 to fund its development work, it'll be kept free, forever, for everyone</strong>, which is of course the preferred solution. <br /><br /> Help by <a href="#"><strong>donating here</strong></a>.
+    <i class="fa fa-warning"></i> <strong>Help Extensity!</strong> If you like Extensity and its new Profiles features, please consider <a href="#">helping out with its development and support <i class="fa fa-arrow-circle-right"></i></a>
   </p>
 
   <p class="info">
     <i class="fa fa-close right"></i>
-    <i class="fa fa-info"></i><strong> How Profiles Work:</strong>
-    <br /><br />When activating a profile, <strong>selected extensions will be enabled, and all the rest will be disabled.</strong><br />You can create as many profiles as you want.
+    <i class="fa fa-info"></i><strong> How Profiles Work:</strong> When activating a profile, <strong>selected extensions will be enabled, and all the rest will be disabled.</strong> You can create as many profiles as you want. If you want an extension to be always enabled, just include it in all profiles.
   </p>
 
   <fieldset id="profiles">
     <div class="field" id="list">
-      <ul id="items">
+      <ul id="items" data-sbind="foreach: profiles.items">
+        <li class="profile-item"><a class="profile" data-sbind="text: name"></a> <i class="fa fa-trash"></i></li>
       </ul>
       <button id="save">Save</button>
       <a href="#" id="close">Close</a>
@@ -38,8 +43,13 @@
     </div>
     <div class="field right" id="edit">
       <label id="header">
-      <input type="checkbox" id="check-all" alt="Toggle All" title="Toggle All" /> <input type="text" value="" id="name" name="name" placeholder='Profile Name (e.g "Browsing")' /> &nbsp;<i class="fa fa-trash"></i></label><br />
-
+      <input type="checkbox" id="check-all" alt="Toggle All" title="Toggle All" /></label>
+      <ul data-sbind="foreach: extensions.extensions">
+        <li>
+          <label><input type="checkbox" data-sbind="value: id, checked: $root.current_profile.items" /> <img data-sbind="attr:{src: icon}" width="16px" height="16px" />
+          <span data-sbind="text: name"></span></label>
+        </li>
+      </ul>
     </div>
     <div class="field">
     </div>
