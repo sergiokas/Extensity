@@ -6,6 +6,10 @@ body {
 	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
 }
 
+.clear {
+	clear: both;
+}
+
 img {
 	vertical-align: middle;
 }
@@ -20,18 +24,16 @@ h1 {
 fieldset {
 	margin-top: 2em;
 	border: none;
-	max-width: 500px;
 }
 
 fieldset .field {
 	float: left;
-	clear: both;
-	margin-bottom: 2em;
+	clear: left;
 }
 
 fieldset .field.right {
 	float: right;
-	clear: none;
+	clear: right;
 }
 
 button {
@@ -88,56 +90,80 @@ a:hover {
 	color: white;
 }
 
+/* Options */
+fieldset#options .field {
+	margin-bottom: 1em;
+}
+
 /* Profiles */
+#profiles fieldset {
+	max-width: 100%;
+}
+
+#profiles .fa {
+	cursor: pointer;
+}
+
+#profiles .sidebar {
+	float: left;
+	width: 200px;
+	max-width: 200px;
+}
+
+#profiles .extensions {
+	float: left;
+}
+
+#profiles ul {
+	padding-left: 0px;
+}
+
+#profiles .sidebar ul.items li {
+	cursor: pointer;
+	padding: 7px;
+}
+
+#profiles .sidebar ul.items li.active {
+	background-color: #ddd;
+}
+
 #profiles label {
 	line-height: 200%;
 }
 
-#profiles label#header {
-	float: left;
-	background-color: #eee;
-	padding: 5px 5px 5px 0px;
-	border-bottom: 1px solid #ccc;
-	border-top: 1px solid #ccc;
+#profiles label.disabled {
+	opacity: 0.5;
+}
+
+#profiles ul {
+	list-style-type: none;
+}
+
+#profiles .extensions {
+	border-left: 1px solid #ddd;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#profiles .extensions p.toggle {
+	margin: 0px;
+	margin-left: -10px;
+	margin-right: -10px;
+	padding: 10px;
+	background-color: #ddd;
+
 }
 
 #profiles input#name {
-	font-size: 1.1em;
-	padding: 5px 10px;
-	border: 1px solid #ccc;
+	padding: 5px;
 	border-radius: 3px;
-	min-width: 220px;
-}
-
-#profiles #list ul#items {
-	margin: 0px 0px 20px 0px;
-	padding: 0px 0px;
-	list-style-type: none;
-	width: 200px;
-}
-
-#profiles #list ul#items li {
-	cursor: pointer;
-	line-height: 250%;
-	padding-left: 10px;
-	margin-left: -10px;
-}
-
-#profiles #list ul#items li.active {
-	background-color: red;
-}
-
-#profiles #list .profile-item a {
-	text-align: left;
-}
-
-#profiles #list .profile-item .fa {
-	text-align: right;
+	border: 1px solid #aaa;
+	font-size: 1.05em;
 }
 
 .info {
 	padding: 20px;
-	background-color: #eee;
+	background-color: #ddd;
 	border-radius: 10px;
 }
 

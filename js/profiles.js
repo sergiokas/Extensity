@@ -1,103 +1,73 @@
-var ProfilesViewModel = function() {
-  var self = this;
+jQuery(document).ready( function($) {
 
-  self.profiles = new ProfilesListModel();
-  self.extensions = new ExtensionsListModel();
-  self.current_profile = self.profiles.items()[0];
+  var ProfilesViewModel = function() {
+    var self = this;
 
-  self.checkExtension = function() {
+    self.ext = new ExtensionCollectionModel();
+    self.profiles = new ProfileCollectionModel();
+
+    self.current_profile = ko.observable();
+    self.add_name = ko.observable("");
+
+    self.current_name = ko.pureComputed(function() {
+      return (self.current_profile()) ? self.current_profile().name() : null;
+    });
+    self.current_items = ko.pureComputed(function() {
+      return (self.current_profile()) ? self.current_profile().items() : [];
+    });
+
+    self.editable = ko.computed(function() {
+      return self.current_profile() || false;
+    });
+
+    self.select = function(data) {
+      self.current_profile(data);
+    };
+
+    self.selectByIndex = function(idx) {
+      self.current_profile(self.profiles.items()[idx]);
+    };
+
+    self.add = function() {
+      var n = self.add_name();
+      var p = self.profiles.find(n);
+      if(_(p).isUndefined()) {
+        self.selectByIndex( self.profiles.add(n) - 1 );
+      }
+      else {
+        self.current_profile(p);
+      }
+      self.add_name("");
+    };
+
+    self.remove = function(profile) {
+      var c = (profile == self.current_profile());
+      self.profiles.remove(profile);
+      if(c) self.selectByIndex(0); // Select first one if removing the current.
+    };
+
+    self.save = function() {
+      self.profiles.save();
+    };
+
+    self.toggleAll = function() {
+      var exts = _(self.ext.extensions()).map(function(i) { return i.id(); });
+      self.current_profile().items(exts);
+    };
+
+    self.toggleNone = function() {
+      if(self.current_profile()) self.current_profile().items([]);
+    };
+
+    // Initialize
+    try { self.selectByIndex(0); }
+    catch(e) { /*No profiles*/ }
 
   };
 
-  self.selectProfile = function() {
-
-  }
-
-};
-
-vm = new ProfilesViewModel();
-
-jQuery(document).ready( function($) {
+  vm = new ProfilesViewModel();
 
   ko.bindingProvider.instance = new ko.secureBindingsProvider({});
   ko.applyBindings(vm, document.getElementById('profiles'));
-
-
-  // var templates = {
-  //   profile: '<li><a href="javascript:void(0);" class="profile" data-name="%s">%s</a></li>',
-  //   extension: '<label><input type="checkbox" class="extension" value="%s" /> <img src="%s" width="16px" height="16px" /> %s</label><br />'
-  // }
-
-  // // Get the smallest icon URL available for a given extension.
-  // var smallestIconUrl = function(icons) {
-  //   var smallest = _(icons).chain().pluck('size').min().value();
-  //   var icon = _(icons).find({size: smallest});
-  //   return (icon && icon.url) || '';
-  // };
-
-  // var profiles = JSON.parse(localStorage["profiles"] || "{}");
-
-  // var refresh = function() {
-  //   $("#profiles #list #items").empty();
-  //   _(profiles).each(function(item, idx) {
-  //     $("#profiles #list #items").append(
-  //       _(templates.profile).sprintf(idx, idx)
-  //     )
-  //   });
-
-  //   if(!_(profiles).keys().length) {
-  //     // TODO: default new profile
-  //   }
-  // };
-
-  // var save = function() {
-  //   var selected = _($('#profiles input.extension:checked')).pluck('value');
-  //   var n = $("#profiles input#name").val();
-  //   profiles[n] = selected;
-  //   localStorage['profiles'] = JSON.stringify(profiles);
-  //   refresh();
-  // }
-
-  // var edit = function(name) {
-  //   $("#profiles #edit").hide();
-  //   $("#profiles #list #items li").removeClass("active");
-  //   $("#profiles input#name").val(name);
-  //   $("#profiles input.extension").prop("checked", false);
-  //   _(profiles[name]).each(function(item) {
-  //     $("#profiles input.extension[value='" + item +"'").prop("checked", true);
-  //   });
-  //   $("#profiles #edit").slideDown('fast');
-  // }
-
-  // refresh();
-
-
-  // // var ProfilesViewModel = function() {
-
-  // // };
-
-
-  // // (new ProfilesViewModel).init()
-
-  // // Bindings
-  // $('#profiles #check-all').on('change', function(ev) {
-  //   ev.preventDefault();
-  //   $("#profiles input.extension").prop("checked", this.checked);
-  // });
-
-  // $('#profiles a.profile').on('click', function(ev) {
-  //   ev.preventDefault();
-  //   edit($(this).data("name"));
-  // })
-
-  // $('#profiles #save').on('click', function(ev) {
-  //   ev.preventDefault();
-  //   save();
-  // });
-
-  // $('.fa-close').on('click', function(ev) {
-  //   ev.preventDefault();
-  //   $(this).parent('p').slideUp();
-  // });
 
 });

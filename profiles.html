@@ -8,8 +8,7 @@
 <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
 <script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
 <script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
-<script type="text/javascript" src="js/config.js"></script>
-<script type="text/javascript" src="js/koengine.js"></script>
+<script type="text/javascript" src="js/ko-engine.js"></script>
 <script type="text/javascript" src="js/profiles.js"></script>
 </head>
 <body>
@@ -29,30 +28,43 @@
 
   <p class="info">
     <i class="fa fa-close right"></i>
-    <i class="fa fa-info"></i><strong> How Profiles Work:</strong> When activating a profile, <strong>selected extensions will be enabled, and all the rest will be disabled.</strong> You can create as many profiles as you want. If you want an extension to be always enabled, just include it in all profiles.
+    <i class="fa fa-info-circle"></i><strong> How Profiles Work:</strong> When activating a profile, <strong>selected extensions will be enabled, and all the rest will be disabled.</strong> You can create as many profiles as you want. If you want an extension to be always enabled, just include it in all profiles.
   </p>
 
   <fieldset id="profiles">
-    <div class="field" id="list">
-      <ul id="items" data-sbind="foreach: profiles.items">
-        <li class="profile-item"><a class="profile" data-sbind="text: name"></a> <i class="fa fa-trash"></i></li>
-      </ul>
-      <button id="save">Save</button>
+
+    <div class="sidebar">
+      <p><input type="text" id="name" placeholder="New Profile Name" data-sbind="value: add_name" /> <i class="fa fa-plus-circle" data-sbind="click: add"></i></p>
+      <p>
+        <ul class="items" data-sbind="foreach: profiles.items">
+          <li data-sbind="css:{active: name()==$parent.current_name()}">
+            <i class="fa fa-trash" data-sbind="click:$parent.remove"></i>
+            <a data-sbind="text: short_name, click: $parent.select"></a>
+          </li>
+        </ul>
+      </p>
+
+      <button id="save" data-sbind="click: save">Save</button>
       <a href="#" id="close">Close</a>
       <span id="save-result"></span>
     </div>
-    <div class="field right" id="edit">
-      <label id="header">
-      <input type="checkbox" id="check-all" alt="Toggle All" title="Toggle All" /></label>
-      <ul data-sbind="foreach: extensions.extensions">
+
+    <div class="extensions">
+      <p class="toggle">
+        <a href="#" data-sbind="click: toggleAll">All</a> |
+        <a href="#" data-sbind="click: toggleNone">None</a>
+      </p>
+      <ul data-sbind="foreach: ext.extensions">
         <li>
-          <label><input type="checkbox" data-sbind="value: id, checked: $root.current_profile.items" /> <img data-sbind="attr:{src: icon}" width="16px" height="16px" />
-          <span data-sbind="text: name"></span></label>
+          <label data-sbind="attr:{for:id},css:{disabled:!$parent.editable()}">
+            <input type="checkbox" data-sbind="value:id, attr:{id:id,name:id}, enable: $parent.editable, checked: $parent.current_items" />
+            <img data-sbind="attr:{src: icon}" width="16px" height="16px" />
+            <span data-sbind="text: short_name"></span>
+          </label>
         </li>
       </ul>
     </div>
-    <div class="field">
-    </div>
+
   </fieldset>
 </div>
 </body>

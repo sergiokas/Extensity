@@ -12,10 +12,14 @@ var ProfileModel = function(name, items) {
     return self.items().length > 0;
   });
 
+  self.short_name = ko.computed(function() {
+    return _.str.prune(self.name(),30);
+  })
+
   return this;
 };
 
-var ProfilesListModel = function() {
+var ProfileCollectionModel = function() {
   var self = this;
 
   self.items = ko.observableArray();
@@ -24,17 +28,34 @@ var ProfilesListModel = function() {
     return self.items().length > 0;
   });
 
+  self.add = function(name) {
+    return self.items.push(new ProfileModel(name,[]));
+  }
+
+  self.find = function(name) {
+    return _(self.items()).find(function(i) { return i.name() == name});
+  }
+
+  self.remove = function(profile) {
+    self.items.remove(profile);
+  }
+
+  self.exists = function(name) {
+    return !_(self.find(name)).isUndefined();
+  }
+
   self.save = function() {
     var r = {};
     var t = _(self.items()).each(function(i) {
       if (i.name()) {
-        r[i.name()] = i.items();
+        r[i.name()] = _(i.items()).uniq();
       }
     });
-    localStorage['profiles'] = r;
+    localStorage['profiles'] = JSON.stringify(r);
   };
 
   // Load from localStorage on init.
+  // console.log(localStorage["profiles"]);
   var p = JSON.parse(localStorage["profiles"] || "{}");
   _(p).each(function(i,idx) {
     if(idx) {
@@ -58,21 +79,27 @@ var ExtensionModel = function(e) {
   };
 
   self.id = ko.observable(item.id);
-  self.name = item.name;
+  self.name = ko.observable(item.name);
   self.type = item.type;
   self.isApp = item.isApp;
   self.icon = smallestIcon(item.icons);
   self.status = ko.observable(item.enabled);
-  // TODO: define some actions.
+
+  self.short_name = ko.computed(function() {
+    return _.str.prune(self.name(),40);
+  })
+
+  // TODO: define some actions
+
 };
 
-var ExtensionsListModel = function() {
+var ExtensionCollectionModel = function() {
   var self = this;
 
-  self.list = ko.observableArray();
+  self.items = ko.observableArray();
 
   var typeFilter = function(types) {
-    var all = self.list(); res = [];
+    var all = self.items(); res = [];
     for (var i = 0; i < all.length; i++) {
       if(_(types).includes(all[i].type)) { res.push(all[i]); }
     }
@@ -90,7 +117,7 @@ var ExtensionsListModel = function() {
   chrome.management.getAll(function(results) {
     _(results).chain().sortBy("name").each(function(i){
       if (i.name != "Extensity" && i.type != 'theme') {
-        self.list.push(new ExtensionModel(i));
+        self.items.push(new ExtensionModel(i));
       }
     });
   });
