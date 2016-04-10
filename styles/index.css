@@ -132,6 +132,13 @@ hr {
     border-bottom: 1px solid #aaa
 }
 
+.donate {
+    background-color: #fff;
+    color: #000;
+    text-shadow: none;
+    padding: 10px;
+}
+
 .footer {
     text-align: center;
     padding-top: 30px;
