@@ -13,7 +13,7 @@ a {
 	text-decoration: none;
 }
 
-section {
+section.main {
 	float: left;
 	clear: both;
 	min-width:280px;
@@ -67,6 +67,10 @@ section#header a.page, section#header a.switch {
 
 section#header .fa {
 	color: black;
+}
+
+section#header .fa-facebook-official {
+	color: #3b5998;
 }
 
 section#header .fa-twitter {

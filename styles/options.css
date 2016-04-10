@@ -10,6 +10,10 @@ body {
 	clear: both;
 }
 
+.blue {
+	color: #516C97;
+}
+
 img {
 	vertical-align: middle;
 }
@@ -22,7 +26,7 @@ h1 {
 }
 
 fieldset {
-	margin-top: 2em;
+	margin-top: .5em;
 	border: none;
 }
 
@@ -40,13 +44,14 @@ button {
 	cursor: pointer;
 	font-weight: bold;
 	font-size: 1em;
+	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
 	color: #ffffff;
 	background-color: #516C97;
 	border-color: #516C97;
 	border-width: 1px;
 	border-style: solid;
 	border-radius: 5px;
-	padding: 10px;
+	padding: 7px 10px;
 }
 
 button:hover {
@@ -67,7 +72,7 @@ a:hover {
 }
 
 #header #menu {
-	margin-left:15px;
+	margin-left:10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
@@ -92,12 +97,19 @@ a:hover {
 
 /* Options */
 fieldset#options .field {
-	margin-bottom: 1em;
+	margin: .8em 0em;
 }
 
 /* Profiles */
 #profiles fieldset {
-	max-width: 100%;
+	float: left;
+	min-width: 600px;
+	max-width: 70%;
+}
+
+.instructions {
+	float: right;
+	width: 30%;
 }
 
 #profiles .fa {
@@ -121,6 +133,7 @@ fieldset#options .field {
 #profiles .sidebar ul.items li {
 	cursor: pointer;
 	padding: 7px;
+	margin: 10px 0px;
 }
 
 #profiles .sidebar ul.items li.active {
@@ -151,26 +164,33 @@ fieldset#options .field {
 	margin-right: -10px;
 	padding: 10px;
 	background-color: #ddd;
-
 }
 
 #profiles input#name {
 	padding: 5px;
-	border-radius: 3px;
-	border: 1px solid #aaa;
+	border-radius: 5px 0px 0px 5px;
+	border: 1px solid #bbb;
+	border-right: 0px;
 	font-size: 1.05em;
 }
 
+#profiles button.add {
+	padding: 5px 8px;
+	border-radius: 0px 5px 5px 0px;
+}
+
 .info {
-	padding: 20px;
+	padding: 20px 20px;
 	background-color: #ddd;
 	border-radius: 10px;
+	line-height: 150%
 }
 
 .help {
-	padding: 20px;
+	padding: 20px 20px;
 	background-color: #FFD478;
 	border-radius: 10px;
+	line-height: 150%
 }
 
 .fa.right {

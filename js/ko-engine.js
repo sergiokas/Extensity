@@ -1,6 +1,56 @@
-var OptionsModel = function() {
+ko.extenders.pluckable = function(target, option) {
+  // Pluck an iterable by an observable field
+  target.pluck = ko.computed(function() {
+    return _(target()).map(function(i) { return i[option](); });
+  });
+};
+
+ko.extenders.toggleable = function(target, option) {
+  // Toggles for extension collections
+  target.toggle = function() {
+    _(target()).each(function(i) { i.toggle(); });
+  };
+  target.enable = function() {
+    _(target()).each(function(i) { i.enable(); });
+  };
+  target.disable = function() {
+    _(target()).each(function(i) { i.disable(); });
+  };
 
 };
+
+var OptionsCollection = function() {
+  var self = this;
+
+  // Get the right boolean value.
+  // Hack to override default string-only localStorage implementation
+  // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
+  var boolean = function(value) {
+    if (value === "true")
+      return true;
+    else if (value === "false")
+      return false;
+    else
+      return Boolean(value);
+  };
+
+  // Boolean value from localStorage with a default
+  var b = function(idx, def) {
+    return boolean(localStorage[idx] || def);
+  };
+
+  self.showHeader = ko.observable( b('showHeader' , true) );
+  self.groupApps  = ko.observable( b('groupApps'  , true) );
+  self.appsFirst  = ko.observable( b('appsFirst'  , false) );
+
+  self.save = function() {
+    localStorage['showHeader'] = self.showHeader();
+    localStorage['groupApps'] = self.groupApps();
+    localStorage['appsFirst'] = self.appsFirst();
+  };
+
+};
+
 
 var ProfileModel = function(name, items) {
   var self = this;
@@ -14,7 +64,7 @@ var ProfileModel = function(name, items) {
 
   self.short_name = ko.computed(function() {
     return _.str.prune(self.name(),30);
-  })
+  });
 
   return this;
 };
@@ -24,7 +74,7 @@ var ProfileCollectionModel = function() {
 
   self.items = ko.observableArray();
 
-  self.hasProfiles = ko.computed(function() {
+  self.any = ko.computed(function() {
     return self.items().length > 0;
   });
 
@@ -81,15 +131,33 @@ var ExtensionModel = function(e) {
   self.id = ko.observable(item.id);
   self.name = ko.observable(item.name);
   self.type = item.type;
-  self.isApp = item.isApp;
+  self.isApp = ko.observable(item.isApp);
   self.icon = smallestIcon(item.icons);
   self.status = ko.observable(item.enabled);
+
+  self.disabled = ko.pureComputed(function() {
+    return !self.status();
+  });
 
   self.short_name = ko.computed(function() {
     return _.str.prune(self.name(),40);
   })
 
-  // TODO: define some actions
+  self.toggle = function() {
+    self.status(!self.status());
+  };
+
+  self.enable = function() {
+    self.status(true);
+  };
+
+  self.disable = function() {
+    self.status(false);
+  }
+
+  self.status.subscribe(function(value) {
+    chrome.management.setEnabled(self.id(), value);
+  });
 
 };
 
@@ -106,20 +174,38 @@ var ExtensionCollectionModel = function() {
     return res;
   };
 
-  self.extensions = ko.pureComputed(function() {
+  self.extensions = ko.computed(function() {
     return typeFilter(['extension']);
-  }, self);
+  }).extend({pluckable: 'id', toggleable: null});
 
-  self.apps = ko.pureComputed(function() {
+  self.apps = ko.computed(function() {
     return typeFilter(["hosted_app", "packaged_app", "legacy_packaged_app"]);
-  }, self);
+  }).extend({pluckable: 'id', toggleable: null});
 
+  // Enabled extensions
+  self.enabled = ko.pureComputed(function() {
+    return _(self.extensions()).filter( function(i) { return i.status(); });
+  }).extend({pluckable: 'id', toggleable: null});
+
+  // Disabled extensions
+  self.disabled = ko.pureComputed(function() {
+    return _(self.extensions()).filter( function(i) { return !i.status(); });
+  }).extend({pluckable: 'id', toggleable: null});
+
+  // Find a single extension model by ud
+  self.find = function(id) {
+    return _(self.items()).find(function(i) { return i.id()==id });
+  };
+
+  // Initialize
   chrome.management.getAll(function(results) {
-    _(results).chain().sortBy("name").each(function(i){
-      if (i.name != "Extensity" && i.type != 'theme') {
-        self.items.push(new ExtensionModel(i));
-      }
-    });
+    _(results).chain()
+      .sortBy(function(i) { return i.name.toUpperCase(); })
+      .each(function(i){
+        if (i.name != "Extensity" && i.type != 'theme') {
+          self.items.push(new ExtensionModel(i));
+        }
+      });
   });
 
 };

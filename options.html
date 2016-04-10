@@ -2,9 +2,12 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="styles/options.css" />
+<link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
 <script type="text/javascript" src="js/libs/jquery.min.js"></script>
 <script type="text/javascript" src="js/libs/underscore-min.js"></script>
-<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
+<script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
+<script type="text/javascript" src="js/ko-engine.js"></script>
 <script type="text/javascript" src="js/options.js"></script>
 </head>
 <body>
@@ -16,28 +19,37 @@
 	</div>
 </div>
 <div id="content">
+  <div class="instructions">
+    <p class="help">
+      <!-- <i class="fa fa-close right"></i> -->
+      <i class="fa fa-warning"></i> <strong><a href="#">Support Extensity!</a></strong><br/><br/>If you like Extensity and its new Profiles features, <a href="#">please consider helping out with its development <i class="fa fa-arrow-circle-right"></i></a>
+    </p>
+
+    <div class="clear"></div>
+  </div>
+
 	<fieldset id="options">
 		<div class="field">
-			<input type="checkbox" name="showHeader" id="showHeader" />
+			<input type="checkbox" name="showHeader" id="showHeader" data-sbind="checked: options.showHeader" />
 			<label for="showHeader">
 				Show header at the top
 			</label>
 		</div>
 		<div class="field">
-			<input type="checkbox" name="groupApps" id="groupApps" />
+			<input type="checkbox" name="groupApps" id="groupApps" data-sbind="checked: options.groupApps" />
 			<label for="groupApps">
 				Group Apps and Extensions
 			</label>
 		</div>
 		<div class="field">
-			<input type="checkbox" name="appsFirst" id="appsFirst" />
+			<input type="checkbox" name="appsFirst" id="appsFirst" data-sbind="checked: options.appsFirst"/>
 			<label for="appsFirst">
 				Show Apps First
 			</label>
 		</div>
 		<div class="field">
-			<button id="save">Save</button>
-			<a href="#" id="close">Close</a>
+			<button id="save" data-sbind="click: save">Save</button>&nbsp;
+			<a href="#" id="close" data-sbind="click: close">Close</a>
 			<span id="save-result"></span>
 		</div>
 	</fieldset>

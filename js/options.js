@@ -1,57 +1,20 @@
 jQuery(document).ready(function($) {
-  // Configuration page selectors
-  this.selectors = {
-    save    : 'button#save',
-    result  : 'span#save-result',
-    close   : 'a#close'
-  };
 
-  // Start the configuration page
-  this.start = function() {
+  var OptionsViewModel = function() {
     var self = this;
+    self.options = new OptionsCollection();
 
-    self.options = new ExtensityConfiguration();
-    self.restore();
+    self.save = function() {
+      self.options.save();
+      $('#save-result').text('| Saved!').show().delay(2000).fadeOut('slow');
+    };
 
-    // Capture events
-    $(self.selectors.save).on('click', function(ev) {
-      self.save();
-    });
-
-    $(self.selectors.close).on('click', function(ev) {
-      self.close();
-    });
+    self.close = function() { window.close(); }
   };
 
-  // Restore configuration from the settings
-  this.restore = function() {
-    var self = this;
-    $(self.options.settings).each(function(i, item) {
-      $('input#' + item).attr('checked', Boolean(self.options[item]));
-    });
+  vm = new OptionsViewModel();
 
-  };
+  ko.bindingProvider.instance = new ko.secureBindingsProvider({});
+  ko.applyBindings(vm, document.getElementById('options'));
 
-  // Collect configuration options from the UI
-  this.collect = function() {
-    var self = this;
-    $(self.options.settings).each(function(i, item) {
-      self.options[item] = Boolean($('input#' + item + ':checked').length>0);
-    });
-  };
-
-  //Close the configuration window
-  this.save = function() {
-    var self = this;
-    self.collect();
-    self.options.save();
-    $(self.selectors.result).text('| Saved!').show().delay(1000).fadeOut('slow');
-  };
-
-  // Close the configuration window
-  this.close = function() {
-    window.close();
-  };
-
-  this.start();
 });

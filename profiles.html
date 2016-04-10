@@ -21,31 +21,41 @@
 </div>
 <div id="content">
 
-  <p class="help">
-    <i class="fa fa-close right"></i>
-    <i class="fa fa-warning"></i> <strong>Help Extensity!</strong> If you like Extensity and its new Profiles features, please consider <a href="#">helping out with its development and support <i class="fa fa-arrow-circle-right"></i></a>
-  </p>
+  <div class="instructions">
+    <p class="help">
+      <!-- <i class="fa fa-close right"></i> -->
+      <i class="fa fa-warning"></i> <strong><a href="#">Support Extensity!</a></strong><br/><br/>If you like Extensity and its new Profiles features, <a href="#">please consider helping out with its development <i class="fa fa-arrow-circle-right"></i></a>
+    </p>
 
-  <p class="info">
-    <i class="fa fa-close right"></i>
-    <i class="fa fa-info-circle"></i><strong> How Profiles Work:</strong> When activating a profile, <strong>selected extensions will be enabled, and all the rest will be disabled.</strong> You can create as many profiles as you want. If you want an extension to be always enabled, just include it in all profiles.
-  </p>
+    <p class="info">
+      <!-- <i class="fa fa-close right"></i> -->
+      <i class="fa fa-info-circle"></i><strong> How Profiles Work:</strong>
+      <br/><br/>When activating a profile, <strong>selected extensions will be enabled, and all the rest will be disabled.</strong>
+      <br/><br/>You can create as many profiles as you want.
+      <br/><br/>If you want an extension to be always enabled, just include it in all profiles.
+    </p>
+    <div class="clear"></div>
+  </div>
 
   <fieldset id="profiles">
 
     <div class="sidebar">
-      <p><input type="text" id="name" placeholder="New Profile Name" data-sbind="value: add_name" /> <i class="fa fa-plus-circle" data-sbind="click: add"></i></p>
+      <p>
+        <form data-sbind="submit: add">
+          <input type="text" id="name" placeholder="New Profile Name" data-sbind="value: add_name" /><button class="add" data-sbind="click: add"><i class="fa fa-plus-circle"></i></button>
+        </form>
+      </p>
       <p>
         <ul class="items" data-sbind="foreach: profiles.items">
           <li data-sbind="css:{active: name()==$parent.current_name()}">
-            <i class="fa fa-trash" data-sbind="click:$parent.remove"></i>
+            <i class="fa fa-trash" data-sbind="click:$parent.remove"></i>&nbsp;
             <a data-sbind="text: short_name, click: $parent.select"></a>
           </li>
         </ul>
       </p>
 
-      <button id="save" data-sbind="click: save">Save</button>
-      <a href="#" id="close">Close</a>
+      <button id="save" data-sbind="click: save">Save</button>&nbsp;
+      <a href="#" id="close" data-sbind="click: close">Close</a>
       <span id="save-result"></span>
     </div>
 

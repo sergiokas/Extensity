@@ -30,14 +30,16 @@ jQuery(document).ready( function($) {
 
     self.add = function() {
       var n = self.add_name();
-      var p = self.profiles.find(n);
-      if(_(p).isUndefined()) {
-        self.selectByIndex( self.profiles.add(n) - 1 );
+      if(n) {
+        var p = self.profiles.find(n);
+        if(_(p).isUndefined()) {
+          self.selectByIndex( self.profiles.add(n) - 1 );
+        }
+        else {
+          self.current_profile(p);
+        }
+        self.add_name("");
       }
-      else {
-        self.current_profile(p);
-      }
-      self.add_name("");
     };
 
     self.remove = function(profile) {
@@ -48,7 +50,10 @@ jQuery(document).ready( function($) {
 
     self.save = function() {
       self.profiles.save();
+      $('#save-result').text('| Saved!').show().delay(2000).fadeOut('slow');
     };
+
+    self.close = function() { window.close(); }
 
     self.toggleAll = function() {
       var exts = _(self.ext.extensions()).map(function(i) { return i.id(); });
