@@ -51,7 +51,6 @@ var OptionsCollection = function() {
 
 };
 
-
 var ProfileModel = function(name, items) {
   var self = this;
 
@@ -78,8 +77,8 @@ var ProfileCollectionModel = function() {
     return self.items().length > 0;
   });
 
-  self.add = function(name) {
-    return self.items.push(new ProfileModel(name,[]));
+  self.add = function(name,items=[]) {
+    return self.items.push(new ProfileModel(name,items));
   }
 
   self.find = function(name) {
@@ -131,6 +130,7 @@ var ExtensionModel = function(e) {
   self.id = ko.observable(item.id);
   self.name = ko.observable(item.name);
   self.type = item.type;
+  self.mayDisable = item.mayDisable;
   self.isApp = ko.observable(item.isApp);
   self.icon = smallestIcon(item.icons);
   self.status = ko.observable(item.enabled);
@@ -175,7 +175,7 @@ var ExtensionCollectionModel = function() {
   };
 
   self.extensions = ko.computed(function() {
-    return typeFilter(['extension']);
+    return _(typeFilter(['extension'])).filter(function(i) { return i.mayDisable });
   }).extend({pluckable: 'id', toggleable: null});
 
   self.apps = ko.computed(function() {

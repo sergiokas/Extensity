@@ -33,7 +33,10 @@ jQuery(document).ready( function($) {
       if(n) {
         var p = self.profiles.find(n);
         if(_(p).isUndefined()) {
-          self.selectByIndex( self.profiles.add(n) - 1 );
+          self.selectByIndex(
+            // Add, by default, currently enabled extensions.
+            self.profiles.add(n,self.ext.enabled.pluck()) - 1 
+          );
         }
         else {
           self.current_profile(p);
