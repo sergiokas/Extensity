@@ -47,8 +47,10 @@ jQuery(document).ready( function($) {
 
     self.remove = function(profile) {
       var c = (profile == self.current_profile());
-      self.profiles.remove(profile);
-      if(c) self.selectByIndex(0); // Select first one if removing the current.
+      if(confirm("Are you sure you want to remove this profile?")) {
+        self.profiles.remove(profile);
+        if(c) self.selectByIndex(0); // Select first one if removing the current.
+      }
     };
 
     self.save = function() {
