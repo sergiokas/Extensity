@@ -10,6 +10,8 @@ get rid of it for a little while. You can also launch Chrome Apps right from the
 * Keep your browser fast - disable extensions that you won't use right away.
 * Keep your toolbar clean
 * Ideal companion for extensions collectors.
+* Turn all extensions off (and back on) with a single click.
+* Quick switch between several extensions groups using the Profiles feature.
 
 Extensity is open source software. Full source code at GitHub https://github.com/sergiokas/Extensity
 
@@ -21,8 +23,14 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
-v1.1.11(Jun 2015)
-- New Feature: turn all enabled extensions off, then turn them back on.
+v1.2.0 (Apr 2016)
+- **New Feature**: Profiles! Our top-most requested feature is here. Quick switch between groups of extensions with a single click.
+- Major overhaul of the engine
+- New retina icons
+- Minor style changes
+
+v1.1.11 (Jun 2015)
+- **New Feature**: turn all enabled extensions off, then turn them back on.
 - Style changes
 - New icons
 
