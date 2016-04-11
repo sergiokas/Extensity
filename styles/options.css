@@ -6,6 +6,12 @@ body {
 	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
 }
 
+hr {
+	border: 0px;
+	background-color: #ddd;
+	height: 1px;
+}
+
 .clear {
 	clear: both;
 }
@@ -133,6 +139,10 @@ fieldset#options .field {
 
 #profiles .fa {
 	cursor: pointer;
+}
+
+#profiles .fa-trash {
+	zoom: 110%;
 }
 
 #profiles .sidebar {

@@ -54,21 +54,22 @@
           </li>
         </ul>
       </p>
-
+      <hr />
+      <p><small><em>Note: no changes will be applied until you click on the "Save" button.</em></small></p>
       <button id="save" data-sbind="click: save">Save</button>&nbsp;
       <a href="#" id="close" data-sbind="click: close">Close</a>
       <span id="save-result"></span>
     </div>
 
-    <div class="extensions">
+    <div class="extensions" data-sbind="if: editable">
       <p class="toggle">
         <a href="#" data-sbind="click: toggleAll">All</a> |
         <a href="#" data-sbind="click: toggleNone">None</a>
       </p>
       <ul data-sbind="foreach: ext.extensions">
         <li>
-          <label data-sbind="attr:{for:id},css:{disabled:!$parent.editable()}">
-            <input type="checkbox" data-sbind="value:id, attr:{id:id,name:id}, enable: $parent.editable, checked: $parent.current_items" />
+          <label data-sbind="attr:{for:id}">
+            <input type="checkbox" data-sbind="value: id, attr:{id: id, name:id}, checked: $parent.current_profile().items" />
             <img data-sbind="attr:{src: icon}" width="16px" height="16px" />
             <span data-sbind="text: short_name"></span>
           </label>

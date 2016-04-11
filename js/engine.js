@@ -105,10 +105,9 @@ var ProfileCollectionModel = function() {
 
   // Load from localStorage on init.
   var p = JSON.parse(localStorage["profiles"] || "{}");
-  _(p).each(function(i,idx) {
-    if(idx) {
-      self.items.push(new ProfileModel(idx, i));
-    }
+  var k = _(p).chain().keys().sortBy().value();
+  _(k).each(function(name) {
+    self.items.push(new ProfileModel(name, p[name]));
   });
 
   return this;

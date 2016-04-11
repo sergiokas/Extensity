@@ -5,15 +5,11 @@ jQuery(document).ready( function($) {
 
     self.ext = new ExtensionCollectionModel();
     self.profiles = new ProfileCollectionModel();
-
     self.current_profile = ko.observable();
     self.add_name = ko.observable("");
 
     self.current_name = ko.pureComputed(function() {
       return (self.current_profile()) ? self.current_profile().name() : null;
-    });
-    self.current_items = ko.pureComputed(function() {
-      return (self.current_profile()) ? self.current_profile().items() : [];
     });
 
     self.editable = ko.computed(function() {
@@ -30,13 +26,13 @@ jQuery(document).ready( function($) {
 
     self.add = function() {
       var n = self.add_name();
+      var enabled = self.ext.enabled.pluck();
       if(n) {
         var p = self.profiles.find(n);
-        if(_(p).isUndefined()) {
-          self.selectByIndex(
-            // Add, by default, currently enabled extensions.
-            self.profiles.add(n,self.ext.enabled.pluck()) - 1 
-          );
+        if(!p) {
+          // Warning! slice or the array reference will mix up between all instances.
+          self.profiles.add(n,enabled.slice());
+          self.selectByIndex(self.profiles.items().length-1);
         }
         else {
           self.current_profile(p);
