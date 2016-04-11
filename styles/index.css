@@ -81,6 +81,10 @@ section#header .fa-star {
 	color: #FF9300;
 }
 
+section#header .fa-users {
+	zoom: 95%;
+}
+
 section#header .fa-lightbulb-o {
 	margin-right: 3px;
 }

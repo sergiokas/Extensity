@@ -8,27 +8,27 @@
 <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
 <script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
 <script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
-<script type="text/javascript" src="js/ko-engine.js"></script>
+<script type="text/javascript" src="js/engine.js"></script>
 <script type="text/javascript" src="js/profiles.js"></script>
 </head>
 <body>
-<div id="header">
-  <h1><img src="images/icon48.png" /> Extensity Profiles</h1>
-  <div id="menu">
-    <a href="/options.html">Options</a>
-    <a href="/profiles.html" class="selected">Profiles</a>
+<section id="header">
+  <div class="tabs">
+    <h1><img src="images/icon48.png" /> Extensity Options</h1>
+    <div id="menu">
+      <a href="/options.html">Options</a>
+      <a href="/profiles.html" class="selected">Profiles</a>
+    </div>
   </div>
-</div>
+  <div class="help">
+    <!-- <i class="fa fa-close right"></i> -->
+    <i class="fa fa-warning"></i> <strong><a href="#">Support Extensity!</a></strong><br/><br/>If you like Extensity and its new Profiles features, <a href="#">please consider helping out with its development <i class="fa fa-arrow-circle-right"></i></a>
+  </div>
+</section>
+<div class="clear">
 <div id="content">
-
   <div class="instructions">
-    <p class="help">
-      <!-- <i class="fa fa-close right"></i> -->
-      <i class="fa fa-warning"></i> <strong><a href="#">Support Extensity!</a></strong><br/><br/>If you like Extensity and its new Profiles features, <a href="#">please consider helping out with its development <i class="fa fa-arrow-circle-right"></i></a>
-    </p>
-
     <p class="info">
-      <!-- <i class="fa fa-close right"></i> -->
       <i class="fa fa-info-circle"></i><strong> How Profiles Work:</strong>
       <br/><br/>When activating a profile, <strong>selected extensions will be enabled, and all the rest will be disabled.</strong>
       <br/><br/>You can create as many profiles as you want. Try to put descriptive names such as "Browsing", "Shopping", "Work", etc.

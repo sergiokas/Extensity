@@ -1,313 +1,210 @@
-Extensity = function() {
-	// Extension name
-	this.name = 'Extensity';
-	// Exclude certain types from the list
-	this.exclude_types = ['theme'];
-
-	// Cache for extensions
-	this.cache = {
-		extensions: [],
-		toggled: (localStorage['toggled'] || "").split(",").filter(function(e){return e;}),
-		options: new ExtensityConfiguration()
-	};
+ko.extenders.pluckable = function(target, option) {
+  // Pluck an iterable by an observable field
+  target.pluck = ko.computed(function() {
+    return _(target()).map(function(i) { return i[option](); });
+  });
 };
 
-// jQuery selectors
-Extensity.prototype.selectors = {
-	header:	'#header',
-	list: '#content'
+ko.extenders.toggleable = function(target, option) {
+  // Toggles for extension collections
+  target.toggle = function() {
+    _(target()).each(function(i) { i.toggle(); });
+  };
+  target.enable = function() {
+    _(target()).each(function(i) { i.enable(); });
+  };
+  target.disable = function() {
+    _(target()).each(function(i) { i.disable(); });
+  };
+
 };
 
-// New templates. Replaced to avoid code generation from strings in new Chrome extensions.
-Extensity.prototype.templates = {
-	// Parameters are: section name
-	section: '<h1>%s</h1><ul></ul>',
-	// Parameters are: statusClass, item id, icon, item name
-	extensionItem: '<li class="%s" id="%s"><img src="%s" width="16px" height="16px" /> %s</li>',
-	appItem: '<li class="%s" id="%s"><img src="%s" width="16px" height="16px" /> %s</li>'
+var OptionsCollection = function() {
+  var self = this;
+
+  // Get the right boolean value.
+  // Hack to override default string-only localStorage implementation
+  // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
+  var boolean = function(value) {
+    if (value === "true")
+      return true;
+    else if (value === "false")
+      return false;
+    else
+      return Boolean(value);
+  };
+
+  // Boolean value from localStorage with a default
+  var b = function(idx, def) {
+    return boolean(localStorage[idx] || def);
+  };
+
+  self.showHeader = ko.observable( b('showHeader' , true) );
+  self.groupApps  = ko.observable( b('groupApps'  , true) );
+  self.appsFirst  = ko.observable( b('appsFirst'  , false) );
+
+  self.save = function() {
+    localStorage['showHeader'] = self.showHeader();
+    localStorage['groupApps'] = self.groupApps();
+    localStorage['appsFirst'] = self.appsFirst();
+  };
+
+};
+
+var ProfileModel = function(name, items) {
+  var self = this;
+
+  self.name = ko.observable(name);
+  self.items = ko.observableArray(items);
+
+  self.hasItems = ko.computed(function() {
+    return self.items().length > 0;
+  });
+
+  self.short_name = ko.computed(function() {
+    return _.str.prune(self.name(),30);
+  });
+
+  return this;
+};
+
+var ProfileCollectionModel = function() {
+  var self = this;
+
+  self.items = ko.observableArray();
+
+  self.any = ko.computed(function() {
+    return self.items().length > 0;
+  });
+
+  self.add = function(name,items=[]) {
+    return self.items.push(new ProfileModel(name,items));
+  }
+
+  self.find = function(name) {
+    return _(self.items()).find(function(i) { return i.name() == name});
+  }
+
+  self.remove = function(profile) {
+    self.items.remove(profile);
+  }
+
+  self.exists = function(name) {
+    return !_(self.find(name)).isUndefined();
+  }
+
+  self.save = function() {
+    var r = {};
+    var t = _(self.items()).each(function(i) {
+      if (i.name()) {
+        r[i.name()] = _(i.items()).uniq();
+      }
+    });
+    localStorage['profiles'] = JSON.stringify(r);
+  };
+
+  // Load from localStorage on init.
+  var p = JSON.parse(localStorage["profiles"] || "{}");
+  _(p).each(function(i,idx) {
+    if(idx) {
+      self.items.push(new ProfileModel(idx, i));
+    }
+  });
+
+  return this;
 }
 
-// CSS classes
-Extensity.prototype.classes = {
-	enabled: '',
-	disabled: 'disabled'
+var ExtensionModel = function(e) {
+  var self = this;
+
+  var item = e;
+
+  // Get the smallest available icon.
+  var smallestIcon = function(icons) {
+    var smallest = _(icons).chain().pluck('size').min().value();
+    var icon = _(icons).find({size: smallest});
+    return (icon && icon.url) || '';
+  };
+
+  self.id = ko.observable(item.id);
+  self.name = ko.observable(item.name);
+  self.type = item.type;
+  self.mayDisable = item.mayDisable;
+  self.isApp = ko.observable(item.isApp);
+  self.icon = smallestIcon(item.icons);
+  self.status = ko.observable(item.enabled);
+
+  self.disabled = ko.pureComputed(function() {
+    return !self.status();
+  });
+
+  self.short_name = ko.computed(function() {
+    return _.str.prune(self.name(),40);
+  })
+
+  self.toggle = function() {
+    self.status(!self.status());
+  };
+
+  self.enable = function() {
+    self.status(true);
+  };
+
+  self.disable = function() {
+    self.status(false);
+  }
+
+  self.status.subscribe(function(value) {
+    chrome.management.setEnabled(self.id(), value);
+  });
+
 };
 
-Extensity.prototype.start = function() {
-	var self = this;
+var ExtensionCollectionModel = function() {
+  var self = this;
 
-	if(!self.cache.options.showHeader) {
-		$(self.selectors.header).hide();
-	}
+  self.items = ko.observableArray();
 
-	self.captureHeaderEvents();
-	self.reload(function() {
-		self.refreshList();
-	});
-};
+  var typeFilter = function(types) {
+    var all = self.items(); res = [];
+    for (var i = 0; i < all.length; i++) {
+      if(_(types).includes(all[i].type)) { res.push(all[i]); }
+    }
+    return res;
+  };
 
-// Reload the extensions list
-Extensity.prototype.reload = function(callback) {
-	var self = this;
-	chrome.management.getAll(function(results) {
-		self.cache.extensions = results;
+  self.extensions = ko.computed(function() {
+    return _(typeFilter(['extension'])).filter(function(i) { return i.mayDisable });
+  }).extend({pluckable: 'id', toggleable: null});
 
-		// Sort the extensions list
-		self.cache.extensions.sort(function(a,b) {
-			if(self.cache.options.groupApps && self.cache.options.appsFirst)
-				return self.sortExtensionsCacheGroupAppsFirst(a, b);
-			else if(self.cache.options.groupApps)
-				return self.sortExtensionsCacheGroup(a, b);
-			else
-				return self.sortExtensionsCacheAlpha(a, b);
-		});
+  self.apps = ko.computed(function() {
+    return typeFilter(["hosted_app", "packaged_app", "legacy_packaged_app"]);
+  }).extend({pluckable: 'id', toggleable: null});
 
-		// Run the callback if available
-		if(typeof(callback) === 'function') {
-			callback();
-		}
-	});
+  // Enabled extensions
+  self.enabled = ko.pureComputed(function() {
+    return _(self.extensions()).filter( function(i) { return i.status(); });
+  }).extend({pluckable: 'id', toggleable: null});
 
-};
+  // Disabled extensions
+  self.disabled = ko.pureComputed(function() {
+    return _(self.extensions()).filter( function(i) { return !i.status(); });
+  }).extend({pluckable: 'id', toggleable: null});
 
-// Refresh extensions list
-Extensity.prototype.refreshList = function() {
-	var self = this;
-	var currentSection = null;
-	var hasMultipleExtensionTypes = self.hasMultipleExtensionTypes();
-	var list = $(self.selectors.list);
-	// Clean content first
-	list.html('');
+  // Find a single extension model by ud
+  self.find = function(id) {
+    return _(self.items()).find(function(i) { return i.id()==id });
+  };
 
-	if(!self.cache.options.groupApps) {
-		list.append("<ul></ul>")
-	}
+  // Initialize
+  chrome.management.getAll(function(results) {
+    _(results).chain()
+      .sortBy(function(i) { return i.name.toUpperCase(); })
+      .each(function(i){
+        if (i.name != "Extensity" && i.type != 'theme') {
+          self.items.push(new ExtensionModel(i));
+        }
+      });
+  });
 
-	// Append extensions
-	$(self.cache.extensions).each(function(i,item) {
-		// Make sure we don't include ourselves in the list (trying to disable will hang up Chrome)
-		if(!self.shouldExcludeFromList(item))
-		{
-			// Add list section if required
-			if(hasMultipleExtensionTypes && self.cache.options.groupApps && currentSection != self.getListSectionName(item)) {
-				list.append(self.addListSection(item));
-				currentSection = self.getListSectionName(item);
-			}
-			// Add the item
-			list.find("ul:last-child").append(self.addListItem(item));
-		}
-	});
-
-	self.captureEvents();
-};
-
-// Update CSS for a single list item
-Extensity.prototype.updateListItem = function(id, status) {
-	var self = this;
-	$("#content li#"+id).toggleClass(self.classes.disabled, status);
-};
-
-
-// Exclude certain items from the list
-Extensity.prototype.shouldExcludeFromList = function(item) {
-	var self = this;
-	// Filter out ourselves
-	// Filter out themes
-	return (item.name == self.name) || (item.type && self.exclude_types.indexOf(item.type)>=0);
-};
-
-// Add an item to the list
-Extensity.prototype.addListItem = function(item) {
-	var self = this;
-	return _((item.isApp)?self.templates.extensionItem:self.templates.appItem).sprintf(
-		(item.enabled) ? self.classes.enabled : self.classes.disabled, // Status class
-		item.id,
-		self.getSmallestIconUrl(item.icons),
-		_(item.name).prune(35)
-	)
-};
-
-//Add an section header to the list
-Extensity.prototype.addListSection = function(item) {
-	var self = this;
-	return _(self.templates.section).sprintf(self.getListSectionName(item));
-};
-
-
-// Get section name
-Extensity.prototype.getListSectionName = function (item) {
-	return (item.isApp) ? 'Apps' : 'Extensions';
-};
-
-Extensity.prototype.captureHeaderEvents = function() {
-	var self = this;
-	var actions = $(self.selectors.header).find('a.page');
-	var switches = $(self.selectors.header).find('a.switch');
-	actions.off();
-	switches.off();
-	// Required because we'll need to load local resources (chrome://extensions)
-	actions.on('click', function(ev, a) {
-		ev.preventDefault();
-		self.openPageTab(this.href);
-	});
-	switches.on('click', function(ev, a) {
-		ev.preventDefault();
-		self[this.id]();
-	})
-};
-
-Extensity.prototype.setHeaderStatuses = function() {
-	var self = this;
-	// Lightbulb state in the header
-	$(self.selectors.header).find('#toggleOff.switch').toggleClass(
-		'off', Boolean(self.cache.toggled.length>0)
-	);
-};
-
-
-//Refresh extensions list
-Extensity.prototype.captureEvents = function() {
-	var self = this;
-
-	// $("#content li, #content li img").off();
-	$("#content li").on('click', function(ev) {
-		ev.preventDefault();
-		self.triggerExtension(ev.target.id);
-	});
-
-	$("#content li img").on('click', function(ev) {
-		ev.preventDefault();
-		$(this).parent().click();
-	});
-
-	self.setHeaderStatuses();
-};
-
-// Open a new tab
-Extensity.prototype.openPageTab = function (page) {
-	var self = this;
-	chrome.tabs.create({url: page});
-	self.hide();
-};
-
-// Hide the extension
-Extensity.prototype.hide= function () {
-	window.close();
-};
-
-// Sort Extensions by Group
-Extensity.prototype.sortExtensionsCacheGroup = function (a, b) {
-	var self = this;
-	if(a.isApp && !b.isApp)
-		return 1;
-	else if (b.isApp && !a.isApp)
-		return -1;
-	else
-		return self.sortExtensionsCacheAlpha(a, b);
-};
-
-// Sort Extensions by group, showing apps first
-Extensity.prototype.sortExtensionsCacheGroupAppsFirst = function (a, b) {
-	var self = this;
-	if(a.isApp && !b.isApp)
-		return -1;
-	else if (b.isApp && !a.isApp)
-		return 1;
-	else
-		return self.sortExtensionsCacheAlpha(a, b);
-};
-
-
-// Sort Extensions Alphabetically
-Extensity.prototype.sortExtensionsCacheAlpha = function (a, b) {
-	if (a.name.toLowerCase() < b.name.toLowerCase())
-		return -1;
-	else if (a.name.toLowerCase() > b.name.toLowerCase())
-		return 1;
-	else
-		return 0;
-};
-
-// Get the smallest icon URL available for a given extension.
-Extensity.prototype.getSmallestIconUrl = function(icons) {
-	var smallest = _(icons).chain().pluck('size').min().value();
-	var icon = _(icons).find({size: smallest});
-	return (icon && icon.url) || '';
-};
-
-// Has more than one kind of app / extension
-Extensity.prototype.hasMultipleExtensionTypes = function() {
-	var self = this;
-	return _(self.cache.extensions).chain()
-					.pluck('isApp').unique()
-					.value().length>1;
-};
-
-// Get extension by id, from the cache.
-Extensity.prototype.getExtension = function (id) {
-	var self = this;
-	return _(self.cache.extensions).find({id: id});
-};
-
-// Get a list of all turned on (or off) extensions
-Extensity.prototype.getEnabledExtensions = function (enabled) {
-	var self = this;
-	return _(self.cache.extensions).filter(function(e){
-		return e.type == 'extension' && e.enabled == enabled && !self.shouldExcludeFromList(e);
-	});
-};
-
-// Toggle Extension status
-Extensity.prototype.triggerExtension = function (id) {
-	var self = this;
-	var extension = self.getExtension(id);
-	// Make sure we found the extension.
-	if(extension) {
-		if(!extension.isApp && extension.mayDisable) {
-			self.toggleExtension(id, !extension.enabled);
-		}
-		else if (extension.isApp) {
-			self.launchApp(id);
-		}
-	}
-};
-
-// Set the enabled/disabled status of an extension
-Extensity.prototype.toggleExtension = function (id, status) {
-	var self = this;
-	chrome.management.setEnabled(id, status, function() {
-		// Reload required to refresh the extension cache.
-		self.reload(function() {
-			// Do not re-draw the entire interface
-			self.updateListItem(id, !status);
-		});
-	});
-};
-
-// Toggle all extensions off, or back on.
-Extensity.prototype.toggleOff = function() {
-	var self = this;
-	if(self.cache.toggled.length>0) {
-		// Re-enable all disabled extensions, then clear the list.
-		_(self.cache.toggled).each(function(i,idx) {
-			if(self.getExtension(i)) { // Make sure extension is still there after a while.
-				self.toggleExtension(i, true);
-			}
-		});
-		localStorage["toggled"] = self.cache.toggled = [];
-	}
-	else {
-		// Store all enabled extensions, then disable all of them.
-		localStorage["toggled"] = self.cache.toggled = _(self.getEnabledExtensions(true)).pluck("id");
-		_(self.cache.toggled).each(function(i,idx) { self.toggleExtension(i, false); });
-	}
-	self.setHeaderStatuses();
-};
-
-// Launch an app
-Extensity.prototype.launchApp = function (id) {
-	var self = this;
-	chrome.management.launchApp(id);
-	// Remove the popup after launching.
-	self.hide();
 };

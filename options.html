@@ -7,27 +7,25 @@
 <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 <script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
 <script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
-<script type="text/javascript" src="js/ko-engine.js"></script>
+<script type="text/javascript" src="js/engine.js"></script>
 <script type="text/javascript" src="js/options.js"></script>
 </head>
 <body>
-<div id="header">
-	<h1><img src="images/icon48.png" /> Extensity Options</h1>
-	<div id="menu">
-  	<a href="/options.html"  class="selected">Options</a>
-  	<a href="/profiles.html">Profiles</a>
-	</div>
-</div>
-<div id="content">
-  <div class="instructions">
-    <p class="help">
-      <!-- <i class="fa fa-close right"></i> -->
-      <i class="fa fa-warning"></i> <strong><a href="#">Support Extensity!</a></strong><br/><br/>If you like Extensity and its new Profiles features, <a href="#">please consider helping out with its development <i class="fa fa-arrow-circle-right"></i></a>
-    </p>
-
-    <div class="clear"></div>
+<section id="header">
+  <div class="tabs">
+  	<h1><img src="images/icon48.png" /> Extensity Options</h1>
+  	<div id="menu">
+    	<a href="/options.html" class="selected">Options</a>
+    	<a href="/profiles.html">Profiles</a>
+  	</div>
   </div>
-
+  <div class="help">
+    <!-- <i class="fa fa-close right"></i> -->
+    <i class="fa fa-warning"></i> <strong><a href="#">Support Extensity!</a></strong><br/><br/>If you like Extensity and its new Profiles features, <a href="#">please consider helping out with its development <i class="fa fa-arrow-circle-right"></i></a>
+  </div>
+</section>
+<div class="clear"></div>
+<section id="content">
 	<fieldset id="options">
 		<div class="field">
 			<input type="checkbox" name="showHeader" id="showHeader" data-sbind="checked: options.showHeader" />
@@ -53,6 +51,6 @@
 			<span id="save-result"></span>
 		</div>
 	</fieldset>
-</div>
+</section>
 </body>
 </html>

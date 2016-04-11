@@ -71,9 +71,29 @@ a:hover {
 	text-decoration: underline;
 }
 
+#header h1 {
+	margin: 0px;
+}
+
+#header .tabs {
+	float: left;
+	width: 300px;
+	max-width: 300px;
+}
+
+#header .help {
+	float: right;
+	padding: 20px 20px;
+	background-color: #FFD478;
+	border-radius: 10px;
+	line-height: 150%
+	width: 320px;
+	max-width: 320px;
+}
+
 #header #menu {
-	margin-left:10px;
-	padding-top: 10px;
+	margin-left: 10px;
+	padding-top: 20px;
 	padding-bottom: 10px;
 }
 
@@ -109,7 +129,6 @@ fieldset#options .field {
 
 .instructions {
 	float: right;
-	width: 30%;
 }
 
 #profiles .fa {
@@ -184,13 +203,8 @@ fieldset#options .field {
 	background-color: #ddd;
 	border-radius: 10px;
 	line-height: 150%
-}
-
-.help {
-	padding: 20px 20px;
-	background-color: #FFD478;
-	border-radius: 10px;
-	line-height: 150%
+	width: 320px;
+	max-width: 320px;
 }
 
 .fa.right {
