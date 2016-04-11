@@ -69,7 +69,7 @@
 	</section>
 	<!-- Mixed apps and extensions -->
 	<section data-sbind="if: !opts.groupApps()">
-		<h1>Extensions</h1>
+		<h1>Extensions &amp; Apps</h1>
 		<ul data-sbind="foreach: exts.items">
 			<li class="extension" data-sbind="visible: !isApp(), click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
 			<li class="app" data-sbind="visible: isApp, click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
