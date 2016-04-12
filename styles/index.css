@@ -132,11 +132,22 @@ hr {
     border-bottom: 1px solid #aaa
 }
 
+
 .donate {
     background-color: #fff;
     color: #000;
     text-shadow: none;
-    padding: 10px;
+    padding: 30px;
+}
+
+.donate .donate-form {
+    text-align: center;
+}
+
+
+.donate .face {
+    float: right;
+    border-radius: 3px;
 }
 
 .footer {
