@@ -23,6 +23,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.2.1 (Apr 2016)
+- Small text fixes
+
 v1.2.0 (Apr 2016)
 - **New Feature**: Profiles! Our top-most requested feature is here. Quick switch between groups of extensions with a single click.
 - Major overhaul of the engine
