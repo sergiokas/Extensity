@@ -90,7 +90,11 @@ section#header .fa-lightbulb-o {
 }
 
 section#header .fa:hover {
-	opacity: .5;
+	opacity: .6;
+}
+
+section#header .fa.highlight {
+	/* Find some way to highlight those icons nicely */
 }
 
 section#header a.switch.off i {

@@ -19,6 +19,25 @@ ko.extenders.toggleable = function(target, option) {
 
 };
 
+var DismissalsCollection = function() {
+  var self = this;
+
+  self.dismissals = ko.observableArray(JSON.parse(localStorage['dismissals'] || "[]"));
+
+  self.dismissals.subscribe(function(v) {
+    localStorage['dismissals'] = JSON.stringify(v);
+  });
+
+  self.dismiss = function(id) {
+    self.dismissals.push(id);
+  };
+
+  self.dismissed = function(id) {
+    return (self.dismissals.indexOf(id) !== -1)
+  };
+
+}
+
 var OptionsCollection = function() {
   var self = this;
 

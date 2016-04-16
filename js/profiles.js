@@ -65,8 +65,10 @@ jQuery(document).ready( function($) {
       if(self.current_profile()) self.current_profile().items([]);
     };
 
-    // Initialize
-    try { self.selectByIndex(0); }
+    try {
+      (new DismissalsCollection()).dismiss("profile_page_viewed");
+      self.selectByIndex(0);
+    }
     catch(e) { /*No profiles*/ }
 
   };

@@ -2,7 +2,20 @@ jQuery(document).ready( function($) {
 
   var SwitchViewModel = function(exts) {
     var self = this;
-    self.toggled = ko.observableArray(JSON.parse(localStorage["toggled"] || "[]") );
+
+    var init = [];
+
+    // Backwards compatibility -- restore old toggled-off format if the new one fails.
+    // Keeping this for a while until everyone upgrades.
+    try {
+      // New version -- stringified array
+      init = JSON.parse(localStorage["toggled"] || "[]");
+    } catch(e) {
+      // Old version -- comma-separated values.
+      init = (localStorage['toggled'] || "").split(",").filter(function(e){return e;})
+    }
+
+    self.toggled = ko.observableArray(init);
     self.exts = exts;
 
     self.toggled.subscribe(function(val) {
@@ -36,6 +49,7 @@ jQuery(document).ready( function($) {
     self.profiles = new ProfileCollectionModel();
     self.exts = new ExtensionCollectionModel();
     self.opts = new OptionsCollection();
+    self.dismissals = new DismissalsCollection();
     self.switch = new SwitchViewModel(self.exts);
 
     self.openChromeExtensions = function() {
@@ -63,6 +77,11 @@ jQuery(document).ready( function($) {
     var close = function() {
       window.close();
     };
+
+    // View helpers
+    var visitedProfiles = ko.computed(function() {
+      return (self.dismissals.dismissed("profile_page_viewed") || self.profiles.any());
+    });
 
   };
 
