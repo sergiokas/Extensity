@@ -97,8 +97,8 @@ section#header .fa.highlight {
 	/* Find some way to highlight those icons nicely */
 }
 
-section#header a.switch.off i {
-	color: #A84342;
+section#header a.switch i.fa-toggle-off {
+	color: #444;
 }
 
 section#content h1 {

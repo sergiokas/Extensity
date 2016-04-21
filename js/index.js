@@ -26,6 +26,10 @@ jQuery(document).ready( function($) {
       return self.toggled().length > 0;
     });
 
+    self.toggleStyle = ko.pureComputed(function() {
+      return (self.any()) ? 'fa-toggle-off' : 'fa-toggle-on'
+    });
+
     self.flip = function() {
       if(self.any()) {
         // Re-enable
