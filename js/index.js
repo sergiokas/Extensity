@@ -1,4 +1,4 @@
-jQuery(document).ready( function($) {
+jQuery(document).ready(function($) {
 
   var SwitchViewModel = function(exts) {
     var self = this;
@@ -15,8 +15,8 @@ jQuery(document).ready( function($) {
       init = (localStorage['toggled'] || "").split(",").filter(function(e){return e;})
     }
 
-    self.toggled = ko.observableArray(init);
     self.exts = exts;
+    self.toggled = ko.observableArray(init);
 
     self.toggled.subscribe(function(val) {
       localStorage["toggled"] = JSON.stringify(val);
