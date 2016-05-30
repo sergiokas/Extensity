@@ -96,7 +96,8 @@ var ProfileCollectionModel = function() {
     return self.items().length > 0;
   });
 
-  self.add = function(name,items=[]) {
+  self.add = function(name,items) {
+    items = items || [];
     return self.items.push(new ProfileModel(name,items));
   }
 
