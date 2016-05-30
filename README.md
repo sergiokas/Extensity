@@ -23,7 +23,7 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
-v1.2.3 (Apr 2016)
+v1.2.3 (May 2016)
 - Updated compatibility for ChromeOS
 
 v1.2.2 (Apr 2016)
