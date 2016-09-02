@@ -66,10 +66,8 @@ jQuery(document).ready(function($) {
 
     self.sortedExtensions = ko.computed(function() {
       return (self.opts.enabledFirst()) ?
-        self.exts.extensions().sort( function(a,b) { 
-          return (a.status() === b.status()) ? (a.name().toUpperCase() > b.name().toUpperCase()) : !a.status()-!b.status();
-         }) :
-        self.exts.extensions ;
+        _(self.exts.extensions()).chain().sortBy(function(i) { return i.name().toUpperCase() }).sortBy(function(i) { return !i.status() }).value() :
+        self.exts.extensions() ;
     });
 
     self.setProfile = function(p) {

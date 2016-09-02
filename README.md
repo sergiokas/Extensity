@@ -23,6 +23,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.2.4 (Sept 2016)
+- Added option to show enabled Extensions first
+
 v1.2.3 (May 2016)
 - Updated compatibility for ChromeOS
 
