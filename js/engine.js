@@ -58,14 +58,16 @@ var OptionsCollection = function() {
     return boolean(localStorage[idx] || def);
   };
 
-  self.showHeader = ko.observable( b('showHeader' , true) );
-  self.groupApps  = ko.observable( b('groupApps'  , true) );
-  self.appsFirst  = ko.observable( b('appsFirst'  , false) );
+  self.showHeader     = ko.observable( b('showHeader'     , true) );
+  self.groupApps      = ko.observable( b('groupApps'      , true) );
+  self.appsFirst      = ko.observable( b('appsFirst'      , false) );
+  self.enabledFirst   = ko.observable( b('enabledFirst'   , false) );
 
   self.save = function() {
     localStorage['showHeader'] = self.showHeader();
     localStorage['groupApps'] = self.groupApps();
     localStorage['appsFirst'] = self.appsFirst();
+    localStorage['enabledFirst'] = self.enabledFirst();
   };
 
 };

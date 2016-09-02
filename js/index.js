@@ -64,6 +64,14 @@ jQuery(document).ready(function($) {
       chrome.management.launchApp(app.id());
     };
 
+    self.sortedExtensions = ko.computed(function() {
+      return (self.opts.enabledFirst()) ?
+        self.exts.extensions().sort( function(a,b) { 
+          return (a.status() === b.status()) ? (a.name().toUpperCase() > b.name().toUpperCase()) : !a.status()-!b.status();
+         }) :
+        self.exts.extensions ;
+    });
+
     self.setProfile = function(p) {
       var ids = p.items();
       var to_enable = _.intersection(self.exts.disabled.pluck(),ids);

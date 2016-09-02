@@ -52,14 +52,14 @@
 			<li class="app" data-sbind="click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
 		</ul>
 		<h1>Extensions</h1>
-		<ul data-sbind="foreach: exts.extensions">
+		<ul data-sbind="foreach: sortedExtensions">
 			<li class="extension" data-sbind="click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
 		</ul>
 	</section>
 	<!-- Extensions first, grouped -->
 	<section data-sbind="if: !opts.appsFirst() && opts.groupApps()">
 		<h1>Extensions</h1>
-		<ul data-sbind="foreach: exts.extensions">
+		<ul data-sbind="foreach: sortedExtensions">
 			<li class="extension" data-sbind="click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
 		</ul>
 		<h1>Apps</h1>
