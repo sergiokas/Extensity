@@ -3,23 +3,13 @@ jQuery(document).ready(function($) {
   var SwitchViewModel = function(exts) {
     var self = this;
 
-    var init = [];
-
-    // Backwards compatibility -- restore old toggled-off format if the new one fails.
-    // Keeping this for a while until everyone upgrades.
-    try {
-      // New version -- stringified array
-      init = JSON.parse(localStorage["toggled"] || "[]");
-    } catch(e) {
-      // Old version -- comma-separated values.
-      init = (localStorage['toggled'] || "").split(",").filter(function(e){return e;})
-    }
+    var init = toggled;
 
     self.exts = exts;
     self.toggled = ko.observableArray(init);
 
     self.toggled.subscribe(function(val) {
-      localStorage["toggled"] = JSON.stringify(val);
+      chrome.storage.sync.set({"toggled":val});
     });
 
     self.any = ko.computed(function() {

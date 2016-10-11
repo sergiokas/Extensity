@@ -1,3 +1,30 @@
+//Init data from chrome.storage.sync
+var toggled = [];
+var profiles = [];
+var dismissals = [];
+var showHeader = true;
+var groupApps = true;
+var appsFirst = false;
+var enabledFirst = false;
+
+function loadData(){
+  $.holdReady(true);
+  return new Promise(function(resolve, reject){
+    chrome.storage.sync.get(["toggled", "dismissals", "showHeader", "groupApps", "appsFirst" , "enabledFirst" , "profiles"], function(v){
+      toggled = v.toggled;
+      profiles =  v.profiles;
+      dismissals = v.dismissals;
+      showHeader = v.showHeader;
+      groupApps = v.groupApps;
+      appsFirst = v.appsFirst;
+      enabledFirst = v.enabledFirst;
+      $.holdReady(false);
+      resolve();
+    });
+  });
+}
+loadData();
+
 ko.extenders.pluckable = function(target, option) {
   // Pluck an iterable by an observable field
   target.pluck = ko.computed(function() {
@@ -22,10 +49,11 @@ ko.extenders.toggleable = function(target, option) {
 var DismissalsCollection = function() {
   var self = this;
 
-  self.dismissals = ko.observableArray(JSON.parse(localStorage['dismissals'] || "[]"));
+  self.dismissals = ko.observableArray(dismissals);
 
   self.dismissals.subscribe(function(v) {
-    localStorage['dismissals'] = JSON.stringify(v);
+    //localStorage['dismissals'] = JSON.stringify(v);
+    chrome.storage.sync.set({"dismissals": v});
   });
 
   self.dismiss = function(id) {
@@ -41,33 +69,24 @@ var DismissalsCollection = function() {
 var OptionsCollection = function() {
   var self = this;
 
-  // Get the right boolean value.
-  // Hack to override default string-only localStorage implementation
-  // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
-  var boolean = function(value) {
-    if (value === "true")
-      return true;
-    else if (value === "false")
-      return false;
-    else
-      return Boolean(value);
-  };
-
-  // Boolean value from localStorage with a default
-  var b = function(idx, def) {
-    return boolean(localStorage[idx] || def);
-  };
-
-  self.showHeader     = ko.observable( b('showHeader'     , true) );
-  self.groupApps      = ko.observable( b('groupApps'      , true) );
-  self.appsFirst      = ko.observable( b('appsFirst'      , false) );
-  self.enabledFirst   = ko.observable( b('enabledFirst'   , false) );
+  self.showHeader     = ko.observable(showHeader);
+  self.groupApps      = ko.observable(groupApps);
+  self.appsFirst      = ko.observable(appsFirst);
+  self.enabledFirst   = ko.observable(enabledFirst);
 
   self.save = function() {
-    localStorage['showHeader'] = self.showHeader();
+    chrome.storage.sync.set(
+      {
+        "showHeader": self.showHeader(),
+        "groupApps": self.groupApps(),
+        "appsFirst": self.appsFirst(),
+        "enabledFirst": self.enabledFirst()
+      }
+    );
+    /*localStorage['showHeader'] = self.showHeader();
     localStorage['groupApps'] = self.groupApps();
     localStorage['appsFirst'] = self.appsFirst();
-    localStorage['enabledFirst'] = self.enabledFirst();
+    localStorage['enabledFirst'] = self.enabledFirst();*/
   };
 
 };
@@ -122,11 +141,11 @@ var ProfileCollectionModel = function() {
         r[i.name()] = _(i.items()).uniq();
       }
     });
-    localStorage['profiles'] = JSON.stringify(r);
+    chrome.storage.sync.set({"profiles": r});
   };
 
-  // Load from localStorage on init.
-  var p = JSON.parse(localStorage["profiles"] || "{}");
+  // Load profiles.
+  var p = profiles;
   var k = _(p).chain().keys().sortBy().value();
   _(k).each(function(name) {
     self.items.push(new ProfileModel(name, p[name]));
