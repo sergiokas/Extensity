@@ -1,5 +1,12 @@
 jQuery(document).ready(function($) {
 
+  var SearchViewModel = function() {
+    var self = this;
+    self.q = ko.observable("");
+
+    // TODO: Add more search control here.
+  };
+
   var SwitchViewModel = function(exts) {
     var self = this;
 
@@ -55,6 +62,22 @@ jQuery(document).ready(function($) {
     self.opts = new OptionsCollection();
     self.dismissals = new DismissalsCollection();
     self.switch = new SwitchViewModel(self.exts);
+    self.search = new SearchViewModel();
+
+    var filterFn = function(i) {
+      // Filtering function
+      if(!self.opts.searchBox()) return true;
+      if(!self.search.q()) return true;
+      return i.name().toUpperCase().indexOf(self.search.q().toUpperCase()) !== -1;
+    };
+
+    var nameSortFn = function(i) {
+      return i.name().toUpperCase();
+    };
+
+    var statusSortFn = function(i) {
+      return !i.status();
+    };
 
     self.openChromeExtensions = function() {
       openTab("chrome://extensions");
@@ -64,10 +87,25 @@ jQuery(document).ready(function($) {
       chrome.management.launchApp(app.id());
     };
 
-    self.sortedExtensions = ko.computed(function() {
+    self.listedExtensions = ko.computed(function() {
+      // Sorted/Filtered list of extensions
       return (self.opts.enabledFirst()) ?
-        _(self.exts.extensions()).chain().sortBy(function(i) { return i.name().toUpperCase() }).sortBy(function(i) { return !i.status() }).value() :
-        self.exts.extensions() ;
+        _(self.exts.extensions()).chain().sortBy(nameSortFn).sortBy(statusSortFn).filter(filterFn).value() :
+        _(self.exts.extensions()).filter(filterFn);
+    }).extend({countable: null});
+
+    self.listedApps = ko.computed(function() {
+      // Sorted/Filtered list of apps
+      return _(self.exts.apps()).filter(filterFn);
+    }).extend({countable: null});
+
+    self.listedItems = ko.computed(function() {
+      // Sorted/Filtered list of all items
+      return _(self.exts.items()).filter(filterFn);
+    }).extend({countable: null});
+
+    self.emptyItems = ko.pureComputed(function() {
+      return self.listedApps.none() && self.listedExtensions.none();
     });
 
     self.setProfile = function(p) {
@@ -100,4 +138,6 @@ jQuery(document).ready(function($) {
   ko.bindingProvider.instance = new ko.secureBindingsProvider({});
   ko.applyBindings(vm, document.body);
 
+  // Workaround for Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=307912
+  window.setTimeout(function() { jQuery('#workaround-307912').show(); }, 0);
 });

@@ -101,6 +101,32 @@ section#header a.switch i.fa-toggle-off {
 	color: #444;
 }
 
+section#search {
+	margin: 0px;
+}
+
+section#search p {
+	margin: 0px;
+	padding: 1px 1px 1px 5px;
+	background-image: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+	border-radius: 3px 3px 0px 0px;
+}
+
+section#search i {
+  color: #7B7B7B;
+}
+
+section#search input {
+	color: #555;
+	border: 0px;
+	border-radius: 3px;
+	background: transparent;
+	padding: 3px;
+	outline: none;
+	width: auto;
+	min-width: 200px;
+}
+
 section#content h1 {
 	background-color: #516C97;
 	background-image: linear-gradient(top, #7F97B9, #516C97);
@@ -151,4 +177,14 @@ section#content li.disabled {
 
 section#content li.disabled img {
 	opacity: 0.3;
+}
+
+section p.empty {
+	text-align: center;
+	color: #777;
+}
+
+section p.empty i.fa {
+	font-size: 2em;
+	margin-bottom: 10px;
 }
