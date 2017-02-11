@@ -16,7 +16,24 @@ ko.extenders.toggleable = function(target, option) {
   target.disable = function() {
     _(target()).each(function(i) { i.disable(); });
   };
+};
 
+ko.extenders.countable = function(target, option) {
+  target.count = ko.computed(function() {
+    return target().length;
+  });
+
+  target.any = ko.computed(function() {
+    return target().length > 0;
+  });
+
+  target.many = ko.computed(function() {
+    return target().length > 1;
+  });
+
+  target.none = ko.computed(function() {
+    return target().length == 0;
+  });
 };
 
 var DismissalsCollection = function() {
@@ -36,7 +53,7 @@ var DismissalsCollection = function() {
     return (self.dismissals.indexOf(id) !== -1)
   };
 
-}
+};
 
 var OptionsCollection = function() {
   var self = this;
@@ -62,12 +79,14 @@ var OptionsCollection = function() {
   self.groupApps      = ko.observable( b('groupApps'      , true) );
   self.appsFirst      = ko.observable( b('appsFirst'      , false) );
   self.enabledFirst   = ko.observable( b('enabledFirst'   , false) );
+  self.searchBox      = ko.observable( b('searchBox'      , true) );
 
   self.save = function() {
     localStorage['showHeader'] = self.showHeader();
     localStorage['groupApps'] = self.groupApps();
     localStorage['appsFirst'] = self.appsFirst();
     localStorage['enabledFirst'] = self.enabledFirst();
+    localStorage['searchBox'] = self.searchBox();
   };
 
 };

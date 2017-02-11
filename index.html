@@ -36,46 +36,61 @@
 	</h1>
 </section>
 
+<section id="search" class="main" data-sbind="if: opts.searchBox">
+	<p><i class="fa fa-search"></i> <input type="text" data-sbind="value: search.q, valueUpdate: 'keyup'" tabindex=1 /></p>
+</section>
+
 <section id="content" class="main">
 
 	<!-- Profiles -->
-	<section data-sbind="if: profiles.any">
+	<section data-sbind="if: profiles.any, visible: !search.q">
 		<h1 >Profiles</h1>
 		<ul data-sbind="foreach: profiles.items">
 			<li class="app" data-sbind="click: $parent.setProfile"><i class="fa fa-users" alt="profile"></i> <span data-sbind="text: short_name"></span></li>
 		</ul>
 	</section>
+
 	<!-- Apps first, grouped -->
 	<section data-sbind="if: opts.appsFirst() && opts.groupApps()">
-		<h1>Apps</h1>
-		<ul data-sbind="foreach: exts.apps">
+		<h1 data-sbind="visible: listedApps.any">Apps</h1>
+		<ul data-sbind="foreach: listedApps">
 			<li class="app" data-sbind="click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
 		</ul>
-		<h1>Extensions</h1>
-		<ul data-sbind="foreach: sortedExtensions">
+		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
+		<ul data-sbind="foreach: listedExtensions">
 			<li class="extension" data-sbind="click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
 		</ul>
 	</section>
+
 	<!-- Extensions first, grouped -->
 	<section data-sbind="if: !opts.appsFirst() && opts.groupApps()">
-		<h1>Extensions</h1>
-		<ul data-sbind="foreach: sortedExtensions">
+		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
+		<ul data-sbind="foreach: listedExtensions">
 			<li class="extension" data-sbind="click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
 		</ul>
-		<h1>Apps</h1>
-		<ul data-sbind="foreach: exts.apps">
+		<h1 data-sbind="visible: listedApps.any">Apps</h1>
+		<ul data-sbind="foreach: listedApps">
 			<li class="app" data-sbind="click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
 		</ul>
 	</section>
+
 	<!-- Mixed apps and extensions -->
 	<section data-sbind="if: !opts.groupApps()">
-		<h1>Extensions &amp; Apps</h1>
-		<ul data-sbind="foreach: exts.items">
+		<h1 data-sbind="visible: listedItems.any">Extensions &amp; Apps</h1>
+		<ul data-sbind="foreach: listedItems">
 			<li class="extension" data-sbind="visible: !isApp(), click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
 			<li class="app" data-sbind="visible: isApp, click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
 		</ul>
 	</section>
 
+	<!-- Nothing in list -->
+	<section data-sbind="visible: emptyItems">
+		<p class="empty"><i class="fa fa-exclamation-triangle"></i><br />No Extensions or Apps found.</p>
+	</section>
 </section>
+
+<!-- Workaround for Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=307912 -->
+<div id="workaround-307912" style="display: none; height: 1px;"></div>
+
 </body>
 </html>
