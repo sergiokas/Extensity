@@ -23,6 +23,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.3.1 (Nov 2017)
+- Changed profiles icon, minor visual changes.
+
 v1.3.0 (Feb 2017)
 - **New Feature**: Search box for extensions and apps.
 - Temporary workaround for [Chromium bug](https://bugs.chromium.org/p/chromium/issues/detail?id=307912)

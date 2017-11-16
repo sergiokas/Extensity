@@ -67,6 +67,7 @@ section#header a.page, section#header a.switch {
 
 section#header .fa {
 	color: black;
+	opacity: .6;
 }
 
 section#header .fa-facebook-official {
@@ -81,7 +82,7 @@ section#header .fa-star {
 	color: #FF9300;
 }
 
-section#header .fa-users {
+section#header .fa-user-circle-o {
 	zoom: 95%;
 }
 
@@ -90,7 +91,7 @@ section#header .fa-lightbulb-o {
 }
 
 section#header .fa:hover {
-	opacity: .6;
+	opacity: 1;
 }
 
 section#header .fa.highlight {
