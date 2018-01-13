@@ -5,7 +5,7 @@
 // Get the right boolean value.
 // Hack to override default string-only localStorage implementation
 // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
-var boolean = function(value) {
+function boolean(value) {
   if (value === "true")
     return true;
   else if (value === "false")
@@ -15,12 +15,13 @@ var boolean = function(value) {
 };
 
 // Boolean value from localStorage with a default
-var b = function(idx, def) {
+function b(idx, def) {
   return boolean(localStorage[idx] || def);
 };
 
 function migrate_to_chrome_storage() {
   chrome.storage.sync.get("migration", function(v) {
+    console.log(v);
     // Only migrate if another migration hasn't been done in a different computer.
     if(v["migration"]) {
       console.log("Migration from localStorage already happened in another computer");
@@ -65,6 +66,7 @@ function migrate_to_chrome_storage() {
   });
 };
 
+// Listeners for the event page.
 chrome.runtime.onInstalled.addListener(function(details) {
   if(details["reason"] == 'update' && details["previousVersion"] < "1.4.0") {
       migrate_to_chrome_storage();

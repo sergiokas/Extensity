@@ -40,10 +40,10 @@ jQuery(document).ready(function($) {
 
     // Initialization
     chrome.storage.sync.get("toggled", function(v) {
-      self.toggled(v||[]);
+      self.toggled(v["toggled"]||[]);
       // Subscribe after initializing values.
       self.toggled.subscribe(function(val) {
-        chrome.storage.sync.set("toggled",val);
+        chrome.storage.sync.set({toggled: val});
       });
     });
 

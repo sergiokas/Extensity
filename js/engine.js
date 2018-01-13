@@ -152,7 +152,6 @@ var ProfileCollectionModel = function() {
     p = p['profiles'] || {};
     var k = _(p).chain().keys().sortBy().value();
     _(k).each(function(name) {
-      console.log(name, p[name]);
       self.items.push(new ProfileModel(name, p[name]));
     });
   });
