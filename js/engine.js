@@ -39,11 +39,10 @@ ko.extenders.countable = function(target, option) {
 var DismissalsCollection = function() {
   var self = this;
 
-  self.dismissals = ko.observableArray(JSON.parse(localStorage['dismissals'] || "[]"));
+  self.dismissals = ko.observableArray();
 
-  self.dismissals.subscribe(function(v) {
-    localStorage['dismissals'] = JSON.stringify(v);
-  });
+  var subscribe = function() {
+  };
 
   self.dismiss = function(id) {
     self.dismissals.push(id);
@@ -53,6 +52,14 @@ var DismissalsCollection = function() {
     return (self.dismissals.indexOf(id) !== -1)
   };
 
+  // Initializer
+  chrome.storage.sync.get("dismissals", function(arr) {
+    self.dismissals(arr);
+    // Subscribe to observables after setting the initial value so we don't re-save the same thing.
+    self.dismissals.subscribe(function(a) {
+      chrome.storage.sync.set({dismissals: a});
+    });
+  });
 };
 
 var OptionsCollection = function() {

@@ -1,6 +1,6 @@
 // Migration from localStorage settings to Chrome Storage sync.
 
-// chrome.storage.sync.remove(['profiles', 'showHeader', 'groupApps', 'appsFirst', 'enabledFirst', 'searchBox']);
+// chrome.storage.sync.remove(['profiles', 'showHeader', 'groupApps', 'appsFirst', 'enabledFirst', 'searchBox', 'dismissals']);
 
 // Get the right boolean value.
 // Hack to override default string-only localStorage implementation
@@ -20,16 +20,33 @@ var b = function(idx, def) {
 };
 
 function migrate_to_chrome_storage() {
-  var data = {
-    profiles:     JSON.parse(localStorage["profiles"] || "{}"),
-    showHeader:   b('showHeader'   , true),
-    groupApps:    b('groupApps'    , true),
-    appsFirst:    b('appsFirst'    , false),
-    enabledFirst: b('enabledFirst' , false),
-    searchBox:    b('searchBox'    , true)
-  }
-  chrome.storage.sync.set(data);
-}
+  chrome.storage.sync.get("migration", function(v) {
+    // Only migrate if another migration hasn't been done in a different computer.
+    if(!v["migration"]) {
+      console.log("Migrating localStorage data to Chrome Storage Sync");
+      var data = {
+        dismissals:   JSON.parse(localStorage['dismissals'] || "[]"),
+        profiles:     JSON.parse(localStorage['profiles'] || "{}"),
+        showHeader:   b('showHeader'   , true),
+        groupApps:    b('groupApps'    , true),
+        appsFirst:    b('appsFirst'    , false),
+        enabledFirst: b('enabledFirst' , false),
+        searchBox:    b('searchBox'    , true),
+        migration:    "1.4.0"
+      };
+      chrome.storage.sync.set(data, function() {
+        // Remove localStorage settings when done.
+        localStorage.removeItem('dismissals');
+        localStorage.removeItem('profiles');
+        localStorage.removeItem('showHeader');
+        localStorage.removeItem('groupApps');
+        localStorage.removeItem('appsFirst');
+        localStorage.removeItem('enabledFirst');
+        localStorage.removeItem('searchBox');
+      });
+    }
+  });
+};
 
 chrome.runtime.onInstalled.addListener(function(details) {
   if(details["reason"] == 'update' && details["previousVersion"] < "1.4.0") {
