@@ -133,10 +133,11 @@ jQuery(document).ready(function($) {
 
   };
 
-  vm = new ExtensityViewModel();
-
-  ko.bindingProvider.instance = new ko.secureBindingsProvider({});
-  ko.applyBindings(vm, document.body);
+  _.defer(function() {
+    vm = new ExtensityViewModel();
+    ko.bindingProvider.instance = new ko.secureBindingsProvider({});
+    ko.applyBindings(vm, document.body);
+  });
 
   // Workaround for Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=307912
   window.setTimeout(function() { jQuery('#workaround-307912').show(); }, 0);

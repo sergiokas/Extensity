@@ -58,36 +58,31 @@ var DismissalsCollection = function() {
 var OptionsCollection = function() {
   var self = this;
 
-  // Get the right boolean value.
-  // Hack to override default string-only localStorage implementation
-  // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
-  var boolean = function(value) {
-    if (value === "true")
-      return true;
-    else if (value === "false")
-      return false;
-    else
-      return Boolean(value);
+  // Options and defauts
+  var defs = {
+    showHeader   : true,
+    groupApps    : true,
+    appsFirst    : false,
+    enabledFirst : false,
+    searchBox    : true
   };
 
-  // Boolean value from localStorage with a default
-  var b = function(idx, def) {
-    return boolean(localStorage[idx] || def);
-  };
-
-  self.showHeader     = ko.observable( b('showHeader'     , true) );
-  self.groupApps      = ko.observable( b('groupApps'      , true) );
-  self.appsFirst      = ko.observable( b('appsFirst'      , false) );
-  self.enabledFirst   = ko.observable( b('enabledFirst'   , false) );
-  self.searchBox      = ko.observable( b('searchBox'      , true) );
+  // Define observables.
+  _(defs).each(function(def,key) {
+    self[key] = ko.observable(def);
+  });
 
   self.save = function() {
-    localStorage['showHeader'] = self.showHeader();
-    localStorage['groupApps'] = self.groupApps();
-    localStorage['appsFirst'] = self.appsFirst();
-    localStorage['enabledFirst'] = self.enabledFirst();
-    localStorage['searchBox'] = self.searchBox();
+    chrome.storage.sync.set(
+      _(defs).mapObject(function(val, key) { return self[key](); })
+    );
   };
+
+  chrome.storage.sync.get(_(defs).keys(), function(v) {
+    _(v).each(function(val, key) {
+      self[key](val);
+    });
+  });
 
 };
 
@@ -141,14 +136,21 @@ var ProfileCollectionModel = function() {
         r[i.name()] = _(i.items()).uniq();
       }
     });
-    localStorage['profiles'] = JSON.stringify(r);
+    chrome.storage.sync.set({profiles: r});
+
+    // localStorage['profiles'] = JSON.stringify(r);
   };
 
   // Load from localStorage on init.
-  var p = JSON.parse(localStorage["profiles"] || "{}");
-  var k = _(p).chain().keys().sortBy().value();
-  _(k).each(function(name) {
-    self.items.push(new ProfileModel(name, p[name]));
+  // var p = JSON.parse(localStorage["profiles"] || "{}");
+
+  chrome.storage.sync.get("profiles", function(p) {
+    p = p['profiles'] || {};
+    var k = _(p).chain().keys().sortBy().value();
+    _(k).each(function(name) {
+      console.log(name, p[name]);
+      self.items.push(new ProfileModel(name, p[name]));
+    });
   });
 
   return this;

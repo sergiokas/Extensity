@@ -23,6 +23,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.4.0 (Jan 2018)
+- Sync between computers through Chrome Storage.
+
 v1.3.1 (Nov 2017)
 - Changed profiles icon, minor visual changes.
 
