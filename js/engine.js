@@ -72,12 +72,14 @@ var OptionsCollection = function() {
     self[key] = ko.observable(def);
   });
 
+  // Save values from all observables.
   self.save = function() {
     chrome.storage.sync.set(
       _(defs).mapObject(function(val, key) { return self[key](); })
     );
   };
 
+  // Set observable values from Chrome Storage
   chrome.storage.sync.get(_(defs).keys(), function(v) {
     _(v).each(function(val, key) {
       self[key](val);
@@ -137,12 +139,7 @@ var ProfileCollectionModel = function() {
       }
     });
     chrome.storage.sync.set({profiles: r});
-
-    // localStorage['profiles'] = JSON.stringify(r);
   };
-
-  // Load from localStorage on init.
-  // var p = JSON.parse(localStorage["profiles"] || "{}");
 
   chrome.storage.sync.get("profiles", function(p) {
     p = p['profiles'] || {};
