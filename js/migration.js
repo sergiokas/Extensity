@@ -1,7 +1,7 @@
 // Migration from localStorage settings to Chrome Storage sync.
 
 // Helper: remove sync'd storage for testing
-// chrome.storage.sync.remove(['profiles', 'showHeader', 'groupApps', 'appsFirst', 'enabledFirst', 'searchBox', 'dismissals', 'toggled']);
+// chrome.storage.sync.remove(['migration','profiles', 'showHeader', 'groupApps', 'appsFirst', 'enabledFirst', 'searchBox', 'dismissals', 'toggled']);
 
 // Get the right boolean value.
 // Hack to override default string-only localStorage implementation
@@ -22,7 +22,7 @@ function b(idx, def) {
 
 function migrate_to_chrome_storage() {
   chrome.storage.sync.get("migration", function(v) {
-    console.log(v);
+    // console.log(v);
     // Only migrate if another migration hasn't been done in a different computer.
     if(v["migration"]) {
       console.log("Migration from localStorage already happened in another computer");
