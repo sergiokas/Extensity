@@ -24,7 +24,8 @@ function migrate_to_chrome_storage() {
     // Only migrate if another migration hasn't been done in a different computer.
     if(v["migration"]) {
       console.log("Migration from localStorage already happened in another computer");
-    else {}
+    }
+    else {
       console.log("Migrate localStorage data to Chrome Storage Sync");
       var data = {
         dismissals:   JSON.parse(localStorage['dismissals'] || "[]"),
