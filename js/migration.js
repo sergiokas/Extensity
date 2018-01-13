@@ -1,6 +1,7 @@
 // Migration from localStorage settings to Chrome Storage sync.
 
-// chrome.storage.sync.remove(['profiles', 'showHeader', 'groupApps', 'appsFirst', 'enabledFirst', 'searchBox', 'dismissals']);
+// Helper: remove sync'd storage for testing
+// chrome.storage.sync.remove(['profiles', 'showHeader', 'groupApps', 'appsFirst', 'enabledFirst', 'searchBox', 'dismissals', 'toggled']);
 
 // Get the right boolean value.
 // Hack to override default string-only localStorage implementation
