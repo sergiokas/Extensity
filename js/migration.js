@@ -27,9 +27,22 @@ function migrate_to_chrome_storage() {
     }
     else {
       console.log("Migrate localStorage data to Chrome Storage Sync");
+
+      // Don't migrate toggles as they're just a temporary per-session value.
+      // // Backwards compatibility -- restore old toggled-off format if the new one fails.
+      // // Keeping this for a while until everyone upgrades.
+      // try {
+      //   // New version -- stringified array
+      //   var toggled = JSON.parse(localStorage["toggled"] || "[]");
+      // } catch(e) {
+      //   // Old version -- comma-separated values.
+      //   var toggled = (localStorage['toggled'] || "").split(",").filter(function(e){return e;})
+      // }
+
       var data = {
         dismissals:   JSON.parse(localStorage['dismissals'] || "[]"),
         profiles:     JSON.parse(localStorage['profiles'] || "{}"),
+        // toggled:      toggled,
         showHeader:   b('showHeader'   , true),
         groupApps:    b('groupApps'    , true),
         appsFirst:    b('appsFirst'    , false),
@@ -41,6 +54,7 @@ function migrate_to_chrome_storage() {
         // Remove localStorage settings when done.
         localStorage.removeItem('dismissals');
         localStorage.removeItem('profiles');
+        localStorage.removeItem('toggled');
         localStorage.removeItem('showHeader');
         localStorage.removeItem('groupApps');
         localStorage.removeItem('appsFirst');
