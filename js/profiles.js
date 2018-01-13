@@ -50,8 +50,9 @@ jQuery(document).ready( function($) {
     };
 
     self.save = function() {
-      self.profiles.save();
-      $('#save-result').text('| Saved!').show().delay(2000).fadeOut('slow');
+      self.profiles.save(function() {
+        $('#save-result').text('| Saved!').show().delay(2000).fadeOut('slow');
+      });
     };
 
     self.close = function() { window.close(); }

@@ -80,9 +80,9 @@ var OptionsCollection = function() {
   });
 
   // Save values from all observables.
-  self.save = function() {
+  self.save = function(callback) {
     chrome.storage.sync.set(
-      _(defs).mapObject(function(val, key) { return self[key](); })
+      _(defs).mapObject(function(val, key) { return self[key](); }), callback
     );
   };
 
@@ -138,14 +138,14 @@ var ProfileCollectionModel = function() {
     return !_(self.find(name)).isUndefined();
   }
 
-  self.save = function() {
+  self.save = function(callback) {
     var r = {};
     var t = _(self.items()).each(function(i) {
       if (i.name()) {
         r[i.name()] = _(i.items()).uniq();
       }
     });
-    chrome.storage.sync.set({profiles: r});
+    chrome.storage.sync.set({profiles: r}, callback);
   };
 
   chrome.storage.sync.get("profiles", function(p) {

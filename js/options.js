@@ -5,8 +5,9 @@ jQuery(document).ready(function($) {
     self.options = new OptionsCollection();
 
     self.save = function() {
-      self.options.save();
-      $('#save-result').text('| Saved!').show().delay(2000).fadeOut('slow');
+      self.options.save(function() {
+        $('#save-result').text('| Saved!').show().delay(2000).fadeOut('slow');
+      });
     };
 
     self.close = function() { window.close(); }
