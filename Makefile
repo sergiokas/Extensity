@@ -30,4 +30,5 @@ pack:
 	cd $(DIST); zip -r dist.zip *
 
 clean:
-	rm -rf $(DIST)/*
+	rm -rf $(DIST)
+	mkdir dist
