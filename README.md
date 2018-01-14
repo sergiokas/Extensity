@@ -12,6 +12,7 @@ get rid of it for a little while. You can also launch Chrome Apps right from the
 * Ideal companion for extensions collectors.
 * Turn all extensions off (and back on) with a single click.
 * Quick switch between several extensions groups using the Profiles feature.
+* Keep computers in sync with Chrome Cloud Storage support.
 
 Extensity is open source software. Full source code at GitHub https://github.com/sergiokas/Extensity
 
