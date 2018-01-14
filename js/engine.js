@@ -41,9 +41,6 @@ var DismissalsCollection = function() {
 
   self.dismissals = ko.observableArray();
 
-  var subscribe = function() {
-  };
-
   self.dismiss = function(id) {
     self.dismissals.push(id);
   };
