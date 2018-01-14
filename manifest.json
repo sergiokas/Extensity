@@ -1,22 +1,22 @@
 {
-	"name": "Extensity",
-	"version": "1.4.0",
-	"manifest_version": 2,
-	"description": "Quickly enable/disable Google Chrome extensions",
-	"options_page": "options.html",
-	"icons" : {
-		"16" : "images/icon16.png",
-		"48" : "images/icon48.png",
-		"128" : "images/icon128.png"
-	},
-	"browser_action": {
-		"default_icon": "images/iconbar.png",
-		"default_title": "Extensity",
-		"default_popup": "index.html"
-	},
-	"background": {
+  "name": "Extensity",
+  "version": "1.4.0",
+  "manifest_version": 2,
+  "description": "Quickly enable/disable Google Chrome extensions",
+  "options_page": "options.html",
+  "icons" : {
+    "16" : "images/icon16.png",
+    "48" : "images/icon48.png",
+    "128" : "images/icon128.png"
+  },
+  "browser_action": {
+    "default_icon": "images/iconbar.png",
+    "default_title": "Extensity",
+    "default_popup": "index.html"
+  },
+  "background": {
     "scripts": ["js/migration.js"],
     "persistent": false
   },
-	"permissions": ["management", "tabs","storage"]
+  "permissions": ["management", "tabs","storage"]
 }
