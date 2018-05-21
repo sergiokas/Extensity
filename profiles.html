@@ -72,6 +72,7 @@
             <input type="checkbox" data-sbind="value: id, attr:{id: id, name:id}, checked: $parent.current_profile().items" />
             <img data-sbind="attr:{src: icon}" width="16px" height="16px" />
             <span data-sbind="text: short_name"></span>
+            <i data-sbind="visible: installType == 'development', attr:{title: 'Unpacked Extension'}" class="fa fa-flask"></i>
           </label>
         </li>
       </ul>
