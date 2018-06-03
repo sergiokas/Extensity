@@ -13,7 +13,7 @@ jQuery(document).ready(function($) {
     var init = [];
 
     self.exts = exts;
-    self.toggled = ko.observableArray();
+    self.toggled = ko.observableArray().extend({persistable: "toggled"});
 
     self.any = ko.computed(function() {
       return self.toggled().length > 0;
@@ -38,15 +38,6 @@ jQuery(document).ready(function($) {
       };
     };
 
-    // Initialization
-    chrome.storage.sync.get("toggled", function(v) {
-      self.toggled(v["toggled"]||[]);
-      // Subscribe after initializing values.
-      self.toggled.subscribe(function(val) {
-        chrome.storage.sync.set({toggled: val});
-      });
-    });
-
   };
 
   var ExtensityViewModel = function() {
@@ -58,6 +49,7 @@ jQuery(document).ready(function($) {
     self.dismissals = new DismissalsCollection();
     self.switch = new SwitchViewModel(self.exts);
     self.search = new SearchViewModel();
+    self.activeProfile = ko.observable().extend({persistable: "activeProfile"});
 
     var filterFn = function(i) {
       // Filtering function
@@ -104,12 +96,23 @@ jQuery(document).ready(function($) {
     });
 
     self.setProfile = function(p) {
+       // Make sure clicks aren't confusing if two profiles have the same extensions.
+      self.activeProfile(p.name());
       var ids = p.items();
       var to_enable = _.intersection(self.exts.disabled.pluck(),ids);
       var to_disable = _.difference(self.exts.enabled.pluck(), ids);
       _(to_enable).each(function(id) { self.exts.find(id).enable() });
       _(to_disable).each(function(id) { self.exts.find(id).disable() });
     };
+
+    self.unsetProfile = function() {
+      self.activeProfile(undefined);
+    };
+
+    self.toggleExtension = function(e) {
+      e.toggle();
+      self.unsetProfile();
+    }
 
     // Private helper functions
     var openTab = function (url) {
