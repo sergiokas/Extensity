@@ -96,7 +96,6 @@ jQuery(document).ready(function($) {
     });
 
     self.setProfile = function(p) {
-       // Make sure clicks aren't confusing if two profiles have the same extensions.
       self.activeProfile(p.name());
       var ids = p.items();
       var to_enable = _.intersection(self.exts.disabled.pluck(),ids);
