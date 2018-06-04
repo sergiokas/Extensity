@@ -32,7 +32,6 @@ ko.extenders.persistable = function(target, key) {
       var obj={};
       obj[key]=val; 
       chrome.storage.sync.set(obj);
-
     });
   });
 };
