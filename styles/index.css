@@ -180,7 +180,7 @@ section#content li.disabled img {
 }
 
 section#profiles i.fa-check {
-	float: right;
+	color: green;
 }
 
 section p.empty {

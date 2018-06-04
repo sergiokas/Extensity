@@ -47,9 +47,9 @@
 		<h1>Profiles</h1>
 		<ul data-sbind="foreach: profiles.items">
 			<li class="app" data-sbind="click: $parent.setProfile">
-				<i class="fa fa-user-circle-o" alt="profile"></i>
-				<span data-sbind="text: short_name"></span> 
 				<i class="fa fa-check" alt="active" data-sbind="visible: name() == $parent.activeProfile()"></i>
+				<i class="fa fa-user-circle-o" alt="profile" data-sbind="visible: name() != $parent.activeProfile()"></i>
+				<span data-sbind="text: short_name"></span> 
 			</li>
 		</ul>
 	</section>
