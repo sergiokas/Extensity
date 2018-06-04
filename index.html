@@ -43,10 +43,14 @@
 <section id="content" class="main">
 
 	<!-- Profiles -->
-	<section data-sbind="if: profiles.any, visible: !search.q">
-		<h1 >Profiles</h1>
+	<section id="profiles" data-sbind="if: profiles.any, visible: !search.q">
+		<h1>Profiles</h1>
 		<ul data-sbind="foreach: profiles.items">
-			<li class="app" data-sbind="click: $parent.setProfile"><i class="fa fa-users" alt="profile"></i> <span data-sbind="text: short_name"></span></li>
+			<li class="app" data-sbind="click: $parent.setProfile">
+				<i class="fa fa-check" alt="active" data-sbind="visible: name() == $parent.activeProfile()"></i>
+				<i class="fa fa-user-circle-o" alt="profile" data-sbind="visible: name() != $parent.activeProfile()"></i>
+				<span data-sbind="text: short_name"></span> 
+			</li>
 		</ul>
 	</section>
 
@@ -58,7 +62,7 @@
 		</ul>
 		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
 		<ul data-sbind="foreach: listedExtensions">
-			<li class="extension" data-sbind="click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
+			<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
 		</ul>
 	</section>
 
@@ -66,7 +70,7 @@
 	<section data-sbind="if: !opts.appsFirst() && opts.groupApps()">
 		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
 		<ul data-sbind="foreach: listedExtensions">
-			<li class="extension" data-sbind="click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
+			<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
 		</ul>
 		<h1 data-sbind="visible: listedApps.any">Apps</h1>
 		<ul data-sbind="foreach: listedApps">

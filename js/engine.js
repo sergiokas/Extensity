@@ -18,6 +18,24 @@ ko.extenders.toggleable = function(target, option) {
   };
 };
 
+ko.extenders.persistable = function(target, key) {
+  // Persists a single observable (or observableArray) in cloud browser storage
+  chrome.storage.sync.get(key, function(v) {
+
+    // Set initial value from storage if present.
+    if(v[key]) {
+      target(v[key]);
+    }
+
+    // Subscribe to changes after initializing the value.
+    target.subscribe(function(val) {
+      var obj={};
+      obj[key]=val; 
+      chrome.storage.sync.set(obj);
+    });
+  });
+};
+
 ko.extenders.countable = function(target, option) {
   target.count = ko.computed(function() {
     return target().length;
