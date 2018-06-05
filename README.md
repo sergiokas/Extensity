@@ -24,6 +24,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.5.0 (Jun 2018)
+- Added visual indication of the currently active profile.
+
 v1.4.0 (Jan 2018)
 - Sync between computers through Chrome Storage.
 

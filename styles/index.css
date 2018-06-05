@@ -153,7 +153,6 @@ section#content ul li {
 	color: black;
 	padding: 3px 2px;
 	cursor: pointer;
-	/*vertical-align: middle;*/
 }
 
 section#content ul li:hover {
@@ -178,6 +177,10 @@ section#content li.disabled {
 
 section#content li.disabled img {
 	opacity: 0.3;
+}
+
+section#profiles i.fa-check {
+	color: green;
 }
 
 section p.empty {
