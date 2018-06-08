@@ -82,7 +82,7 @@
 	<section data-sbind="if: !opts.groupApps()">
 		<h1 data-sbind="visible: listedItems.any">Extensions &amp; Apps</h1>
 		<ul data-sbind="foreach: listedItems">
-			<li class="extension" data-sbind="visible: !isApp(), click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
+			<li class="extension" data-sbind="visible: !isApp(), click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span><i data-sbind="visible: installType == 'development', attr:{title: 'Unpacked Extension'}" class="fa fa-flask"></i></li>
 			<li class="app" data-sbind="visible: isApp, click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
 		</ul>
 	</section>
