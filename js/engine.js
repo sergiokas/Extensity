@@ -193,6 +193,7 @@ var ExtensionModel = function(e) {
   self.isApp = ko.observable(item.isApp);
   self.icon = smallestIcon(item.icons);
   self.status = ko.observable(item.enabled);
+  self.installType = item.installType;
 
   self.disabled = ko.pureComputed(function() {
     return !self.status();
