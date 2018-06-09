@@ -92,7 +92,7 @@ a:hover {
 	padding: 20px 20px;
 	background-color: #FFD478;
 	border-radius: 10px;
-	line-height: 150%
+	line-height: 150%;
 	width: 320px;
 	max-width: 320px;
 }
@@ -151,10 +151,6 @@ fieldset#options .field {
 	max-width: 200px;
 }
 
-#profiles .extensions {
-	float: left;
-}
-
 #profiles ul {
 	padding-left: 0px;
 }
@@ -182,9 +178,11 @@ fieldset#options .field {
 }
 
 #profiles .extensions {
-	border-left: 1px solid #ddd;
+	float: left;
+	border: 1px solid #ddd;
 	padding-left: 10px;
 	padding-right: 10px;
+	width: 320px;
 }
 
 #profiles .extensions p.toggle {
@@ -193,6 +191,19 @@ fieldset#options .field {
 	margin-right: -10px;
 	padding: 10px;
 	background-color: #ddd;
+}
+
+#profiles .extensions ul li span {
+	display: inline-block;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+    width: calc(100% - 52px);
+    vertical-align: middle;
+}
+
+#profiles .extensions ul li a {
+	float: right;
 }
 
 #profiles input#name {
@@ -212,7 +223,7 @@ fieldset#options .field {
 	padding: 20px 20px;
 	background-color: #ddd;
 	border-radius: 10px;
-	line-height: 150%
+	line-height: 150%;
 	width: 320px;
 	max-width: 320px;
 }
