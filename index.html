@@ -62,7 +62,7 @@
 		</ul>
 		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
 		<ul data-sbind="foreach: listedExtensions">
-				<li class="extension" data-sbind="css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="click: $parent.toggleExtension, attr:{src:icon}" /> <span data-sbind="text: short_name, click: $parent.toggleExtension"></span><a data-sbind="if: optionsUrl, attr:{title:short_name + ' Options Page'}, click: openTab"><i class="fa fa-cog"></i></a></li>
+			<li class="extension" data-sbind="css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="click: $parent.toggleExtension, attr:{src:icon}" /> <span data-sbind="text: short_name, click: $parent.toggleExtension"></span><a data-sbind="if: optionsUrl, attr:{title:short_name + ' Options Page'}, click: openTab"><i class="fa fa-cog"></i></a></li>
 		</ul>
 	</section>
 

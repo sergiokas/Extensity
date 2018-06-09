@@ -195,11 +195,11 @@ fieldset#options .field {
 
 #profiles .extensions ul li span {
 	display: inline-block;
-    text-overflow: ellipsis;
-    overflow-x: hidden;
-    white-space: nowrap;
-    width: calc(100% - 52px);
-    vertical-align: middle;
+	text-overflow: ellipsis;
+	overflow-x: hidden;
+	white-space: nowrap;
+	width: calc(100% - 52px);
+	vertical-align: middle;
 }
 
 #profiles .extensions ul li a {
