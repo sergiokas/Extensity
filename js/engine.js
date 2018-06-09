@@ -193,14 +193,13 @@ var ExtensionModel = function(e) {
   self.isApp = ko.observable(item.isApp);
   self.icon = smallestIcon(item.icons);
   self.status = ko.observable(item.enabled);
+  self.optionsUrl = item.optionsUrl;
 
   self.disabled = ko.pureComputed(function() {
     return !self.status();
   });
 
-  self.short_name = ko.computed(function() {
-    return _.str.prune(self.name(),40);
-  })
+  self.short_name = self.name;
 
   self.toggle = function() {
     self.status(!self.status());
@@ -218,6 +217,9 @@ var ExtensionModel = function(e) {
     chrome.management.setEnabled(self.id(), value);
   });
 
+  self.openTab = function() {
+    chrome.tabs.create({url: self.optionsUrl})
+  }
 };
 
 var ExtensionCollectionModel = function() {

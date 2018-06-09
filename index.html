@@ -62,7 +62,7 @@
 		</ul>
 		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
 		<ul data-sbind="foreach: listedExtensions">
-			<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
+			<li class="extension" data-sbind="css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="click: $parent.toggleExtension, attr:{src:icon}" /> <span data-sbind="text: short_name, click: $parent.toggleExtension"></span><a data-sbind="if: optionsUrl, attr:{title:short_name + ' Options Page'}, click: openTab"><i class="fa fa-cog"></i></a></li>
 		</ul>
 	</section>
 
@@ -70,7 +70,7 @@
 	<section data-sbind="if: !opts.appsFirst() && opts.groupApps()">
 		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
 		<ul data-sbind="foreach: listedExtensions">
-			<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
+			<li class="extension" data-sbind="css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="click: $parent.toggleExtension, attr:{src:icon}" /> <span data-sbind="text: short_name, click: $parent.toggleExtension"></span><a data-sbind="if: optionsUrl, attr:{title:short_name + ' Options Page'}, click: openTab"><i class="fa fa-cog"></i></a></li>
 		</ul>
 		<h1 data-sbind="visible: listedApps.any">Apps</h1>
 		<ul data-sbind="foreach: listedApps">
@@ -82,7 +82,7 @@
 	<section data-sbind="if: !opts.groupApps()">
 		<h1 data-sbind="visible: listedItems.any">Extensions &amp; Apps</h1>
 		<ul data-sbind="foreach: listedItems">
-			<li class="extension" data-sbind="visible: !isApp(), click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> <span data-sbind="text: short_name"></span></li>
+			<li class="extension" data-sbind="visible: !isApp(), css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="click: $parent.toggleExtension, attr:{src:icon}" /> <span data-sbind="click: $parent.toggleExtension, text: short_name"></span><a data-sbind="if: optionsUrl, attr:{title:short_name + ' Options Page'}, click: openTab"><i class="fa fa-cog"></i></a></li>
 			<li class="app" data-sbind="visible: isApp, click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
 		</ul>
 	</section>

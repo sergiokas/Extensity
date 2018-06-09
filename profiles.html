@@ -72,6 +72,7 @@
             <input type="checkbox" data-sbind="value: id, attr:{id: id, name:id}, checked: $parent.current_profile().items" />
             <img data-sbind="attr:{src: icon}" width="16px" height="16px" />
             <span data-sbind="text: short_name"></span>
+            <a data-sbind="if: optionsUrl, attr:{title:short_name + ' Options Page'}, click: openTab"><i class="fa fa-cog"></i></a>
           </label>
         </li>
       </ul>
