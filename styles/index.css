@@ -181,9 +181,9 @@ section#content li.disabled img {
 
 section#content li span {
 	display: inline-block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 	width: calc(100% - 32px);
 	vertical-align: top;
 }
