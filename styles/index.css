@@ -179,6 +179,10 @@ section#content li.disabled img {
 	opacity: 0.3;
 }
 
+section#content li i.fa-gear {
+	float: right;
+}
+
 section#profiles i.fa-check {
 	color: green;
 }
