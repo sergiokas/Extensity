@@ -86,7 +86,8 @@ var OptionsCollection = function() {
     groupApps    : true,
     appsFirst    : false,
     enabledFirst : false,
-    searchBox    : true
+    searchBox    : true,
+    showOptions  : true
   };
 
   // Define observables.
@@ -263,7 +264,6 @@ var ExtensionCollectionModel = function() {
       .sortBy(function(i) { return i.name.toUpperCase(); })
       .each(function(i){
         if (i.name != "Extensity" && i.type != 'theme') {
-          console.log(i);
           self.items.push(new ExtensionModel(i));
         }
       });

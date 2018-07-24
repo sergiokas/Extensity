@@ -37,7 +37,7 @@
 </section>
 
 <section id="search" class="main" data-sbind="if: opts.searchBox">
-	<p><i class="fa fa-search"></i> <input type="text" data-sbind="value: search.q, valueUpdate: 'keyup'" tabindex=1 /></p>
+	<p><i class="fa fa-search"></i> <input type="text" data-sbind="value: search.q, valueUpdate: 'keyup'" tabindex=1 autofocus /></p>
 </section>
 
 <section id="content" class="main">
@@ -57,43 +57,23 @@
 	<!-- Apps first, grouped -->
 	<section data-sbind="if: opts.appsFirst() && opts.groupApps()">
 		<h1 data-sbind="visible: listedApps.any">Apps</h1>
-		<ul data-sbind="foreach: listedApps">
-			<li class="app" data-sbind="click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
-		</ul>
+		<ul data-sbind="template: {name: 'item-template', foreach: listedApps}"></ul>
 		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
-		<ul data-sbind="foreach: listedExtensions">
-			<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> 
-				<span data-sbind="text: short_name"></span> 
-				<i class="fa fa-gear" alt="options" data-sbind="visible: optionsUrl"></i>
-			</li>
-		</ul>
+		<ul data-sbind="template: {name: 'item-template', foreach: listedExtensions}"></ul>
 	</section>
 
 	<!-- Extensions first, grouped -->
 	<section data-sbind="if: !opts.appsFirst() && opts.groupApps()">
 		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
-		<ul data-sbind="foreach: listedExtensions">
-			<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> 
-				<span data-sbind="text: short_name"></span> 
-				<i class="fa fa-gear" alt="options" data-sbind="visible: optionsUrl"></i>
-			</li>
-		</ul>
+		<ul data-sbind="template: {name: 'item-template', foreach: listedExtensions}"></ul>
 		<h1 data-sbind="visible: listedApps.any">Apps</h1>
-		<ul data-sbind="foreach: listedApps">
-			<li class="app" data-sbind="click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
-		</ul>
+		<ul data-sbind="template: {name: 'item-template', foreach: listedApps}"></ul>
 	</section>
 
 	<!-- Mixed apps and extensions -->
 	<section data-sbind="if: !opts.groupApps()">
 		<h1 data-sbind="visible: listedItems.any">Extensions &amp; Apps</h1>
-		<ul data-sbind="foreach: listedItems">
-			<li class="extension" data-sbind="visible: !isApp(), click: toggle, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> 
-				<span data-sbind="text: short_name"> 
-				<i class="fa fa-gear" alt="options" data-sbind="visible: optionsUrl"></span>
-			</li>
-			<li class="app" data-sbind="visible: isApp, click: $parent.launchApp"><img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span></li>
-		</ul>
+		<ul data-sbind="template: {name: 'item-template', foreach: listedItems}"></ul>
 	</section>
 
 	<!-- Nothing in list -->
@@ -104,6 +84,17 @@
 
 <!-- Workaround for Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=307912 -->
 <div id="workaround-307912" style="display: none; height: 1px;"></div>
+
+<script type="text/html" id="item-template">
+	<li class="extension" data-sbind="visible: !isApp(), click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> 
+		<span data-sbind="text: short_name"></span> 
+		<i class="fa fa-gear" alt="options" data-sbind="visible: $parent.opts.showOptions() && optionsUrl() && !disabled(), click: $parent.launchOptions, clickBubble: false"></i>
+	</li>
+	<li class="app" data-sbind="visible: isApp(), click: $parent.launchApp">
+		<img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span>
+		<i class="fa fa-gear" alt="options" data-sbind="visible: $parent.opts.showOptions() && optionsUrl() && !disabled(), click: $parent.launchOptions, clickBubble: false"></i>
+	</li>
+</script>
 
 </body>
 </html>

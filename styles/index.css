@@ -181,6 +181,13 @@ section#content li.disabled img {
 
 section#content li i.fa-gear {
 	float: right;
+	margin-top: 2px;
+	color: #777;
+	font-size: 1.1em;
+}
+
+section#content li i.fa-gear:hover {
+	color: #333;
 }
 
 section#profiles i.fa-check {
