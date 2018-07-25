@@ -86,14 +86,18 @@
 <div id="workaround-307912" style="display: none; height: 1px;"></div>
 
 <script type="text/html" id="item-template">
-	<li class="extension" data-sbind="visible: !isApp(), click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> 
+	<!-- ko if: !isApp() -->
+	<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> 
 		<span data-sbind="text: short_name"></span> 
 		<i class="fa fa-gear" alt="options" data-sbind="visible: $parent.opts.showOptions() && optionsUrl() && !disabled(), click: $parent.launchOptions, clickBubble: false"></i>
 	</li>
-	<li class="app" data-sbind="visible: isApp(), click: $parent.launchApp">
+	<!-- /ko -->
+	<!-- ko if: isApp() -->
+	<li class="app" data-sbind="click: $parent.launchApp">
 		<img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span>
 		<i class="fa fa-gear" alt="options" data-sbind="visible: $parent.opts.showOptions() && optionsUrl() && !disabled(), click: $parent.launchOptions, clickBubble: false"></i>
 	</li>
+	<!-- /ko -->
 </script>
 
 </body>

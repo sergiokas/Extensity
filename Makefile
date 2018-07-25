@@ -21,7 +21,7 @@ minify: $(JS) $(CSS)
 	mv $(DIST)/js/$@.minify $(DIST)/js/$@
 
 %.css:
-	lessc -x $(DIST)/styles/$@ > $(DIST)/styles/$@.minify
+	yuicompressor --type css --nomunge $(DIST)/styles/$@ -o $(DIST)/styles/$@.minify
 	mv $(DIST)/styles/$@.minify $(DIST)/styles/$@
 
 pack:
