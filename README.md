@@ -9,7 +9,6 @@ get rid of it for a little while. You can also launch Chrome Apps right from the
 
 * Keep your browser lean and fast - disable extensions that you won't use right away.
 * Keep your toolbar clean.
-* Reduce Chrome memory usage.
 * Turn all extensions off (and back on) with a single click.
 * Quick switch between several extensions groups using the Profiles feature.
 * Keep computers in sync with Chrome Cloud Storage support.
