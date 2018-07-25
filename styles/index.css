@@ -190,6 +190,10 @@ section#content li i.fa-gear:hover {
 	color: #333;
 }
 
+section#content li i.fa-flask {
+	color: #777;
+}
+
 section#profiles i.fa-check {
 	color: green;
 }
