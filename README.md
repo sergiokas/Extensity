@@ -7,12 +7,12 @@ for lightning fast enabling and disabling all your extensions for Google Chrome.
 Just enable the extension when you want to use it, and disable when you want to
 get rid of it for a little while. You can also launch Chrome Apps right from the list.
 
-* Keep your browser fast - disable extensions that you won't use right away.
-* Keep your toolbar clean
-* Ideal companion for extensions collectors.
+* Keep your browser lean and fast - disable extensions that you won't use right away.
+* Keep your toolbar clean.
 * Turn all extensions off (and back on) with a single click.
 * Quick switch between several extensions groups using the Profiles feature.
 * Keep computers in sync with Chrome Cloud Storage support.
+* Ideal companion for extensions collectors.
 
 Extensity is open source software. Full source code at GitHub https://github.com/sergiokas/Extensity
 
@@ -23,6 +23,9 @@ Website: [http://sergiokas.github.com/Extensity/](http://sergiokas.github.com/Ex
 Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
+
+v1.6.0 (Jul 2018)
+- Added extension/app icon to access the options page.
 
 v1.5.0 (Jun 2018)
 - Added visual indication of the currently active profile.

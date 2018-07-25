@@ -86,7 +86,8 @@ var OptionsCollection = function() {
     groupApps    : true,
     appsFirst    : false,
     enabledFirst : false,
-    searchBox    : true
+    searchBox    : true,
+    showOptions  : true
   };
 
   // Define observables.
@@ -193,6 +194,7 @@ var ExtensionModel = function(e) {
   self.isApp = ko.observable(item.isApp);
   self.icon = smallestIcon(item.icons);
   self.status = ko.observable(item.enabled);
+  self.optionsUrl = ko.observable(item.optionsUrl);
 
   self.disabled = ko.pureComputed(function() {
     return !self.status();
