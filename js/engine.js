@@ -195,9 +195,14 @@ var ExtensionModel = function(e) {
   self.icon = smallestIcon(item.icons);
   self.status = ko.observable(item.enabled);
   self.optionsUrl = ko.observable(item.optionsUrl);
+  self.installType = ko.observable(item.installType);
 
   self.disabled = ko.pureComputed(function() {
     return !self.status();
+  });
+
+  self.is_development = ko.pureComputed(function() {
+    return self.installType() == 'development';
   });
 
   self.short_name = ko.computed(function() {

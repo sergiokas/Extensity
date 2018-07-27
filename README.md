@@ -24,6 +24,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.7.0 (Ago 2018)
+- Added icon for developer extensions
+
 v1.6.0 (Jul 2018)
 - Added extension/app icon to access the options page.
 
