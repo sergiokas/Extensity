@@ -24,6 +24,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.8.0 (Ago 2018)
+- Removed jQuery dependency
+
 v1.7.0 (Ago 2018)
 - Added icon for developer extensions
 

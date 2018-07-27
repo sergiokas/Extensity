@@ -4,7 +4,6 @@
 <title>Extensity Profiles</title>
 <link rel="stylesheet" type="text/css" href="styles/options.css" />
 <link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
-<script type="text/javascript" src="js/libs/jquery.min.js"></script>
 <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
 <script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
@@ -58,7 +57,7 @@
       <p><small><em>Note: no changes will be applied until you click on the "Save" button.</em></small></p>
       <button id="save" data-sbind="click: save">Save</button>&nbsp;
       <a href="#" id="close" data-sbind="click: close">Close</a>
-      <span id="save-result"></span>
+      <span id="save-result" class="hidden">| Saved!</span>
     </div>
 
     <div class="extensions" data-sbind="if: editable">
