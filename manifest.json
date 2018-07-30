@@ -18,5 +18,5 @@
     "scripts": ["js/migration.js"],
     "persistent": false
   },
-  "permissions": ["management", "tabs","storage"]
+  "permissions": ["management","storage"]
 }
