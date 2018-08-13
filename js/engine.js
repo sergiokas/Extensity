@@ -54,6 +54,12 @@ ko.extenders.countable = function(target, option) {
   });
 };
 
+var fadeOutMessage = function(id) {
+  el = document.getElementById(id);
+  el.className = "visible";
+  _.delay(function() { el.className = "fadeout"}, 2000);
+};
+
 var DismissalsCollection = function() {
   var self = this;
 

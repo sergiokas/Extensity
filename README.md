@@ -24,17 +24,21 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.8.0 (Ago 2018)
+- Removed jQuery dependency
+- Updated build system
+
 v1.7.0 (Ago 2018)
 - Added icon for developer extensions
 
 v1.6.0 (Jul 2018)
-- Added extension/app icon to access the options page.
+- **New Feature**: Added extension/app icon to access the options page.
 
 v1.5.0 (Jun 2018)
 - Added visual indication of the currently active profile.
 
 v1.4.0 (Jan 2018)
-- Sync between computers through Chrome Storage.
+- **New Feature**: Sync between computers through Chrome Storage.
 
 v1.3.1 (Nov 2017)
 - Changed profiles icon, minor visual changes.
