@@ -24,6 +24,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.9.0 (Sep 2018)
+- Removed `chrome.tabs` API dependency
+
 v1.8.0 (Ago 2018)
 - Removed jQuery dependency
 - Updated build system
@@ -32,19 +35,19 @@ v1.7.0 (Ago 2018)
 - Added icon for developer extensions
 
 v1.6.0 (Jul 2018)
-- **New Feature**: Added extension/app icon to access the options page.
+- **New Feature**: Added extension/app icon to access the options page
 
 v1.5.0 (Jun 2018)
-- Added visual indication of the currently active profile.
+- Added visual indication of the currently active profile
 
 v1.4.0 (Jan 2018)
-- **New Feature**: Sync between computers through Chrome Storage.
+- **New Feature**: Sync between computers through Chrome Storage
 
 v1.3.1 (Nov 2017)
-- Changed profiles icon, minor visual changes.
+- Changed profiles icon, minor visual changes
 
 v1.3.0 (Feb 2017)
-- **New Feature**: Search box for extensions and apps.
+- **New Feature**: Search box for extensions and apps
 - Temporary workaround for [Chromium bug](https://bugs.chromium.org/p/chromium/issues/detail?id=307912)
 
 v1.2.4 (Sept 2016)
@@ -67,7 +70,7 @@ v1.2.0 (Apr 2016)
 - Minor style changes
 
 v1.1.11 (Jun 2015)
-- **New Feature**: turn all enabled extensions off, then turn them back on.
+- **New Feature**: turn all enabled extensions off, then turn them back on
 - Style changes
 - New icons
 
@@ -113,4 +116,4 @@ v0.1.2 (Jun 2011)
 - Added options page to configure grouping and header display
 
 v0.1.1 (May 2011)
-- Fixed scrollbar for really long extension lists.
+- Fixed scrollbar for really long extension lists
