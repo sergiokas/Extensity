@@ -169,6 +169,14 @@ fieldset#options .field {
 	background-color: #ddd;
 }
 
+#profiles .sidebar .quota-error {
+	background-color: #FFEEEE;
+	border: 1px solid red;
+	border-radius: 5px;
+	padding: 8px;
+	margin-right: 5px;
+}
+
 #profiles label {
 	line-height: 200%;
 }

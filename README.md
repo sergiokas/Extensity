@@ -24,6 +24,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.10.0 (Jan 2019)
+- Save Profiles locally when the amount of data exceeds Google's quota.
+
 v1.9.0 (Sep 2018)
 - Removed `chrome.tabs` API dependency
 

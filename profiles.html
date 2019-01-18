@@ -58,7 +58,12 @@
       <button id="save" data-sbind="click: save">Save</button>&nbsp;
       <a href="#" id="close" data-sbind="click: close">Close</a>
       <span id="save-result" class="hidden">| Saved!</span>
+      <p class="quota-error" data-sbind="visible: profiles.localProfiles">
+        <i class="fa fa-warning"></i> You have too many Extensions or Profiles to sync with Google. <b>Your Profiles are still saved, but only for this browser</b>.
+      </p>
+
     </div>
+
 
     <div class="extensions" data-sbind="if: editable">
       <p class="toggle">
