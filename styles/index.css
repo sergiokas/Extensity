@@ -1,10 +1,12 @@
 body {
 	overflow-x:hidden;
 	overflow-y:auto;
-	font-family: Lucida Grande, Arial, sans-serif;
-	font-size: 12px;
+	font-family: Roboto, Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 300;
 	background-color: #fff;
 	min-height: 300px;
+	width: 400px;
 	user-select: none;
 	padding: 0px;
 }
@@ -17,8 +19,7 @@ section.main {
 	float: left;
 	clear: both;
 	min-width:280px;
-	padding: 0px 7px;
-	width: 95%;
+	width: 100%;
 }
 
 section#header {
@@ -51,7 +52,7 @@ section#header a#title {
 	text-decoration: none;
 	vertical-align: middle;
 	outline: none;
-	margin-top: 2px;
+	margin: 5px 7px;
 }
 
 section#header a#title img{
@@ -59,30 +60,29 @@ section#header a#title img{
 }
 
 section#header a.page, section#header a.switch {
-	margin-left: 7px;
+	margin-right: 10px;
 	font-size: 1.4em;
 	cursor: pointer;
 	outline:none;
 }
 
 section#header .fa {
-	color: black;
-	opacity: .6;
+	color: #304669;
 }
 
-section#header .fa-facebook-official {
+section#header .fa-facebook-square {
 	color: #3b5998;
 }
 
 section#header .fa-twitter {
-	color: #55A4DA;
+	color: #1da1f2;
 }
 
 section#header .fa-star {
 	color: #FF9300;
 }
 
-section#header .fa-user-circle-o {
+section#header .fa-user-circle {
 	zoom: 95%;
 }
 
@@ -90,9 +90,7 @@ section#header .fa-lightbulb-o {
 	margin-right: 3px;
 }
 
-section#header .fa:hover {
-	opacity: 1;
-}
+section#header .fa:hover {color: #304669;opacity: .6;}
 
 section#header .fa.highlight {
 	/* Find some way to highlight those icons nicely */
@@ -107,14 +105,15 @@ section#search {
 }
 
 section#search p {
-	margin: 0px;
 	padding: 1px 1px 1px 5px;
-	background-image: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
-	border-radius: 3px 3px 0px 0px;
+	box-shadow: rgba(60, 64, 67, 0.15) 0px 1px 5px 0px, rgba(60, 64, 67, 0.1) 0px 4px 4px 0px, rgba(60, 64, 67, 0.08) 0px -0.1px 3px 0px;
+	border-radius: 25px;
+	margin: .5em;
 }
 
 section#search i {
-  color: #7B7B7B;
+  color: #d4d2d2;
+  padding: 5px;
 }
 
 section#search input {
@@ -129,38 +128,30 @@ section#search input {
 }
 
 section#content h1 {
-	background-color: #516C97;
-	background-image: linear-gradient(top, #7F97B9, #516C97);
-	background-image: -o-linear-gradient(top, #7F97B9, #516C97);
-	background-image: -moz-linear-gradient(top, #7F97B9, #516C97);
-	background-image: -webkit-linear-gradient(top, #7F97B9, #516C97);
-	background-image: -ms-linear-gradient(top, #7F97B9, #516C97);	
-	padding: 3px 4px 3px 4px;
+	background-color: #304669;
+	padding: 5px 0 5px 10px;
 	margin: 0px;
-	border-radius: 2px;
-	text-shadow: 0 1px 1px rgba(0,0,0,.7);
+	border-radius: 0;
 	font-size: 1em;
+	font-weight: 400;
 	color: white;
 }
 
 section#content ul {
 	margin: 0px 0px;
-	padding: 0px 0px;
 	list-style-type: none;
+	padding: 5px 10px;
 }
 
 section#content ul li {
 	color: black;
-	padding: 3px 2px;
+	padding: 5px 2px;
 	cursor: pointer;
 }
 
 section#content ul li:hover {
 	color: black;
-	text-shadow: 0 1px 0 white;
-	background-color: #e0e0e0;
-	box-shadow: 0px 0px 15px rgba(0,0,0,.2) inset;
-	border-radius: 2px;
+	background: #d2d3d4;
 }
 
 section#content ul li img {
@@ -179,14 +170,14 @@ section#content li.disabled img {
 	opacity: 0.3;
 }
 
-section#content li i.fa-gear {
+section#content li i.fa-cog {
 	float: right;
 	margin-top: 2px;
 	color: #777;
 	font-size: 1.1em;
 }
 
-section#content li i.fa-gear:hover {
+section#content li i.fa-cog:hover {
 	color: #333;
 }
 

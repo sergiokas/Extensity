@@ -1,95 +1,88 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<!-- Includes -->
-<title>Extensity</title>
-<link rel="stylesheet" type="text/css" href="styles/normalize.css" />
-<link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="styles/index.css" />
-<script type="text/javascript" src="js/libs/underscore-min.js"></script>
-<script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
-<script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
-<script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
-<script type="text/javascript" src="js/engine.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+    <!-- Includes -->
+    <title>Extensity</title>
+    <link rel="stylesheet" type="text/css" href="styles/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="styles/all.css" />
+    <link rel="stylesheet" type="text/css" href="styles/index.css" />
+    <script type="text/javascript" src="js/libs/underscore-min.js"></script>
+    <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
+    <script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
+    <script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
+    <script type="text/javascript" src="js/engine.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 </head>
+
 <body>
-<section id="header" class="main" data-sbind="if: opts.showHeader">
-	<h1>
+    <section id="header" class="main" data-sbind="if: opts.showHeader">
+        <h1>
+				<a href="options.html" class="page" target="_blank"><i class="fa fa-cog" alt="Extensity options" title="Extensity options"></i></a>
+
+		<a href="profiles.html" class="page" target="_blank"><i class="fa fa-user-circle" alt="Profiles" title="Profiles"></i></a>
+
+		<a href="chrome://extensions" class="page" id="chrome-extensions" target="_blank" data-sbind="click: openChromeExtensions"><i class="fa fa-puzzle-piece" alt="Chrome Extensions" title="Chrome Extensions"></i></a>
+
+		<a href="#" class="switch" data-sbind="click: switch.flip"><i class="fa" data-sbind="css: switch.toggleStyle" alt="Switch enabled extensions off. Click again to switch back on." title="Switch enabled extensions off. Click again to switch back on."></i></a>
 		<a id="title" href="https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg" target="_blank"><img src="images/icon48.png" width="16px" height="16px" />&nbsp;Extensity</a>
 
 		<!-- Actions -->
 		<a href="https://chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg/reviews" class="page" target="_blank"><i class="fa fa-star" alt="Rate Extensity. Thanks!" title="Rate Extensity. Thanks!"></i></a>
 
-		<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg?hl=en" class="page" target="_blank"><i class="fa fa-facebook-official" alt="Share Extensity. Thanks!" title="Share Extensity on Facebook. Thanks!"/></i></a>
+		<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg?hl=en" class="page" target="_blank"><i class="fab fa-facebook-square" alt="Share Extensity. Thanks!" title="Share Extensity on Facebook. Thanks!"/></i></a>
 
-		<a href="http://twitter.com/share?url=https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg&via=ExtensityChrome&text=Keep control of your Chrome extensions with Extensity. Quickly enable/disable any extension!" class="page" target="_blank"><i class="fa fa-twitter" alt="Share Extensity. Thanks!" title="Share Extensity on Twitter. Thanks!"/></i></a>
+		<a href="http://twitter.com/share?url=https://chrome.google.com/webstore/detail/jjmflmamggggndanpgfnpelongoepncg&via=ExtensityChrome&text=Keep control of your Chrome extensions with Extensity. Quickly enable/disable any extension!" class="page" target="_blank"><i class="fab fa-twitter" alt="Share Extensity. Thanks!" title="Share Extensity on Twitter. Thanks!"/></i></a>
 
-		<a href="options.html" class="page" target="_blank"><i class="fa fa-cog" alt="Extensity options" title="Extensity options"></i></a>
-
-		<a href="profiles.html" class="page" target="_blank"><i class="fa fa-user-circle-o" alt="Profiles" title="Profiles"></i></a>
-
-		<a href="chrome://extensions" class="page" id="chrome-extensions" target="_blank" data-sbind="click: openChromeExtensions"><i class="fa fa-puzzle-piece" alt="Chrome Extensions" title="Chrome Extensions"></i></a>
-
-		<a href="#" class="switch" data-sbind="click: switch.flip"><i class="fa" data-sbind="css: switch.toggleStyle" alt="Switch enabled extensions off. Click again to switch back on." title="Switch enabled extensions off. Click again to switch back on."></i></a>
 	</h1>
-</section>
-
-<section id="search" class="main" data-sbind="if: opts.searchBox">
-	<p><i class="fa fa-search"></i> <input type="text" data-sbind="value: search.q, valueUpdate: 'keyup'" tabindex=1 autofocus /></p>
-</section>
-
-<section id="content" class="main">
-
-	<!-- Profiles -->
-	<section id="profiles" data-sbind="if: profiles.any, visible: !search.q">
-		<h1>Profiles</h1>
-		<ul data-sbind="foreach: profiles.items">
-			<li class="app" data-sbind="click: $parent.setProfile">
-				<i class="fa fa-check" alt="active" data-sbind="visible: name() == $parent.activeProfile()"></i>
-				<i class="fa fa-user-circle-o" alt="profile" data-sbind="visible: name() != $parent.activeProfile()"></i>
-				<span data-sbind="text: short_name"></span> 
-			</li>
-		</ul>
-	</section>
-
-	<!-- Apps first, grouped -->
-	<section data-sbind="if: opts.appsFirst() && opts.groupApps()">
-		<h1 data-sbind="visible: listedApps.any">Apps</h1>
-		<ul data-sbind="template: {name: 'item-template', foreach: listedApps}"></ul>
-		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
-		<ul data-sbind="template: {name: 'item-template', foreach: listedExtensions}"></ul>
-	</section>
-
-	<!-- Extensions first, grouped -->
-	<section data-sbind="if: !opts.appsFirst() && opts.groupApps()">
-		<h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
-		<ul data-sbind="template: {name: 'item-template', foreach: listedExtensions}"></ul>
-		<h1 data-sbind="visible: listedApps.any">Apps</h1>
-		<ul data-sbind="template: {name: 'item-template', foreach: listedApps}"></ul>
-	</section>
-
-	<!-- Mixed apps and extensions -->
-	<section data-sbind="if: !opts.groupApps()">
-		<h1 data-sbind="visible: listedItems.any">Extensions &amp; Apps</h1>
-		<ul data-sbind="template: {name: 'item-template', foreach: listedItems}"></ul>
-	</section>
-
-	<!-- Nothing in list -->
-	<section data-sbind="visible: emptyItems">
-		<p class="empty"><i class="fa fa-exclamation-triangle"></i><br />No Extensions or Apps found.</p>
-	</section>
-</section>
-
-<!-- Workaround for Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=307912 -->
-<div id="workaround-307912" style="display: none; height: 1px;"></div>
-
-<script type="text/html" id="item-template">
-	<!-- ko if: !isApp() -->
+    </section>
+    <section id="search" class="main" data-sbind="if: opts.searchBox">
+        <p><i class="fa fa-search"></i> <input type="text" data-sbind="value: search.q, valueUpdate: 'keyup'" tabindex=1 autofocus /></p>
+    </section>
+    <section id="content" class="main">
+        <!-- Profiles -->
+        <section id="profiles" data-sbind="if: profiles.any, visible: !search.q">
+            <h1>Profiles</h1>
+            <ul data-sbind="foreach: profiles.items">
+                <li class="app" data-sbind="click: $parent.setProfile">
+                    <i class="fa fa-check" alt="active" data-sbind="visible: name() == $parent.activeProfile()"></i>
+                    <i class="fa fa-user-circle-o" alt="profile" data-sbind="visible: name() != $parent.activeProfile()"></i>
+                    <span data-sbind="text: short_name"></span>
+                </li>
+            </ul>
+        </section>
+        <!-- Apps first, grouped -->
+        <section data-sbind="if: opts.appsFirst() && opts.groupApps()">
+            <h1 data-sbind="visible: listedApps.any">Apps</h1>
+            <ul data-sbind="template: {name: 'item-template', foreach: listedApps}"></ul>
+            <h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
+            <ul data-sbind="template: {name: 'item-template', foreach: listedExtensions}"></ul>
+        </section>
+        <!-- Extensions first, grouped -->
+        <section data-sbind="if: !opts.appsFirst() && opts.groupApps()">
+            <h1 data-sbind="visible: listedExtensions.any">Extensions</h1>
+            <ul data-sbind="template: {name: 'item-template', foreach: listedExtensions}"></ul>
+            <h1 data-sbind="visible: listedApps.any">Apps</h1>
+            <ul data-sbind="template: {name: 'item-template', foreach: listedApps}"></ul>
+        </section>
+        <!-- Mixed apps and extensions -->
+        <section data-sbind="if: !opts.groupApps()">
+            <h1 data-sbind="visible: listedItems.any">Extensions &amp; Apps</h1>
+            <ul data-sbind="template: {name: 'item-template', foreach: listedItems}"></ul>
+        </section>
+        <!-- Nothing in list -->
+        <section data-sbind="visible: emptyItems">
+            <p class="empty"><i class="fa fa-exclamation-triangle"></i><br />No Extensions or Apps found.</p>
+        </section>
+    </section>
+    <!-- Workaround for Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=307912 -->
+    <div id="workaround-307912" style="display: none; height: 1px;"></div>
+    <script type="text/html" id="item-template">
+        <!-- ko if: !isApp() -->
 	<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" /> 
 		<span data-sbind="text: short_name"></span> 
 		<i class="fa fa-flask" title="Development" alt="Development" data-sbind="visible: is_development"></i>
-		<i class="fa fa-gear" title="Options" alt="Options" data-sbind="visible: $parent.opts.showOptions() && optionsUrl() && !disabled(), click: $parent.launchOptions, clickBubble: false"></i>
+		<i class="fas fa-cog" title="Options" alt="Options" data-sbind="visible: $parent.opts.showOptions() && optionsUrl() && !disabled(), click: $parent.launchOptions, clickBubble: false"></i>
 
 	</li>
 	<!-- /ko -->
@@ -101,6 +94,6 @@
 	</li>
 	<!-- /ko -->
 </script>
-
 </body>
+
 </html>
