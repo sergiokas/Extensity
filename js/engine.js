@@ -30,7 +30,7 @@ ko.extenders.persistable = function(target, key) {
     // Subscribe to changes after initializing the value.
     target.subscribe(function(val) {
       var obj={};
-      obj[key]=val; 
+      obj[key]=val;
       chrome.storage.sync.set(obj);
     });
   });
@@ -138,6 +138,7 @@ var ProfileCollectionModel = function() {
   var self = this;
 
   self.items = ko.observableArray();
+  self.localProfiles = ko.observable(undefined).extend({persistable: "localProfiles"});
 
   self.any = ko.computed(function() {
     return self.items().length > 0;
@@ -162,21 +163,40 @@ var ProfileCollectionModel = function() {
 
   self.save = function(callback) {
     var r = {};
-    var t = _(self.items()).each(function(i) {
+
+    _(self.items()).each(function(i) {
       if (i.name()) {
         r[i.name()] = _(i.items()).uniq();
       }
     });
-    chrome.storage.sync.set({profiles: r}, callback);
+
+    // Try sync storage first. If it fails, store the Profiles locally.
+    chrome.storage.sync.set({profiles: r}, function(val) {
+      if(chrome.runtime.lastError) {
+        self.localProfiles(true);
+        chrome.storage.local.set({profiles: r}, callback);
+      }
+      else {
+        self.localProfiles(false);
+        callback(val);
+      }
+    });
+
   };
 
-  chrome.storage.sync.get("profiles", function(p) {
-    p = p['profiles'] || {};
-    var k = _(p).chain().keys().sortBy().value();
-    _(k).each(function(name) {
-      self.items.push(new ProfileModel(name, p[name]));
+  chrome.storage.sync.get("localProfiles", function(v) {
+    // Pull profiles from sync or local storage as appropriate.
+    var storage = (v.localProfiles) ? chrome.storage.local : chrome.storage.sync;
+
+    storage.get("profiles", function(p) {
+      p = p['profiles'] || {};
+      var k = _(p).chain().keys().sortBy().value();
+      _(k).each(function(name) {
+        self.items.push(new ProfileModel(name, p[name]));
+      });
     });
-  });
+
+  })
 
   return this;
 }
