@@ -13,6 +13,11 @@ a {
 	text-decoration: none;
 }
 
+img.icon {
+	height: 16px;
+	widows: 16px;
+}
+
 section.main {
 	float: left;
 	clear: both;
@@ -179,14 +184,15 @@ section#content li.disabled img {
 	opacity: 0.3;
 }
 
-section#content li i.fa-gear {
+section#content li i.fa-gear, section#content li i.fa-home {
 	float: right;
 	margin-top: 2px;
 	color: #777;
 	font-size: 1.1em;
+	padding-right: 2px;
 }
 
-section#content li i.fa-gear:hover {
+section#content li i.fa-gear:hover, section#content li i.fa-home:hover {
 	color: #333;
 }
 

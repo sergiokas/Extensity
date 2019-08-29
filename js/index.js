@@ -78,6 +78,10 @@ document.addEventListener("DOMContentLoaded", function() {
       chrome.tabs.create({url: ext.optionsUrl(), active: true});
     };
 
+    self.launchHomePage = function(ext) {
+      chrome.tabs.create({url: ext.homepageUrl(), active: true});
+    };
+
     self.listedExtensions = ko.computed(function() {
       // Sorted/Filtered list of extensions
       return (self.opts.enabledFirst()) ?
