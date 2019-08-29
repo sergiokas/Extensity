@@ -1,4 +1,4 @@
-jQuery(document).ready( function($) {
+document.addEventListener("DOMContentLoaded", function() {
 
   var ProfilesViewModel = function() {
     var self = this;
@@ -51,7 +51,7 @@ jQuery(document).ready( function($) {
 
     self.save = function() {
       self.profiles.save(function() {
-        $('#save-result').text('| Saved!').show().delay(2000).fadeOut('slow');
+        fadeOutMessage("save-result");
       });
     };
 

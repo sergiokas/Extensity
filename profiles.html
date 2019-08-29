@@ -4,7 +4,6 @@
 <title>Extensity Profiles</title>
 <link rel="stylesheet" type="text/css" href="styles/options.css" />
 <link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
-<script type="text/javascript" src="js/libs/jquery.min.js"></script>
 <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
 <script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
@@ -58,8 +57,13 @@
       <p><small><em>Note: no changes will be applied until you click on the "Save" button.</em></small></p>
       <button id="save" data-sbind="click: save">Save</button>&nbsp;
       <a href="#" id="close" data-sbind="click: close">Close</a>
-      <span id="save-result"></span>
+      <span id="save-result" class="hidden">| Saved!</span>
+      <p class="quota-error" data-sbind="visible: profiles.localProfiles">
+        <i class="fa fa-warning"></i> You have too many Extensions or Profiles to sync with Google. <b>Your Profiles are still saved, but only for this browser</b>.
+      </p>
+
     </div>
+
 
     <div class="extensions" data-sbind="if: editable">
       <p class="toggle">
@@ -72,7 +76,7 @@
             <input type="checkbox" data-sbind="value: id, attr:{id: id, name:id}, checked: $parent.current_profile().items" />
             <img data-sbind="attr:{src: icon}" width="16px" height="16px" />
             <span data-sbind="text: short_name"></span>
-            <i data-sbind="visible: installType == 'development', attr:{title: 'Unpacked Extension'}" class="fa fa-flask"></i>
+            <i class="fa fa-flask" title="Development" alt="Development" data-sbind="visible: is_development"></i>
           </label>
         </li>
       </ul>

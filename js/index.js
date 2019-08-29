@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+document.addEventListener("DOMContentLoaded", function() {
 
   var SearchViewModel = function() {
     var self = this;
@@ -74,6 +74,10 @@ jQuery(document).ready(function($) {
       chrome.management.launchApp(app.id());
     };
 
+    self.launchOptions = function(ext) {
+      chrome.tabs.create({url: ext.optionsUrl(), active: true});
+    };
+
     self.listedExtensions = ko.computed(function() {
       // Sorted/Filtered list of extensions
       return (self.opts.enabledFirst()) ?
@@ -137,5 +141,5 @@ jQuery(document).ready(function($) {
   });
 
   // Workaround for Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=307912
-  window.setTimeout(function() { jQuery('#workaround-307912').show(); }, 0);
+  window.setTimeout(function() { document.getElementById('workaround-307912').style.display = 'block'; }, 0);
 });

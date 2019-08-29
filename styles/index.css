@@ -179,6 +179,21 @@ section#content li.disabled img {
 	opacity: 0.3;
 }
 
+section#content li i.fa-gear {
+	float: right;
+	margin-top: 2px;
+	color: #777;
+	font-size: 1.1em;
+}
+
+section#content li i.fa-gear:hover {
+	color: #333;
+}
+
+section#content li i.fa-flask {
+	color: #777;
+}
+
 section#profiles i.fa-check {
 	color: green;
 }

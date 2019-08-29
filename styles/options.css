@@ -169,6 +169,14 @@ fieldset#options .field {
 	background-color: #ddd;
 }
 
+#profiles .sidebar .quota-error {
+	background-color: #FFEEEE;
+	border: 1px solid red;
+	border-radius: 5px;
+	padding: 8px;
+	margin-right: 5px;
+}
+
 #profiles label {
 	line-height: 200%;
 }
@@ -220,4 +228,19 @@ fieldset#options .field {
 .fa.right {
 	float: right;
 	cursor: pointer;
+}
+
+.fadeout {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s .5s, opacity .5s linear;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.hidden {
+	visibility: hidden;
 }
