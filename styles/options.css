@@ -190,7 +190,7 @@ fieldset#options .field {
 }
 
 #profiles .extensions {
-	border-left: 1px solid #ddd;
+	border: 1px solid #ddd;
 	padding-left: 10px;
 	padding-right: 10px;
 }
