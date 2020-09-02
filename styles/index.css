@@ -198,6 +198,11 @@ section#profiles i.fa-check {
 	color: green;
 }
 
+section#profiles i.fa {
+	min-width: 15px;
+	text-align: center;
+}
+
 section p.empty {
 	text-align: center;
 	color: #777;

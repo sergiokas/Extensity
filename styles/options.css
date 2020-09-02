@@ -136,18 +136,20 @@ fieldset#options .field {
 }
 
 /* Profiles */
+.instructions {
+	float: right;
+}
+
 #profiles fieldset {
 	float: left;
 	min-width: 600px;
 	max-width: 70%;
 }
 
-.instructions {
-	float: right;
-}
-
 #profiles .fa {
 	cursor: pointer;
+	min-width: 15px;
+	text-align: center;
 }
 
 #profiles .fa-trash {
