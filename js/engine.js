@@ -7,14 +7,14 @@ ko.extenders.pluckable = function(target, option) {
 
 ko.extenders.toggleable = function(target, option) {
   // Toggles for extension collections
-  target.toggle = function() {
-    _(target()).each(function(i) { i.toggle(); });
+  target.toggle = function(filterFn) {
+    _(target()).chain().filter(filterFn).each(function(i) { i.toggle(); })
   };
-  target.enable = function() {
-    _(target()).each(function(i) { i.enable(); });
+  target.enable = function(filterFn) {
+    _(target()).chain().filter(filterFn).each(function(i) { i.enable(); })
   };
-  target.disable = function() {
-    _(target()).each(function(i) { i.disable(); });
+  target.disable = function(filterFn) {
+    _(target()).chain().filter(filterFn).each(function(i) { i.disable(); })
   };
 };
 
@@ -93,7 +93,9 @@ var OptionsCollection = function() {
     appsFirst    : false,
     enabledFirst : false,
     searchBox    : true,
-    showOptions  : true
+    showOptions  : true,
+    keepAlwaysOn : false,
+    showReserved : false
   };
 
   // Define observables.
@@ -123,12 +125,23 @@ var ProfileModel = function(name, items) {
   self.name = ko.observable(name);
   self.items = ko.observableArray(items);
 
+  self.reserved = ko.computed(function() {
+    return self.name().startsWith("__");
+  });
+
   self.hasItems = ko.computed(function() {
     return self.items().length > 0;
   });
 
+  self.reserved_name = ko.computed(function() {
+    if(self.name()=='__always_on') {
+      return "Always On";
+    }
+    return null;
+  });
+
   self.short_name = ko.computed(function() {
-    return _.str.prune(self.name(),30);
+    return self.reserved_name() || _.str.prune(self.name(),30);
   });
 
   return this;
@@ -152,6 +165,10 @@ var ProfileCollectionModel = function() {
   self.find = function(name) {
     return _(self.items()).find(function(i) { return i.name() == name});
   }
+
+  self.always_on = function() {
+    return self.find("__always_on") || (new ProfileModel("__always_on", []));
+  };
 
   self.remove = function(profile) {
     self.items.remove(profile);

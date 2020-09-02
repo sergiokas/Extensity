@@ -27,12 +27,20 @@
 <div class="clear"></div>
 <section id="content">
 	<fieldset id="options">
-		<div class="field">
-			<input type="checkbox" name="showHeader" id="showHeader" data-sbind="checked: options.showHeader" />
-			<label for="showHeader">
-				Show header at the top
-			</label>
-		</div>
+    <legend>Layout</legend>
+    <div class="field">
+      <input type="checkbox" name="showHeader" id="showHeader" data-sbind="checked: options.showHeader" />
+      <label for="showHeader">
+        Show header at the top
+      </label>
+    </div>
+    <div class="field">
+      <input type="checkbox" name="searchBox" id="searchBox" data-sbind="checked: options.searchBox"/>
+      <label for="searchBox">
+        Show search box
+      </label>
+    </div>
+    <legend>Apps &amp; Extensions</legend>
 		<div class="field">
 			<input type="checkbox" name="groupApps" id="groupApps" data-sbind="checked: options.groupApps" />
 			<label for="groupApps">
@@ -52,15 +60,22 @@
       </label>
     </div>
     <div class="field">
-      <input type="checkbox" name="searchBox" id="searchBox" data-sbind="checked: options.searchBox"/>
-      <label for="searchBox">
-        Show search box
-      </label>
-    </div>
-    <div class="field">
       <input type="checkbox" name="showOptions" id="showOptions" data-sbind="checked: options.showOptions"/>
       <label for="showOptions">
         Show options icon for each item
+      </label>
+    </div>
+    <legend>Always On</legend>
+    <div class="field">
+      <input type="checkbox" name="showReserved" id="showReserved" data-sbind="checked: options.showReserved"/>
+      <label for="showReserved">
+        Show Always On profile in the list
+      </label>
+    </div>
+    <div class="field">
+      <input type="checkbox" name="keepAlwaysOn" id="keepAlwaysOn" data-sbind="checked: options.keepAlwaysOn"/>
+      <label for="keepAlwaysOn">
+        Keep Always On extensions enabled when switching everything off
       </label>
     </div>
 		<div class="field">

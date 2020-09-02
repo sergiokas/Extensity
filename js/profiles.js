@@ -20,6 +20,15 @@ document.addEventListener("DOMContentLoaded", function() {
       self.current_profile(data);
     };
 
+    self.selectAlwaysOn = function(data) {
+      self.selectReserved(data, "always_on");
+    }
+
+    self.selectReserved = function(data, n) {
+      self.add_name("__"+n);
+      self.add();
+    };
+
     self.selectByIndex = function(idx) {
       self.current_profile(self.profiles.items()[idx]);
     };

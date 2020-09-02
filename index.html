@@ -42,9 +42,9 @@
 <section id="content" class="main">
 
 	<!-- Profiles -->
-	<section id="profiles" data-sbind="if: profiles.any, visible: !search.q">
+	<section id="profiles" data-sbind="if: listedProfiles.any, visible: !search.q">
 		<h1>Profiles</h1>
-		<ul data-sbind="foreach: profiles.items">
+		<ul data-sbind="foreach: listedProfiles">
 			<li class="app" data-sbind="click: $parent.setProfile">
 				<i class="fa fa-check" alt="active" data-sbind="visible: name() == $parent.activeProfile()"></i>
 				<i class="fa fa-user-circle-o" alt="profile" data-sbind="visible: name() != $parent.activeProfile()"></i>

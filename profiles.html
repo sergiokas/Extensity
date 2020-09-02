@@ -32,7 +32,7 @@
       <i class="fa fa-info-circle"></i><strong> How Profiles Work:</strong>
       <br/><br/>When activating a profile, <strong>selected extensions will be enabled, and all the rest will be disabled.</strong>
       <br/><br/>You can create as many profiles as you want. Try to put descriptive names such as "Browsing", "Shopping", "Work", etc.
-      <br/><br/>If you want an extension to be always enabled, just include it in all profiles.
+      <br/><br/><strong>Always On</strong>: Extensions that should be always enabled when switching to different profiles. You can still manuallt toggle each extension off when needed.
     </p>
     <div class="clear"></div>
   </div>
@@ -46,10 +46,18 @@
         </form>
       </p>
       <p>
+        <ul class="items">
+          <li data-sbind="click: selectAlwaysOn, css:{active: '__always_on'==current_name()}">
+            <i class="fa fa-lightbulb-o"></i>&nbsp;
+            <a href="#">Always On</a>
+          </li>
+        </ul>
+      </p>
+      <p>
         <ul class="items" data-sbind="foreach: profiles.items">
-          <li data-sbind="css:{active: name()==$parent.current_name()}">
+          <li data-sbind="visible: !reserved(), click: $parent.select, css:{active: name()==$parent.current_name()}">
             <i class="fa fa-trash" data-sbind="click:$parent.remove"></i>&nbsp;
-            <a data-sbind="text: short_name, click: $parent.select"></a>
+            <a data-sbind="text: short_name"></a>
           </li>
         </ul>
       </p>

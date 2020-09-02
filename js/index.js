@@ -7,12 +7,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // TODO: Add more search control here.
   };
 
-  var SwitchViewModel = function(exts) {
+  var SwitchViewModel = function(exts, profiles, opts) {
     var self = this;
 
     var init = [];
 
     self.exts = exts;
+    self.profiles = profiles;
+    self.opts = opts;
     self.toggled = ko.observableArray().extend({persistable: "toggled"});
 
     self.any = ko.computed(function() {
@@ -22,6 +24,12 @@ document.addEventListener("DOMContentLoaded", function() {
     self.toggleStyle = ko.pureComputed(function() {
       return (self.any()) ? 'fa-toggle-off' : 'fa-toggle-on'
     });
+
+    var disableFilterFn = function(item) {
+      // Filter out Always On extensions when disabling, if option is set.
+      if(!self.opts.keepAlwaysOn()) return true;
+      return !_(self.profiles.always_on().items()).contains(item.id());
+    };
 
     self.flip = function() {
       if(self.any()) {
@@ -33,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
         self.toggled([]);
       } else {
         // Disable
-        self.toggled( self.exts.enabled.pluck() );
-        self.exts.enabled.disable();
+        self.toggled(self.exts.enabled.pluck());
+        self.exts.enabled.disable(disableFilterFn);
       };
     };
 
@@ -47,16 +55,21 @@ document.addEventListener("DOMContentLoaded", function() {
     self.exts = new ExtensionCollectionModel();
     self.opts = new OptionsCollection();
     self.dismissals = new DismissalsCollection();
-    self.switch = new SwitchViewModel(self.exts);
+    self.switch = new SwitchViewModel(self.exts, self.profiles, self.opts);
     self.search = new SearchViewModel();
     self.activeProfile = ko.observable().extend({persistable: "activeProfile"});
 
     var filterFn = function(i) {
-      // Filtering function
+      // Filtering function for search box
       if(!self.opts.searchBox()) return true;
       if(!self.search.q()) return true;
       return i.name().toUpperCase().indexOf(self.search.q().toUpperCase()) !== -1;
     };
+
+    var filterProfileFn = function(i) {
+      // Only show public profiles in the list
+      return self.opts.showReserved() || !i.reserved();
+    }
 
     var nameSortFn = function(i) {
       return i.name().toUpperCase();
@@ -95,13 +108,18 @@ document.addEventListener("DOMContentLoaded", function() {
       return _(self.exts.items()).filter(filterFn);
     }).extend({countable: null});
 
+    self.listedProfiles = ko.computed(function() {
+      return _(self.profiles.items()).filter(filterProfileFn);
+    }).extend({countable: null});
+
     self.emptyItems = ko.pureComputed(function() {
       return self.listedApps.none() && self.listedExtensions.none();
     });
 
     self.setProfile = function(p) {
       self.activeProfile(p.name());
-      var ids = p.items();
+      // Profile items, plus always-on items
+      var ids = _.union(p.items(), self.profiles.always_on().items());
       var to_enable = _.intersection(self.exts.disabled.pluck(),ids);
       var to_disable = _.difference(self.exts.enabled.pluck(), ids);
       _(to_enable).each(function(id) { self.exts.find(id).enable() });

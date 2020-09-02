@@ -36,6 +36,15 @@ fieldset {
 	border: none;
 }
 
+fieldset legend {
+	float: left;
+	clear: left;
+	padding: 10px 3px;
+	border-bottom: 1px solid #304669;
+	font-weight: bold;
+	color: #304669;
+}
+
 fieldset .field {
 	float: left;
 	clear: left;
