@@ -8,13 +8,13 @@ ko.extenders.pluckable = function(target, option) {
 ko.extenders.toggleable = function(target, option) {
   // Toggles for extension collections
   target.toggle = function(filterFn) {
-    _(target()).chain().filter(filterFn).each(function(i) { i.toggle(); })
+    _(target()).chain().filter(filterFn).each(function(i) { i.toggle(); });
   };
   target.enable = function(filterFn) {
-    _(target()).chain().filter(filterFn).each(function(i) { i.enable(); })
+    _(target()).chain().filter(filterFn).each(function(i) { i.enable(); });
   };
   target.disable = function(filterFn) {
-    _(target()).chain().filter(filterFn).each(function(i) { i.disable(); })
+    _(target()).chain().filter(filterFn).each(function(i) { i.disable(); });
   };
 };
 
