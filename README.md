@@ -11,6 +11,7 @@ get rid of it for a little while. You can also launch Chrome Apps right from the
 * Keep your toolbar clean.
 * Turn all extensions off (and back on) with a single click.
 * Quick switch between several extensions groups using the Profiles feature.
+* Allow your most important extensions to be always enabled.
 * Keep computers in sync with Chrome Cloud Storage support.
 * Ideal companion for extensions collectors.
 
@@ -23,6 +24,9 @@ Website: [http://sergiokas.github.com/Extensity/](http://sergiokas.github.com/Ex
 Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
+
+v1.11.0 (Sep 2020)
+- Added "Always On" profile
 
 v1.10.0 (Jan 2019)
 - Save Profiles locally when the amount of data exceeds Google's quota.
