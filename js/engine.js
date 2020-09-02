@@ -205,9 +205,16 @@ var ProfileCollectionModel = function() {
     // Pull profiles from sync or local storage as appropriate.
     var storage = (v.localProfiles) ? chrome.storage.local : chrome.storage.sync;
 
+    var sortFn = function(el) {
+      // Sorting to make sure reserved profiles are listed first.
+      if(el.startsWith("__"))
+        return " "+el.toUpperCase();
+      return el.toUpperCase()
+    };
+
     storage.get("profiles", function(p) {
       p = p['profiles'] || {};
-      var k = _(p).chain().keys().sortBy().value();
+      var k = _(p).chain().keys().sortBy(sortFn).value();
       _(k).each(function(name) {
         self.items.push(new ProfileModel(name, p[name]));
       });
