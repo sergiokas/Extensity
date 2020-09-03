@@ -26,7 +26,7 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 ### What's new:
 
 v1.11.0 (Sep 2020)
-- Added "Always On" profile
+- **New Feature**: Added "Always On" profile
 
 v1.10.0 (Jan 2019)
 - Save Profiles locally when the amount of data exceeds Google's quota.
