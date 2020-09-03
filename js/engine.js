@@ -207,10 +207,8 @@ var ProfileCollectionModel = function() {
     var storage = (v.localProfiles) ? chrome.storage.local : chrome.storage.sync;
 
     var sortFn = function(el) {
-      // Sorting to make sure reserved profiles are listed first.
-      if(el.startsWith("__"))
-        return " "+el.toUpperCase();
-      return el.toUpperCase()
+      // Add heading space to reserved profiles to sort at top.
+      return (el.startsWith("__") ? " " : "") + el.toUpperCase();
     };
 
     storage.get("profiles", function(p) {
