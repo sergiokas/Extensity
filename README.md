@@ -25,6 +25,10 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.12.0 (Oct 2020)
+- **New Feature**: Added "Favorite Extensions"  list.
+
+
 v1.11.0 (Sep 2020)
 - **New Feature**: Added "Always On" profile
 

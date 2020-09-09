@@ -71,17 +71,16 @@ document.addEventListener("DOMContentLoaded", function() {
       return (self.opts.showReserved() && i.name() == "__always_on") || !i.reserved();
     }
 
+    var filterFavoriteFn = function(i) {
+      return (self.profiles.favorites().contains(i));
+    }
+
     var nameSortFn = function(i) {
       return i.name().toUpperCase();
     };
 
     var statusSortFn = function(i) {
-      return !i.status();
-    };
-
-    var favoritesSortFn = function(i) {
-      if(!self.profiles.favorites().hasItems()) return 0;
-      return !self.profiles.favorites().contains(i);
+      return self.opts.enabledFirst() && !i.status();
     };
 
     self.openChromeExtensions = function() {
@@ -98,23 +97,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
     self.listedExtensions = ko.computed(function() {
       // Sorted/Filtered list of extensions
-      return (self.opts.enabledFirst()) ?
-        _(self.exts.extensions()).chain().sortBy(nameSortFn).sortBy(statusSortFn).sortBy(favoritesSortFn).filter(filterFn).value() :
-        _(self.exts.extensions()).chain().sortBy(favoritesSortFn).filter(filterFn).value();
+      return _(self.exts.extensions()).chain()
+        .filter(filterFn)
+        .sortBy(nameSortFn)
+        .sortBy(statusSortFn)
+        .value()
     }).extend({countable: null});
 
     self.listedApps = ko.computed(function() {
       // Sorted/Filtered list of apps
-      return _(self.exts.apps()).filter(filterFn);
+      return _(self.exts.apps())
+        .filter(filterFn);
     }).extend({countable: null});
 
     self.listedItems = ko.computed(function() {
       // Sorted/Filtered list of all items
-      return _(self.exts.items()).sortBy(favoritesSortFn).filter(filterFn);
+      return _(self.exts.items())
+        .filter(filterFn);
     }).extend({countable: null});
 
     self.listedProfiles = ko.computed(function() {
-      return _(self.profiles.items()).filter(filterProfileFn);
+      return _(self.profiles.items())
+        .filter(filterProfileFn);
+    }).extend({countable: null});
+
+    self.listedFavorites = ko.computed(function() {
+      return _(self.exts.extensions()).chain()
+        .filter(filterFavoriteFn)
+        .filter(filterFn)
+        .sortBy(nameSortFn)
+        .sortBy(statusSortFn)
+        .value();
     }).extend({countable: null});
 
     self.emptyItems = ko.pureComputed(function() {
