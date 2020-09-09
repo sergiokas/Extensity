@@ -24,6 +24,10 @@ document.addEventListener("DOMContentLoaded", function() {
       self.selectReserved(data, "always_on");
     }
 
+    self.selectFavorites = function(data) {
+      self.selectReserved(data, "favorites");
+    }
+
     self.selectReserved = function(data, n) {
       self.add_name("__"+n);
       self.add();

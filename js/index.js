@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var filterProfileFn = function(i) {
       // Only show public profiles in the list
-      return self.opts.showReserved() || !i.reserved();
+      return (self.opts.showReserved() && i.name() == "__always_on") || !i.reserved();
     }
 
     var nameSortFn = function(i) {
@@ -77,6 +77,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var statusSortFn = function(i) {
       return !i.status();
+    };
+
+    var favoritesSortFn = function(i) {
+      if(!self.profiles.favorites().hasItems()) return 0;
+      return !self.profiles.favorites().contains(i);
     };
 
     self.openChromeExtensions = function() {
@@ -94,8 +99,8 @@ document.addEventListener("DOMContentLoaded", function() {
     self.listedExtensions = ko.computed(function() {
       // Sorted/Filtered list of extensions
       return (self.opts.enabledFirst()) ?
-        _(self.exts.extensions()).chain().sortBy(nameSortFn).sortBy(statusSortFn).filter(filterFn).value() :
-        _(self.exts.extensions()).filter(filterFn);
+        _(self.exts.extensions()).chain().sortBy(nameSortFn).sortBy(statusSortFn).sortBy(favoritesSortFn).filter(filterFn).value() :
+        _(self.exts.extensions()).chain().sortBy(favoritesSortFn).filter(filterFn).value();
     }).extend({countable: null});
 
     self.listedApps = ko.computed(function() {
@@ -105,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     self.listedItems = ko.computed(function() {
       // Sorted/Filtered list of all items
-      return _(self.exts.items()).filter(filterFn);
+      return _(self.exts.items()).sortBy(favoritesSortFn).filter(filterFn);
     }).extend({countable: null});
 
     self.listedProfiles = ko.computed(function() {

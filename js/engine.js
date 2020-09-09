@@ -123,7 +123,8 @@ var ProfileModel = function(name, items) {
   var self = this;
 
   var reserved_names = {
-    "__always_on": "Always On"
+    "__always_on": "Always On",
+    "__favorites": "Favorites"
   };
 
   self.name = ko.observable(name);
@@ -140,6 +141,11 @@ var ProfileModel = function(name, items) {
   self.short_name = ko.computed(function() {
     return reserved_names[self.name()] || _.str.prune(self.name(),30);
   });
+
+  self.contains = function(i) {
+    // Check if a given item is present in the profile list.
+    return _.contains(self.items(), i.id());
+  };
 
   return this;
 };
@@ -169,6 +175,10 @@ var ProfileCollectionModel = function() {
 
   self.always_on = function() {
     return self.find_or_create("__always_on");
+  };
+
+  self.favorites = function() {
+    return self.find_or_create("__favorites");
   };
 
   self.remove = function(profile) {
