@@ -67,8 +67,8 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     var filterProfileFn = function(i) {
-      // Only show public profiles in the list
-      return (self.opts.showReserved() && i.name() == "__always_on") || !i.reserved();
+      if(!i.reserved()) return true;
+      return self.opts.showReserved() && i.hasItems();
     }
 
     var filterFavoriteFn = function(i) {

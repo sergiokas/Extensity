@@ -47,7 +47,8 @@
 		<ul data-sbind="foreach: listedProfiles">
 			<li class="app" data-sbind="click: $parent.setProfile">
 				<i class="fa fa-check" alt="active" data-sbind="visible: name() == $parent.activeProfile()"></i>
-				<i class="fa fa-lightbulb-o" alt="profile" data-sbind="visible: name()!=$parent.activeProfile() && reserved()"></i>
+				<i class="fa fa-lightbulb-o" alt="profile" data-sbind="visible: name()!=$parent.activeProfile() && name()=='__always_on'"></i>
+				<i class="fa fa-star" alt="profile" data-sbind="visible: name()!=$parent.activeProfile() && name()=='__favorites'"></i>
 				<i class="fa fa-user-circle-o" alt="profile" data-sbind="visible: name()!=$parent.activeProfile() && !reserved()"></i>
 				<span data-sbind="text: short_name"></span>
 			</li>
