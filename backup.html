@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Extensity Options</title>
+<link rel="stylesheet" type="text/css" href="styles/options.css" />
+<link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
+<script type="text/javascript" src="js/libs/underscore-min.js"></script>
+<script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
+<script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
+<script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
+<script type="text/javascript" src="js/engine.js"></script>
+<script type="text/javascript" src="js/backup.js"></script>
+</head>
+<body>
+<section id="header">
+  <div class="tabs">
+  	<h1><img src="images/icon48.png" /> Extensity Options</h1>
+  	<div id="menu">
+    	<a href="/options.html">Options</a>
+    	<a href="/profiles.html">Profiles</a>
+      <a href="/profiles.html" class="selected">Backup/Restore</a>
+  	</div>
+  </div>
+  <div class="help">
+    <!-- <i class="fa fa-close right"></i> -->
+    <i class="fa fa-warning"></i> <strong><a href="http://sergiokas.github.io/Extensity/help.html" target="_blank">Support Extensity!</a></strong><br/><br/>If you like Extensity and its new Profiles feature, <a href="http://sergiokas.github.io/Extensity/help.html" target="_blank">please consider helping out with its development <i class="fa fa-arrow-circle-right"></i></a>
+  </div>
+</section>
+<div class="clear"></div>
+<section id="content">
+	<fieldset id="backup">
+    <legend>Backup</legend>
+    <div class="field">
+      <p>Backup all Extensity profiles to a file</p>
+      <button data-sbind="click: backup">Backup</button>
+      <p></p>
+    </div>
+    <legend>Restore</legend>
+    <div class="field">
+      <p>
+        Restore Extensity profiles from a backup file. <br />
+        <strong>NOTE: Overrides all current profiles.</strong>
+      </p>
+      <p>
+        <label for="upload">
+          <span aria-hidden="true">Restore</span>
+          <input type="file" id="upload" style="display:none">
+        </label>
+      </p>
+    </div>
+	</fieldset>
+</section>
+</body>
+</html>
