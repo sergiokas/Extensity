@@ -69,6 +69,14 @@
       <p class="quota-error" data-sbind="visible: profiles.localProfiles">
         <i class="fa fa-warning"></i> You have too many Extensions or Profiles to sync with Google. <b>Your Profiles are still saved, but only for this browser</b>.
       </p>
+      <hr />
+      <p>
+        <button id="backup" data-sbind="click: backup">Backup</button>
+        <label for="upload">
+          <span aria-hidden="true">Restore</span>
+          <input type="file" id="upload" style="display:none">
+        </label>
+      </p>
 
     </div>
 

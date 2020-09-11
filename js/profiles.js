@@ -16,6 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
       return self.current_profile() || false;
     });
 
+    self.backup = function() {
+      self.profiles.save(function() {});
+      console.log(btoa(JSON.stringify(self.profiles.backup())));
+    };
+
     self.select = function(data) {
       self.current_profile(data);
     };

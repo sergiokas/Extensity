@@ -154,6 +154,16 @@ var ProfileCollectionModel = function() {
     return self.items().length > 0;
   });
 
+  self.backup = function() {
+    // Backup to base64 string of a serialized json
+    return btoa(JSON.stringify(serialize()));
+  };
+
+  self.restore = function(str) {
+    // Restore from base64 string backup of seriaized json
+    return deserialize(JSON.parse(atob(backup)));
+  };
+
   self.add = function(name,items) {
     items = items || [];
     return self.items.push(new ProfileModel(name,items));
@@ -179,14 +189,30 @@ var ProfileCollectionModel = function() {
     return !_(self.find(name)).isUndefined();
   }
 
-  self.save = function(callback) {
-    var r = {};
+  var serialize = function() {
+    return _.reduce(self.items(), function(memo, i) {
+      memo[i.name()] = _(i.items()).uniq();
+      return memo;
+    },
+    {});
+  }
 
-    _(self.items()).each(function(i) {
-      if (i.name()) {
-        r[i.name()] = _(i.items()).uniq();
-      }
+  var deserialize = function(p) {
+    p = p || {};
+    self.items.removeAll();
+    var k = _(p).chain().keys().sortBy(sortFn).value();
+    _(k).each(function(name) {
+      self.items.push(new ProfileModel(name, p[name]));
     });
+  };
+
+  var sortFn = function(el) {
+    // Add heading space to reserved profiles to sort at top.
+    return (el.startsWith("__") ? " " : "") + el.toUpperCase();
+  };
+
+  self.save = function(callback) {
+    var r = serialize();
 
     // Try sync storage first. If it fails, store the Profiles locally.
     chrome.storage.sync.set({profiles: r}, function(val) {
@@ -206,17 +232,8 @@ var ProfileCollectionModel = function() {
     // Pull profiles from sync or local storage as appropriate.
     var storage = (v.localProfiles) ? chrome.storage.local : chrome.storage.sync;
 
-    var sortFn = function(el) {
-      // Add heading space to reserved profiles to sort at top.
-      return (el.startsWith("__") ? " " : "") + el.toUpperCase();
-    };
-
     storage.get("profiles", function(p) {
-      p = p['profiles'] || {};
-      var k = _(p).chain().keys().sortBy(sortFn).value();
-      _(k).each(function(name) {
-        self.items.push(new ProfileModel(name, p[name]));
-      });
+      deserialize(p['profiles'] || {});
     });
 
   })
