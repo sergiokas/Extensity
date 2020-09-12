@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="styles/index.css" />
 <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
-<script type="text/javascript" src="js/libs/knockout-3.4.0.js"></script>
+<script type="text/javascript" src="js/libs/knockout-3.4.2.js"></script>
 <script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
 <script type="text/javascript" src="js/engine.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
@@ -47,11 +47,18 @@
 		<ul data-sbind="foreach: listedProfiles">
 			<li class="app" data-sbind="click: $parent.setProfile">
 				<i class="fa fa-check" alt="active" data-sbind="visible: name() == $parent.activeProfile()"></i>
-				<i class="fa fa-lightbulb-o" alt="profile" data-sbind="visible: name()!=$parent.activeProfile() && reserved()"></i>
+				<i class="fa fa-lightbulb-o" alt="profile" data-sbind="visible: name()!=$parent.activeProfile() && name()=='__always_on'"></i>
+				<i class="fa fa-star" alt="profile" data-sbind="visible: name()!=$parent.activeProfile() && name()=='__favorites'"></i>
 				<i class="fa fa-user-circle-o" alt="profile" data-sbind="visible: name()!=$parent.activeProfile() && !reserved()"></i>
 				<span data-sbind="text: short_name"></span>
 			</li>
 		</ul>
+	</section>
+
+	<!-- Favorites -->
+	<section data-sbind="if: listedFavorites.any">
+		<h1 data-sbind="visible: listedFavorites.any">Favorites</h1>
+		<ul data-sbind="template: {name: 'item-template', foreach: listedFavorites}"></ul>
 	</section>
 
 	<!-- Apps first, grouped -->
