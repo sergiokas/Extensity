@@ -123,8 +123,15 @@ var ProfileModel = function(name, items) {
   var self = this;
 
   var reserved_names = {
-    "__always_on": "Always On"
+    "__always_on": "Always On",
+    "__favorites": "Favorites"
   };
+
+  var icons = {
+    "__default": "fa-user-circle-o",
+    "__always_on": "fa-lightbulb-o",
+    "__favorites": "fa-star"
+  }
 
   self.name = ko.observable(name);
   self.items = ko.observableArray(items);
@@ -137,9 +144,21 @@ var ProfileModel = function(name, items) {
     return self.items().length > 0;
   });
 
-  self.short_name = ko.computed(function() {
+  self.short_name = ko.pureComputed(function() {
     return reserved_names[self.name()] || _.str.prune(self.name(),30);
   });
+
+  self.icon = ko.pureComputed(function() {
+    // console.log(icons["__default"]);
+    // return icons["__default"];
+    // console.log(icons[self.name()] || icons['__default']);
+    return (icons[self.name()] || icons['__default']);
+  });
+
+  self.contains = function(i) {
+    // Check if a given item is present in the profile list.
+    return _.contains(self.items(), i.id());
+  };
 
   return this;
 };
@@ -169,6 +188,10 @@ var ProfileCollectionModel = function() {
 
   self.always_on = function() {
     return self.find_or_create("__always_on");
+  };
+
+  self.favorites = function() {
+    return self.find_or_create("__favorites");
   };
 
   self.remove = function(profile) {

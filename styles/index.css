@@ -128,6 +128,17 @@ section#search input {
 	min-width: 200px;
 }
 
+/* Profiles */
+section#profiles i.fa-check {
+	color: green;
+}
+
+section#profiles i.fa {
+	min-width: 15px;
+	text-align: center;
+}
+
+/* Content */
 section#content h1 {
 	background-color: #516C97;
 	background-image: linear-gradient(top, #7F97B9, #516C97);
@@ -192,15 +203,6 @@ section#content li i.fa-gear:hover {
 
 section#content li i.fa-flask {
 	color: #777;
-}
-
-section#profiles i.fa-check {
-	color: green;
-}
-
-section#profiles i.fa {
-	min-width: 15px;
-	text-align: center;
 }
 
 section p.empty {
