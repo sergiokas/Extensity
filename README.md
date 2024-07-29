@@ -25,6 +25,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.12.0 (Sep 2024)
+- Migrated to Chrome Manifest v3
+
 v1.11.0 (Sep 2020)
 - **New Feature**: Added "Always On" profile
 
