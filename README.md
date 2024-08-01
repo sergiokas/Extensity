@@ -22,9 +22,13 @@ ExtensityX is a powerful and elegant Chrome extension manager forked from the or
 
 ### Improved Styling
 
+
 - **Modern UI**: Redesigned with a sleek, modern look using CSS variables and flexbox layout.
 - **Responsive Design**: Ensures optimal viewing experience across different devices and screen sizes.
 - **Dark Mode**: Clean dark theme for comfortable use during night time.
+=======
+v1.12.0 (Sep 2024)
+- Migrated to Chrome Manifest v3
 
 ### New Functionalities
 

@@ -15,9 +15,9 @@
     "default_popup": "index.html"
   },
   "background": {
+
     "service_worker": "js/migration.js",
     "persistent": true
-
   },
   "permissions": ["management","storage"]
 }
