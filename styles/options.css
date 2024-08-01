@@ -1,4 +1,8 @@
 /* Options */
+html,body {
+	border-radius: 15px;
+
+}
 body {
 	margin: 50px;
 	overflow-x:hidden;
@@ -76,7 +80,7 @@ button:hover {
 span#save-result {
 	color: #304669;
 }
-
+f0f0f0
 a {
 	color: #304669;
 	text-decoration: none;
@@ -237,6 +241,10 @@ fieldset#options .field {
 }
 
 .fa.right {
+	float: right;
+	cursor: pointer;
+}
+.fas{
 	float: right;
 	cursor: pointer;
 }

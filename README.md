@@ -1,126 +1,205 @@
-## Extensity
+Sure, here's a detailed and impressive README file for your project on GitHub:
 
-### Quickly enable/disable Google Chrome extensions
+---
 
-Tired of having too many extensions in your toolbar? Try Extensity, the ultimate tool
-for lightning fast enabling and disabling all your extensions for Google Chrome.
-Just enable the extension when you want to use it, and disable when you want to
-get rid of it for a little while. You can also launch Chrome Apps right from the list.
+# ExtensityX
 
-* Keep your browser lean and fast - disable extensions that you won't use right away.
-* Keep your toolbar clean.
-* Turn all extensions off (and back on) with a single click.
-* Quick switch between several extensions groups using the Profiles feature.
-* Allow your most important extensions to be always enabled.
-* Keep computers in sync with Chrome Cloud Storage support.
-* Ideal companion for extensions collectors.
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/xtri98/ExtensityX/releases)
 
-Extensity is open source software. Full source code at GitHub https://github.com/sergiokas/Extensity
+ExtensityX is a powerful and elegant Chrome extension manager forked from the original [Extensity](https://github.com/sergiokas/Extensity). This project includes enhanced styling, improved usability, and new features to manage your Chrome extensions and apps seamlessly.
 
-Install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg).
+## Table of Contents
 
-Website: [https://sergiokas.github.io/Extensity/](https://sergiokas.github.io/Extensity/)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
+- [License](#license)
 
-Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
+## Features
 
-### What's new:
+### Improved Styling
 
-v1.11.0 (Sep 2020)
-- **New Feature**: Added "Always On" profile
+- **Modern UI**: Redesigned with a sleek, modern look using CSS variables and flexbox layout.
+- **Responsive Design**: Ensures optimal viewing experience across different devices and screen sizes.
+- **Dark Mode**: Clean dark theme for comfortable use during night time.
 
-v1.10.0 (Jan 2019)
-- Save Profiles locally when the amount of data exceeds Google's quota.
+### New Functionalities
 
-v1.9.0 (Sep 2018)
-- Removed `chrome.tabs` API dependency
+- **Add/Remove Extensions**: Easily add or remove Chrome extensions from the list.
+- **Quick Access**: Fast enable/disable extensions with a single click.
+- **Profile Management**: Save and switch between different extension profiles for various workflows.
 
-v1.8.0 (Ago 2018)
-- Removed jQuery dependency
-- Updated build system
+### Performance
 
-v1.7.0 (Ago 2018)
-- Added icon for developer extensions
+- **Optimized Code**: Cleaned and optimized the original codebase for better performance and maintainability.
+- **Seamless Transitions**: Smooth animations and transitions for a pleasant user experience.
 
-v1.6.0 (Jul 2018)
-- **New Feature**: Added extension/app icon to access the options page
+## Installation
 
-v1.5.0 (Jun 2018)
-- Added visual indication of the currently active profile
+### From GitHub
 
-v1.4.0 (Jan 2018)
-- **New Feature**: Sync between computers through Chrome Storage
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/xtri98/ExtensityX.git
+   ```
+2. Open Chrome and navigate to `chrome://extensions/`.
+3. Enable "Developer mode" by toggling the switch in the upper right.
+4. Click "Load unpacked" and select the `ExtensityX` directory you just cloned.
 
-v1.3.1 (Nov 2017)
-- Changed profiles icon, minor visual changes
+### From Chrome Web Store
 
-v1.3.0 (Feb 2017)
-- **New Feature**: Search box for extensions and apps
-- Temporary workaround for [Chromium bug](https://bugs.chromium.org/p/chromium/issues/detail?id=307912)
+_Coming Soon!_
 
-v1.2.4 (Sept 2016)
-- Added option to show enabled Extensions first
+## Usage
 
-v1.2.3 (May 2016)
-- Updated compatibility for ChromeOS
+1. Click on the ExtensityX icon in the Chrome toolbar to open the extension.
+2. Use the search bar to quickly find installed extensions and apps.
+3. Enable or disable extensions with a single click.
+4. Manage profiles to organize extensions for different tasks or projects.
 
-v1.2.2 (Apr 2016)
-- Updated toggle switch style
+## Screenshots
 
-v1.2.1 (Apr 2016)
-- Backwards compatibility for toggle switch
-- Small text fixes
+![ExtensityX Main Screen](./images/screenshot1.png)
+*Modern and intuitive user interface.*
 
-v1.2.0 (Apr 2016)
-- **New Feature**: Profiles! Our top-most requested feature is here. Quick switch between groups of extensions with a single click.
-- Major overhaul of the engine
-- New retina icons
-- Minor style changes
+![Profile Management](screenshots/profiles.png)
+*Easily manage different extension profiles.*
 
-v1.1.11 (Jun 2015)
-- **New Feature**: turn all enabled extensions off, then turn them back on
-- Style changes
-- New icons
+## Contributing
 
-v1.1.10 (Feb 2015)
-- More performance improvements
-- Fixed Chrome's extensions page link
+We welcome contributions from the community! To get started:
 
-v0.1.9 (Jan 2015)
-- Added option to show apps first
+1. Fork the repository.
+2. Create a new branch:
+   ```sh
+   git checkout -b feature/your-feature-name
+   ```
+3. Make your changes and commit them:
+   ```sh
+   git commit -m 'Add some feature'
+   ```
+4. Push to the branch:
+   ```sh
+   git push origin feature/your-feature-name
+   ```
+5. Open a pull request.
 
-v0.1.8 (Dec 2014)
-- Updated to flat icons
-- Updated library versions
-- Code cleanup
-- Cosmetic fixes (e.g. extensions with very long names)
-- Updated license
+Please ensure your code adheres to the project's coding standards and includes appropriate tests.
 
-v0.1.7 (Jul 2013)
-- Excluding Chrome themes from the list
+## License
 
-v0.1.6 (Jul 2012)
-- Added separate page initializer files
-- Added underscore.js and underscore.string
-- Removed deprecated jQuery templates dependency
-- Added some performance improvements
-- Added support for Chrome Extensions v2 manifest
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-v0.1.5 (Mar 2012)
-- Updated font styles
+---
 
-v0.1.4 (Mar 2012)
-- Updated styles
-- Added makefile for extension distribution
-- Fixed Twitter share link
+Thank you for using ExtensityX! If you like this project, please give it a star ⭐ on GitHub.
 
-v0.1.3 (Jun 2011)
-- Added share and rate icons
+Feel free to reach out if you have any questions or feedback.
 
-v0.1.2 (Jun 2011)
-- Added header with link to chrome://extensions/ and Extensity options
-- Added section headers for grouping Apps and Extensions
-- Added ability to launch apps (as disabling them didn't make any real sense)
-- Added options page to configure grouping and header display
+---
 
-v0.1.1 (May 2011)
-- Fixed scrollbar for really long extension lists
+Replace `yourusername` with your actual GitHub username and ensure you provide the actual links to the screenshots and other resources as needed.Sure, here's a detailed and impressive README file for your project on GitHub:
+
+---
+
+# ExtensityX
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/yourusername/ExtensityX/releases)
+
+ExtensityX is a powerful and elegant Chrome extension manager forked from the original [Extensity](https://github.com/extensity/extensity). This project includes enhanced styling, improved usability, and new features to manage your Chrome extensions and apps seamlessly.
+
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+### Improved Styling
+
+- **Modern UI**: Redesigned with a sleek, modern look using CSS variables and flexbox layout.
+- **Responsive Design**: Ensures optimal viewing experience across different devices and screen sizes.
+- **Dark Mode**: Clean dark theme for comfortable use during night time.
+
+### New Functionalities
+
+- **Add/Remove Extensions**: Easily add or remove Chrome extensions from the list.
+- **Quick Access**: Fast enable/disable extensions with a single click.
+- **Profile Management**: Save and switch between different extension profiles for various workflows.
+
+### Performance
+
+- **Optimized Code**: Cleaned and optimized the original codebase for better performance and maintainability.
+- **Seamless Transitions**: Smooth animations and transitions for a pleasant user experience.
+
+## Installation
+
+### From GitHub
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/xtri98/ExtensityX.git
+   ```
+2. Open Chrome and navigate to `chrome://extensions/`.
+3. Enable "Developer mode" by toggling the switch in the upper right.
+4. Click "Load unpacked" and select the `ExtensityX` directory you just cloned.
+
+### From Chrome Web Store
+
+_Coming Soon!_
+
+## Usage
+
+1. Click on the ExtensityX icon in the Chrome toolbar to open the extension.
+2. Use the search bar to quickly find installed extensions and apps.
+3. Enable or disable extensions with a single click.
+4. Manage profiles to organize extensions for different tasks or projects.
+
+## Screenshots
+
+![ExtensityX Main Screen](screenshots/main.png)
+*Modern and intuitive user interface.*
+
+![Profile Management](screenshots/profiles.png)
+*Easily manage different extension profiles.*
+
+## Contributing
+
+We welcome contributions from the community! To get started:
+
+1. Fork the repository.
+2. Create a new branch:
+   ```sh
+   git checkout -b feature/your-feature-name
+   ```
+3. Make your changes and commit them:
+   ```sh
+   git commit -m 'Add some feature'
+   ```
+4. Push to the branch:
+   ```sh
+   git push origin feature/your-feature-name
+   ```
+5. Open a pull request.
+
+Please ensure your code adheres to the project's coding standards and includes appropriate tests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+Thank you for using ExtensityX! If you like this project, please give it a star ⭐ on GitHub.
+
+Feel free to reach out if you have any questions or feedback.
+
+---
