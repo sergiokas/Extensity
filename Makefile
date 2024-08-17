@@ -1,6 +1,4 @@
 # Primitive makefile for including just required files in the distribution.
-# @requires jsmin (http://www.crockford.com/javascript/jsmin.html)
-# @requires zip
 FILES=index.html options.html profiles.html manifest.json
 DIRS=images styles js fonts
 DIST=dist
