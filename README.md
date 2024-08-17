@@ -19,15 +19,17 @@ Extensity is open source software. Full source code at GitHub https://github.com
 
 Install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg).
 
-Website: [http://sergiokas.github.com/Extensity/](http://sergiokas.github.com/Extensity/)
+Website: [https://sergiokas.github.io/Extensity/](https://sergiokas.github.io/Extensity/)
 
 Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
-v1.12.0 (Oct 2020)
-- **New Feature**: Added "Favorite Extensions"  list.
+v1.13.0 (Aug 2024)
+- **New Feature**: Added "Favorite Extensions" list.
 
+v1.12.0 (July 2024)
+- Migrated to Chrome Manifest v3
 
 v1.11.0 (Sep 2020)
 - **New Feature**: Added "Always On" profile
