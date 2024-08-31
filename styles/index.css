@@ -3,7 +3,7 @@ body {
 	overflow-y:auto;
 	font-family: Lucida Grande, Arial, sans-serif;
 	font-size: 12px;
-	min-height: 300px;
+	min-height: fit-content;
 	user-select: none;
 	padding: 0px;
 }
@@ -16,7 +16,7 @@ body {
 		color: #ccc;
 	}
 	section#header .fa {
-		color: #ccc;
+		color: #eee;
 	}
 	section#header a.switch i.fa-toggle-off {
 		color: #aaa;
@@ -218,6 +218,10 @@ section#profiles i.fa {
 }
 
 /* Content */
+section#content {
+	margin-bottom: .5em;
+}
+
 section#content h1 {
 	padding: 3px 4px 3px 4px;
 	margin: 0px;
