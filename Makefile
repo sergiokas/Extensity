@@ -5,7 +5,7 @@ DIST=dist
 JS=engine.js index.js options.js profiles.js migration.js
 CSS=index.css options.css normalize.css
 JSMIN=uglifyjs --compress --mangle
-CSSMIN=csso
+CSSMIN=sass --stdin --style=compressed
 
 dist: clean copy minify pack
 

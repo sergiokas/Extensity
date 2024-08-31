@@ -25,6 +25,9 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.14.0 (Sep 2024)
+- **New Feature**: Dark Mode (based on system settings)
+
 v1.13.0 (Aug 2024)
 - **New Feature**: Added "Favorite Extensions" list.
 

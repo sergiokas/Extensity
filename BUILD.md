@@ -3,10 +3,10 @@
 ## Prerequisites
 
 - uglify-js
-- csso-cli
+- sass
 
 ```
-npm install -g uglify-js csso-cli
+npm install -g uglify-js sass
 ```
 
 ## Building

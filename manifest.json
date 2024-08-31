@@ -1,6 +1,6 @@
 {
   "name": "Extensity",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "manifest_version": 3,
   "description": "Quickly enable/disable Google Chrome extensions",
   "options_page": "options.html",

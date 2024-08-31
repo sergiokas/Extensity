@@ -26,14 +26,28 @@ body {
 	span#save-result {
 		color: #ccc;
 	}
+	#header .help {
+		background-color: #516C97;
+	}	
 	#profiles .sidebar ul.items li.active {
 		background-color: #777;
 	}
+	#profiles .extensions p.toggle {
+		background-color: #777;
+	}
+	#profiles input#name {
+		background-color: #777;
+		color: white;
+		border: 1px solid #999;
+	}
+	.info {
+		background-color: #777;
+	}	
 }
 
 @media (prefers-color-scheme: light) {
 	body {
-		background-color: #ddd;
+		background-color: #fff;
 		color: black;
 	}
 	.blue {
@@ -54,9 +68,23 @@ body {
 	fieldset#options .field label {
 		color: black;
 	}
+	#header .help {
+		background-color: #FFD478;
+	}
 	#profiles .sidebar ul.items li.active {
 		background-color: #ddd;
 	}
+	#profiles .extensions p.toggle {
+		background-color: #ddd;
+	}
+	#profiles input#name {
+		background-color: white;
+		color: black;
+		border: 1px solid #bbb;
+	}
+	.info {
+		background-color: #aaa;
+	}	
 }
 
 hr {
@@ -140,7 +168,6 @@ a:hover {
 #header .help {
 	float: right;
 	padding: 20px 20px;
-	background-color: #FFD478;
 	border-radius: 10px;
 	line-height: 150%;
 	width: 320px;
@@ -248,15 +275,14 @@ fieldset#options .field {
 	margin-left: -10px;
 	margin-right: -10px;
 	padding: 10px;
-	background-color: #ddd;
 }
 
 #profiles input#name {
 	padding: 5px;
 	border-radius: 5px 0px 0px 5px;
-	border: 1px solid #bbb;
 	border-right: 0px;
 	font-size: 1.05em;
+	outline: none;
 }
 
 #profiles button.add {
@@ -266,9 +292,8 @@ fieldset#options .field {
 
 .info {
 	padding: 20px 20px;
-	background-color: #ddd;
 	border-radius: 10px;
-	line-height: 150%
+	line-height: 150%;
 	width: 320px;
 	max-width: 320px;
 }
