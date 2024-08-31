@@ -6,18 +6,66 @@ body {
 	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
 }
 
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #333;
+		color: #ccc;
+	}
+	.blue {
+		color: #ccc;
+	}
+	h1 {
+		color: #ccc;
+	}
+	fieldset legend {
+		color: #ccc;
+	}
+	a {
+		color: #ccc;
+	}
+	span#save-result {
+		color: #ccc;
+	}
+	#profiles .sidebar ul.items li.active {
+		background-color: #777;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: #ddd;
+		color: black;
+	}
+	.blue {
+		color: #516C97;
+	}
+	h1 {
+		color: #516C97;
+	}
+	fieldset legend {
+		color: #516C97;
+	}
+	a {
+		color: #516C97;
+	}
+	span#save-result {
+		color: #304669;
+	}
+	fieldset#options .field label {
+		color: black;
+	}
+	#profiles .sidebar ul.items li.active {
+		background-color: #ddd;
+	}
+}
+
 hr {
 	border: 0px;
-	background-color: #ddd;
 	height: 1px;
 }
 
 .clear {
 	clear: both;
-}
-
-.blue {
-	color: #516C97;
 }
 
 img {
@@ -28,7 +76,6 @@ h1 {
 	vertical-align: middle;
 	font-weight: bold;
 	font-size: 1.5em;
-	color: #304669;
 }
 
 fieldset {
@@ -42,7 +89,6 @@ fieldset legend {
 	padding: 10px 3px;
 	border-bottom: 1px solid #304669;
 	font-weight: bold;
-	color: #304669;
 }
 
 fieldset .field {
@@ -73,12 +119,7 @@ button:hover {
 	opacity: .8;
 }
 
-span#save-result {
-	color: #304669;
-}
-
 a {
-	color: #304669;
 	text-decoration: none;
 }
 
@@ -101,7 +142,7 @@ a:hover {
 	padding: 20px 20px;
 	background-color: #FFD478;
 	border-radius: 10px;
-	line-height: 150%
+	line-height: 150%;
 	width: 320px;
 	max-width: 320px;
 }
@@ -174,10 +215,6 @@ fieldset#options .field {
 	cursor: pointer;
 	padding: 7px;
 	margin: 10px 0px;
-}
-
-#profiles .sidebar ul.items li.active {
-	background-color: #ddd;
 }
 
 #profiles .sidebar .quota-error {

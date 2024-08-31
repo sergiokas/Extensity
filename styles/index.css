@@ -46,7 +46,10 @@ body {
 		background-color: #777;
 		box-shadow: 0px 0px 15px rgba(0,0,0,.2) inset;
 		border-radius: 2px;
-	}	
+	}
+	section#content li i.fa-gear:hover {
+		color: #ccc;
+	}
 }
 
 @media (prefers-color-scheme: light) {
@@ -91,7 +94,10 @@ body {
 	section#content li.disabled {
 		background-color: #eee;
 		color: #555;
-	}	
+	}
+	section#content li i.fa-gear:hover {
+		color: #333;
+	}
 }
 
 a {
@@ -253,10 +259,6 @@ section#content li i.fa-gear {
 	margin-top: 2px;
 	color: #777;
 	font-size: 1.1em;
-}
-
-section#content li i.fa-gear:hover {
-	color: #333;
 }
 
 section#content li i.fa-flask {
