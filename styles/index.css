@@ -3,10 +3,95 @@ body {
 	overflow-y:auto;
 	font-family: Lucida Grande, Arial, sans-serif;
 	font-size: 12px;
-	background-color: #fff;
 	min-height: 300px;
 	user-select: none;
 	padding: 0px;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #333;
+	}
+	section#header a#title {
+		color: #ccc;
+	}
+	section#header .fa {
+		color: #ccc;
+	}
+	section#header a.switch i.fa-toggle-off {
+		color: #aaa;
+	}	
+	section#search p {
+		background-image: linear-gradient(to bottom, rgba(255,255,255,.1) 0%, rgba(255,255,255,.2) 100%);
+	}
+	section#search input {
+		color: #ccc;
+	}
+	section#content h1 {
+		background-color: #516C97;
+		background-image: linear-gradient(top, #7F97B9, #516C97);
+		background-image: -o-linear-gradient(top, #7F97B9, #516C97);
+		background-image: -moz-linear-gradient(top, #7F97B9, #516C97);
+		background-image: -webkit-linear-gradient(top, #7F97B9, #516C97);
+		background-image: -ms-linear-gradient(top, #7F97B9, #516C97);	
+		text-shadow: 0 1px 1px rgba(0,0,0,.7);
+		color: #ccc;
+	}
+	section#content ul li {
+		color: #ccc;
+	}	
+	section#content ul li:hover {
+		color: #ccc;
+		text-shadow: 0 1px 0 black;
+		background-color: #777;
+		box-shadow: 0px 0px 15px rgba(0,0,0,.2) inset;
+		border-radius: 2px;
+	}	
+}
+
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: #fff;
+	}
+	section#header a#title {
+		color: #304669;
+	}
+	section#header .fa {
+		color: black;
+	}
+	section#header a.switch i.fa-toggle-off {
+		color: #444;
+	}
+	section#search p {
+		background-image: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+	}
+	section#search input {
+		color: #555;
+	}
+	section#content h1 {
+		background-color: #516C97;
+		background-image: linear-gradient(top, #7F97B9, #516C97);
+		background-image: -o-linear-gradient(top, #7F97B9, #516C97);
+		background-image: -moz-linear-gradient(top, #7F97B9, #516C97);
+		background-image: -webkit-linear-gradient(top, #7F97B9, #516C97);
+		background-image: -ms-linear-gradient(top, #7F97B9, #516C97);	
+		text-shadow: 0 1px 1px rgba(0,0,0,.7);
+		color: white;
+	}
+	section#content ul li {
+		color: black;
+	}
+	section#content ul li:hover {
+		color: black;
+		text-shadow: 0 1px 0 white;
+		background-color: #e0e0e0;
+		box-shadow: 0px 0px 15px rgba(0,0,0,.2) inset;
+		border-radius: 2px;
+	}
+	section#content li.disabled {
+		background-color: #eee;
+		color: #555;
+	}	
 }
 
 a {
@@ -46,7 +131,6 @@ section#header a#title {
 	float: left;
 	clear: left;
 	font-weight: bold;
-	color: #304669;
 	font-size: 1.15em;
 	text-decoration: none;
 	vertical-align: middle;
@@ -66,7 +150,6 @@ section#header a.page, section#header a.switch {
 }
 
 section#header .fa {
-	color: black;
 	opacity: .6;
 }
 
@@ -94,14 +177,6 @@ section#header .fa:hover {
 	opacity: 1;
 }
 
-section#header .fa.highlight {
-	/* Find some way to highlight those icons nicely */
-}
-
-section#header a.switch i.fa-toggle-off {
-	color: #444;
-}
-
 section#search {
 	margin: 0px;
 }
@@ -109,16 +184,14 @@ section#search {
 section#search p {
 	margin: 0px;
 	padding: 1px 1px 1px 5px;
-	background-image: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
 	border-radius: 3px 3px 0px 0px;
 }
 
 section#search i {
-  color: #7B7B7B;
+  color: #777;
 }
 
 section#search input {
-	color: #555;
 	border: 0px;
 	border-radius: 3px;
 	background: transparent;
@@ -140,18 +213,10 @@ section#profiles i.fa {
 
 /* Content */
 section#content h1 {
-	background-color: #516C97;
-	background-image: linear-gradient(top, #7F97B9, #516C97);
-	background-image: -o-linear-gradient(top, #7F97B9, #516C97);
-	background-image: -moz-linear-gradient(top, #7F97B9, #516C97);
-	background-image: -webkit-linear-gradient(top, #7F97B9, #516C97);
-	background-image: -ms-linear-gradient(top, #7F97B9, #516C97);	
 	padding: 3px 4px 3px 4px;
 	margin: 0px;
 	border-radius: 2px;
-	text-shadow: 0 1px 1px rgba(0,0,0,.7);
 	font-size: 1em;
-	color: white;
 }
 
 section#content ul {
@@ -161,16 +226,11 @@ section#content ul {
 }
 
 section#content ul li {
-	color: black;
 	padding: 3px 2px;
 	cursor: pointer;
 }
 
 section#content ul li:hover {
-	color: black;
-	text-shadow: 0 1px 0 white;
-	background-color: #e0e0e0;
-	box-shadow: 0px 0px 15px rgba(0,0,0,.2) inset;
 	border-radius: 2px;
 }
 
@@ -181,8 +241,6 @@ section#content ul li img {
 
 /** Disabled Status */
 section#content li.disabled {
-	background-color: #f0f0f0;
-	color: #555;
 	opacity: 0.7;
 }
 
