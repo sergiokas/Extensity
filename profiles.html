@@ -3,6 +3,9 @@
 <head>
 <title>Extensity Profiles</title>
 <link rel="stylesheet" type="text/css" href="styles/options.css" />
+
+<!-- Load the CSS responsible for handling Import/Export functionality -->
+ <link rel="stylesheet" type="text/css" href="styles/importExport.css" />
 <link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
 <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 <script type="text/javascript" src="js/libs/underscore.string.min.js"></script>
@@ -10,6 +13,8 @@
 <script type="text/javascript" src="js/libs/knockout-secure-binding.min.js"></script>
 <script type="text/javascript" src="js/engine.js"></script>
 <script type="text/javascript" src="js/profiles.js"></script>
+<!-- Load the script responsible for handling Import/Export functionality -->
+<script type="text/javascript" src="js/importExport.js"></script>
 </head>
 <body>
 <section id="header">
@@ -74,6 +79,13 @@
       <p class="quota-error" data-sbind="visible: profiles.localProfiles">
         <i class="fa fa-warning"></i> You have too many Extensions or Profiles to sync with Google. <b>Your Profiles are still saved, but only for this browser</b>.
       </p>
+
+      <!-- Import/Export Settings -->
+      <div id="backup-tools">
+        <button id="exportSettings">Export Settings</button>
+        <button id="importSettings">Import Settings</button>
+        <input type="file" id="importFile" style="display: none;">
+      </div>
 
     </div>
 

@@ -25,6 +25,10 @@ Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
 ### What's new:
 
+v1.15.0 (May 2025)
+- **New Feature**: Import/Export extension profiles as `.json` files.
+- Allows users to back up and restore profile settings.
+
 v1.14.0 (Sep 2024)
 - **New Feature**: Dark Mode (based on system settings)
 - Migrated from CSSO to SASS
