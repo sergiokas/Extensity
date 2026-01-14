@@ -1,0 +1,60 @@
+/* Shared styling for the portfolio pages – glassmorphism theme */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  color: #333;
+}
+section {
+  width: 90%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 40px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+h1, h2 {
+  margin-top: 0;
+  color: #1a237e;
+}
+ul {
+  list-style: disc inside;
+  padding-left: 0;
+}
+.cta {
+  display: inline-block;
+  margin: 10px 15px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.3);
+  color: #1a237e;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+.cta:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+footer {
+  margin-top: auto;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+footer a {
+  color: #1a237e;
+  text-decoration: none;
+  margin: 0 5px;
+}
+footer a:hover {
+  text-decoration: underline;
+}
