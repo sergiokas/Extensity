@@ -17,7 +17,7 @@ get rid of it for a little while. You can also launch Chrome Apps right from the
 
 Extensity is open source software. Full source code at GitHub https://github.com/sergiokas/Extensity
 
-Install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/extensity/jjmflmamggggndanpgfnpelongoepncg).
+Install it from the [Chrome Web Store](https://chromewebstore.google.com/detail/extensity/jjmflmamggggndanpgfnpelongoepncg).
 
 Website: [https://sergiokas.github.io/Extensity/](https://sergiokas.github.io/Extensity/)
 
