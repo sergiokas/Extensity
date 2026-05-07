@@ -94,7 +94,7 @@
 
 <script type="text/html" id="item-template">
 	<!-- ko if: !isApp() -->
-	<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" />
+	<li class="extension" data-sbind="click: $parent.toggleExtension, css:{disabled: disabled, selected: $index() === $root.selectedIndex()}"><img width="16px" height="16px" data-sbind="attr:{src:icon}" />
 		<span data-sbind="text: short_name"></span>
 		<i class="fa fa-flask" title="Development" alt="Development" data-sbind="visible: is_development"></i>
 		<i class="fa fa-gear" title="Options" alt="Options" data-sbind="visible: $parent.opts.showOptions() && optionsUrl() && !disabled(), click: $parent.launchOptions, clickBubble: false"></i>
@@ -102,7 +102,7 @@
 	</li>
 	<!-- /ko -->
 	<!-- ko if: isApp() -->
-	<li class="app" data-sbind="click: $parent.launchApp">
+	<li class="app" data-sbind="click: $parent.launchApp, css:{selected: $index() === $root.selectedIndex()}">
 		<img width="16px" height="16px" data-sbind="attr:{src:icon}"/> <span data-sbind="text: short_name"></span>
 		<i class="fa fa-flask" title="Development" alt="Development" data-sbind="visible: is_development"></i>
 		<i class="fa fa-gear" title="Options" alt="Options" data-sbind="visible: $parent.opts.showOptions() && optionsUrl() && !disabled(), click: $parent.launchOptions, clickBubble: false"></i>

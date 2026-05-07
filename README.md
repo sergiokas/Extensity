@@ -23,6 +23,12 @@ Website: [https://sergiokas.github.io/Extensity/](https://sergiokas.github.io/Ex
 
 Follow us in Twitter: [@ExtensityChrome](https://twitter.com/ExtensityChrome)
 
+## Keyboard Shortcuts
+
+- **↑/↓ Arrow Keys** - Navigate through extensions
+- **Enter** - Open options page for the selected extension
+- **Space** - Toggle enable/disable for the selected extension
+
 ### What's new:
 
 v1.14.0 (Sep 2024)

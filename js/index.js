@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     self.switch = new SwitchViewModel(self.exts, self.profiles, self.opts);
     self.search = new SearchViewModel();
     self.activeProfile = ko.observable().extend({persistable: "activeProfile"});
+    self.selectedIndex = ko.observable(null);
 
     var filterFn = function(i) {
       // Filtering function for search box
@@ -168,12 +169,94 @@ document.addEventListener("DOMContentLoaded", function() {
       return (self.dismissals.dismissed("profile_page_viewed") || self.profiles.any());
     });
 
+    // Helper to scroll selected item into view
+    var scrollToSelected = function(direction) {
+      var liElements = document.querySelectorAll('section#content ul li');
+      if (liElements.length > 0) {
+        var selectedIndex = 0;
+        var currentList = self.listedItems();
+        
+        for (var i = 0; i < self.selectedIndex(); i++) {
+          if (i < currentList.length) {
+            selectedIndex++;
+          }
+        }
+        
+        if (selectedIndex < liElements.length) {
+          var scrollTargetIndex;
+          if (direction === 'down') {
+            scrollTargetIndex = Math.min(selectedIndex + 2, liElements.length - 1);
+          } else {
+            scrollTargetIndex = Math.max(selectedIndex - 2, 0);
+          }
+          if (selectedIndex >= 1) {
+            liElements[scrollTargetIndex].scrollIntoView({behavior: 'smooth', block: 'nearest'});
+          } else {
+            document.querySelector('#header').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      }
+    };
+
+    // Keyboard navigation
+    self.handleKeydown = function(vm, event) {
+      var key = event.key;
+      var currentList = self.listedItems();
+      var selectedIdx = self.selectedIndex();
+      
+      if (key === 'ArrowDown') {
+        event.preventDefault();
+        var nextIndex = (selectedIdx === null) ? 0 : selectedIdx + 1;
+        if (nextIndex < currentList.length) {
+          self.selectedIndex(nextIndex);
+          scrollToSelected('down');
+        }
+      } else if (key === 'ArrowUp') {
+        event.preventDefault();
+        var prevIndex = (selectedIdx === null) ? currentList.length - 1 : selectedIdx - 1;
+        if (prevIndex >= 0) {
+          self.selectedIndex(prevIndex);
+          scrollToSelected('up');
+        }
+      } else if (key === ' ') {
+        if (selectedIdx !== null) {
+          event.preventDefault();
+          var selectedItem = currentList[selectedIdx];
+          if (selectedItem && !selectedItem.isApp()) {
+            self.toggleExtension(selectedItem);
+          }
+        }
+      } else if (key === 'Enter') {
+        if (selectedIdx !== null) {
+          event.preventDefault();
+          var selectedItem = currentList[selectedIdx];
+          if (selectedItem) {
+            if (selectedItem.isApp()) {
+              self.launchApp(selectedItem);
+            } else if (selectedItem.optionsUrl()) {
+              self.launchOptions(selectedItem);
+            }
+          }
+        }
+      }
+    };
+
+    // Reset selectedIndex when search changes
+    self.search.q.subscribe(function() {
+      self.selectedIndex(null);
+    });
+
   };
 
   _.defer(function() {
     vm = new ExtensityViewModel();
     ko.bindingProvider.instance = new ko.secureBindingsProvider({});
     ko.applyBindings(vm, document.body);
+    
+    // Attach keyboard event listener
+    document.addEventListener('keydown', function(e) {
+      vm.handleKeydown(vm, e);
+    });
   });
 
   // Workaround for Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=307912
