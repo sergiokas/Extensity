@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     self.switch = new SwitchViewModel(self.exts, self.profiles, self.opts);
     self.search = new SearchViewModel();
     self.activeProfile = ko.observable().extend({persistable: "activeProfile"});
-    self.selectedIndex = ko.observable(0);
+    self.selectedIndex = ko.observable(null);
 
     var filterFn = function(i) {
       // Filtering function for search box
@@ -202,35 +202,40 @@ document.addEventListener("DOMContentLoaded", function() {
     self.handleKeydown = function(vm, event) {
       var key = event.key;
       var currentList = self.listedItems();
+      var selectedIdx = self.selectedIndex();
       
       if (key === 'ArrowDown') {
         event.preventDefault();
-        var nextIndex = self.selectedIndex() + 1;
+        var nextIndex = (selectedIdx === null) ? 0 : selectedIdx + 1;
         if (nextIndex < currentList.length) {
           self.selectedIndex(nextIndex);
           scrollToSelected('down');
         }
       } else if (key === 'ArrowUp') {
         event.preventDefault();
-        var prevIndex = self.selectedIndex() - 1;
+        var prevIndex = (selectedIdx === null) ? currentList.length - 1 : selectedIdx - 1;
         if (prevIndex >= 0) {
           self.selectedIndex(prevIndex);
           scrollToSelected('up');
         }
       } else if (key === ' ') {
-        event.preventDefault();
-        var selectedItem = currentList[self.selectedIndex()];
-        if (selectedItem && !selectedItem.isApp()) {
-          self.toggleExtension(selectedItem);
+        if (selectedIdx !== null) {
+          event.preventDefault();
+          var selectedItem = currentList[selectedIdx];
+          if (selectedItem && !selectedItem.isApp()) {
+            self.toggleExtension(selectedItem);
+          }
         }
       } else if (key === 'Enter') {
-        event.preventDefault();
-        var selectedItem = currentList[self.selectedIndex()];
-        if (selectedItem) {
-          if (selectedItem.isApp()) {
-            self.launchApp(selectedItem);
-          } else if (selectedItem.optionsUrl()) {
-            self.launchOptions(selectedItem);
+        if (selectedIdx !== null) {
+          event.preventDefault();
+          var selectedItem = currentList[selectedIdx];
+          if (selectedItem) {
+            if (selectedItem.isApp()) {
+              self.launchApp(selectedItem);
+            } else if (selectedItem.optionsUrl()) {
+              self.launchOptions(selectedItem);
+            }
           }
         }
       }
@@ -238,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Reset selectedIndex when search changes
     self.search.q.subscribe(function() {
-      self.selectedIndex(0);
+      self.selectedIndex(null);
     });
 
   };
