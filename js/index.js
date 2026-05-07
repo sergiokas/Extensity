@@ -169,6 +169,31 @@ document.addEventListener("DOMContentLoaded", function() {
       return (self.dismissals.dismissed("profile_page_viewed") || self.profiles.any());
     });
 
+    // Helper to scroll selected item into view
+    var scrollToSelected = function(direction) {
+      var liElements = document.querySelectorAll('section#content ul li');
+      if (liElements.length > 0) {
+        var selectedIndex = 0;
+        var currentList = self.listedItems();
+        
+        for (var i = 0; i < self.selectedIndex(); i++) {
+          if (i < currentList.length) {
+            selectedIndex++;
+          }
+        }
+        
+        if (selectedIndex < liElements.length) {
+          var scrollTargetIndex;
+          if (direction === 'down') {
+            scrollTargetIndex = Math.min(selectedIndex + 2, liElements.length - 1);
+          } else {
+            scrollTargetIndex = Math.max(selectedIndex - 2, 0);
+          }
+          liElements[scrollTargetIndex].scrollIntoView({behavior: 'smooth', block: 'nearest'});
+        }
+      }
+    };
+
     // Keyboard navigation
     self.handleKeydown = function(vm, event) {
       var key = event.key;
@@ -179,12 +204,14 @@ document.addEventListener("DOMContentLoaded", function() {
         var nextIndex = self.selectedIndex() + 1;
         if (nextIndex < currentList.length) {
           self.selectedIndex(nextIndex);
+          scrollToSelected('down');
         }
       } else if (key === 'ArrowUp') {
         event.preventDefault();
         var prevIndex = self.selectedIndex() - 1;
         if (prevIndex >= 0) {
           self.selectedIndex(prevIndex);
+          scrollToSelected('up');
         }
       } else if (key === ' ') {
         event.preventDefault();
