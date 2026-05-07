@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     self.switch = new SwitchViewModel(self.exts, self.profiles, self.opts);
     self.search = new SearchViewModel();
     self.activeProfile = ko.observable().extend({persistable: "activeProfile"});
+    self.selectedIndex = ko.observable(0);
 
     var filterFn = function(i) {
       // Filtering function for search box
@@ -168,12 +169,58 @@ document.addEventListener("DOMContentLoaded", function() {
       return (self.dismissals.dismissed("profile_page_viewed") || self.profiles.any());
     });
 
+    // Keyboard navigation
+    self.handleKeydown = function(vm, event) {
+      var key = event.key;
+      var currentList = self.listedItems();
+      
+      if (key === 'ArrowDown') {
+        event.preventDefault();
+        var nextIndex = self.selectedIndex() + 1;
+        if (nextIndex < currentList.length) {
+          self.selectedIndex(nextIndex);
+        }
+      } else if (key === 'ArrowUp') {
+        event.preventDefault();
+        var prevIndex = self.selectedIndex() - 1;
+        if (prevIndex >= 0) {
+          self.selectedIndex(prevIndex);
+        }
+      } else if (key === ' ') {
+        event.preventDefault();
+        var selectedItem = currentList[self.selectedIndex()];
+        if (selectedItem && !selectedItem.isApp()) {
+          self.toggleExtension(selectedItem);
+        }
+      } else if (key === 'Enter') {
+        event.preventDefault();
+        var selectedItem = currentList[self.selectedIndex()];
+        if (selectedItem) {
+          if (selectedItem.isApp()) {
+            self.launchApp(selectedItem);
+          } else if (selectedItem.optionsUrl()) {
+            self.launchOptions(selectedItem);
+          }
+        }
+      }
+    };
+
+    // Reset selectedIndex when search changes
+    self.search.q.subscribe(function() {
+      self.selectedIndex(0);
+    });
+
   };
 
   _.defer(function() {
     vm = new ExtensityViewModel();
     ko.bindingProvider.instance = new ko.secureBindingsProvider({});
     ko.applyBindings(vm, document.body);
+    
+    // Attach keyboard event listener
+    document.addEventListener('keydown', function(e) {
+      vm.handleKeydown(vm, e);
+    });
   });
 
   // Workaround for Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=307912

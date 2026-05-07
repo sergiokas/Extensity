@@ -258,6 +258,23 @@ section#content li.disabled img {
 	opacity: 0.3;
 }
 
+/** Selected Status (Keyboard Navigation) */
+@media (prefers-color-scheme: dark) {
+	section#content ul li.selected {
+		background-color: #555;
+		border-radius: 2px;
+		box-shadow: 0px 0px 15px rgba(0,0,0,.2) inset;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	section#content ul li.selected {
+		background-color: #d0d0d0;
+		border-radius: 2px;
+		box-shadow: 0px 0px 15px rgba(0,0,0,.2) inset;
+	}
+}
+
 section#content li i.fa-gear {
 	float: right;
 	margin-top: 2px;
