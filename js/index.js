@@ -189,7 +189,11 @@ document.addEventListener("DOMContentLoaded", function() {
           } else {
             scrollTargetIndex = Math.max(selectedIndex - 2, 0);
           }
-          liElements[scrollTargetIndex].scrollIntoView({behavior: 'smooth', block: 'nearest'});
+          if (selectedIndex >= 1) {
+            liElements[scrollTargetIndex].scrollIntoView({behavior: 'smooth', block: 'nearest'});
+          } else {
+            document.querySelector('#header').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
         }
       }
     };
